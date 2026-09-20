@@ -1,160 +1,157 @@
 <!--
-SPDX-FileCopyrightText: © 2009 Back In Time Team <backintime-project@posteo.de>
+SPDX-FileCopyrightText: © 2009 Back In Time Team <backintime-project@posteo.de> 
 
-SPDX-License-Identifier: GPL-2.0-or-later
+SPDX-License-Identifier: GPL-2.0-or-later 
 
-This file is part of the program "Back In Time" which is released under GNU
-General Public License v2 (GPLv2). See LICENSES directory or go to
-<https://spdx.org/licenses/GPL-2.0-or-later.html>
+Este arquivo faz parte do programa "Back In Time", que é distribuído sob a GNU 
+General Public License v2 (GPLv2). Consulte o diretório LICENSES ou 
+acesse <https://spdx.org/licenses/GPL-2.0-or-later.html> 
 -->
-[![Mailing list bit-dev@python.org](doc/maintain/_images/badge_bit-dev.svg)](https://mail.python.org/mailman3/lists/bit-dev.python.org/)
-[![Mastodon @backintime@fosstodon.org](doc/maintain/_images/badge_mastodon.svg)](https://fosstodon.org/@backintime)
-
-[![Build Status](https://app.travis-ci.com/bit-team/backintime.svg?branch=dev)](https://app.travis-ci.com/bit-team/backintime)
-[![User manual Status](https://readthedocs.org/projects/backintime/badge/?version=latest)](https://backintime.readthedocs.io)
-[![Translation status](https://translate.codeberg.org/widget/backintime/common/svg-badge.svg)](https://translate.codeberg.org/engage/backintime)
-[![REUSE status](https://api.reuse.software/badge/github.com/bit-team/backintime)](https://api.reuse.software/info/github.com/bit-team/backintime)
-
 # Back In Time
 
-_Back In Time_ is a comfortable and well-configurable graphical frontend for
-incremental backups using [`rsync`](https://rsync.samba.org/), with a
-command-line version also available. Modified files are transferred, while
-unchanged files are linked to the new directory using rsync's hard link feature,
-saving storage space. Restoring is straightforward via file manager, command
-line or _Back In Time_ itself.
+_Back In Time_ é um frontend gráfico confortável e altamente configurável para
+backups incrementais usando [`rsync`](https://rsync.samba.org/), com uma
+versão de linha de comando também disponível. Os arquivos modificados são
+transferidos, enquanto os arquivos inalterados são vinculados ao novo diretório
+usando o recurso de hard link do rsync, economizando espaço de armazenamento.
+A restauração é simples por meio do gerenciador de arquivos, da linha de
+comando ou do próprio _Back In Time_.
 
-It is written in Python3 and available for all major GNU/Linux distributions
-as command line tool `backintime` and GUI `backintime-qt`. Backups can be
-scheduled and stored locally or remotely through SSH.
+Ele é escrito em Python3 e está disponível para todas as principais
+distribuições GNU/Linux como a ferramenta de linha de comando `backintime` e a
+GUI `backintime-qt`. Os backups podem ser agendados e armazenados localmente
+ou remotamente por meio de SSH.
 
-More background info in [CONTRIBUTING](CONTRIBUTING.md) and
+Mais informações de contexto em [CONTRIBUTING](CONTRIBUTING.md) e
 [HISTORY](HISTORY.md).
 
-## Maintenance status
+## Status de manutenção
 
-The project is in active development since the [current team](#the-team) joined
-in summer 2022, continuing the work of the previous maintainer, Germar.
-Development is done voluntarily in spare time so things need to be
-prioritized. Stick with us, we all ♥️ _Back In Time_. 😁
+O projeto está em desenvolvimento ativo desde que a [equipe atual](#the-team)
+se juntou em meados de 2022, dando continuidade ao trabalho do mantenedor
+anterior, Germar. O desenvolvimento é realizado voluntariamente no tempo
+livre, portanto as coisas precisam ser priorizadas. Continue conosco, todos
+nós ♥️ _Back In Time_. 😁
 
-Current focus is on fixing
-[major issues](https://github.com/bit-team/backintime/issues?q=is%3Aissue+is%3Aopen+label%3AHigh)
-instead of implementing new
-[features](https://github.com/bit-team/backintime/labels/Feature).
-Stabilize the code base and its test suite is also a matter. Read the
-[strategy outline](CONTRIBUTING.md#strategy-outline) for details.
-Please see [CONTRIBUTING](CONTRIBUTING.md) if you are interested in the
-development and have a look on
-[open issues](https://github.com/bit-team/backintime/issues) especially
-those labeled as [good first issues](https://github.com/bit-team/backintime/labels/GOOD%20FIRST%20ISSUE)
-and [help wanted](https://github.com/bit-team/backintime/issues?q=is%3Aissue+is%3Aopen+label%3AHELP-WANTED).
+O foco atual está em corrigir
+[problemas importantes](https://github.com/bit-team/backintime/issues?q=is%3Aissue+is%3Aopen+label%3AHigh)
+em vez de implementar novos
+[recursos](https://github.com/bit-team/backintime/labels/Feature).
+Estabilizar a base de código e sua suíte de testes também é uma questão
+importante. Leia o
+[resumo da estratégia](CONTRIBUTING.md#strategy-outline) para obter mais detalhes.
+Consulte [CONTRIBUTING](CONTRIBUTING.md) se tiver interesse no
+desenvolvimento e dê uma olhada nas
+[issues abertas](https://github.com/bit-team/backintime/issues), especialmente
+naquelas marcadas como
+[good first issues](https://github.com/bit-team/backintime/labels/GOOD%20FIRST%20ISSUE)
+e [help wanted](https://github.com/bit-team/backintime/issues?q=is%3Aissue+is%3Aopen+label%3AHELP-WANTED).
 
-## The team
-Since around 2024, [@buhtz](https://buhtz.codeberg.page/), part of the projects
-third generation of maintainers, has been the sole maintainer. He handles all
-core tasks, from code analysis and documentation to issue resolution and
-feature implementation. The work is carried out voluntarily during spare
-time. The project continues to benefit from an active and engaged community
-that provides advice, expertise, and contributions, ensuring it thrives and
-evolves.
+## A equipe
+Desde aproximadamente 2024, [@buhtz](https://buhtz.codeberg.page/), integrante
+da terceira geração de mantenedores do projeto, tem sido o único mantenedor.
+Ele cuida de todas as tarefas principais, desde a análise de código e
+documentação até a resolução de issues e implementação de recursos. O trabalho
+é realizado voluntariamente durante o tempo livre. O projeto continua se
+beneficiando de uma comunidade ativa e engajada que fornece conselhos,
+experiência e contribuições, garantindo que ele prospere e evolua.
 
-The project was [reactivated in
-2022](https://github.com/bit-team/backintime/issues/1232) and thanks in large
-part to Michael Büker ([@emtiu](https://github.com/emtiu)) and Jürgen
-([@aryoda](https://github.com/aryoda)), who helped relaunch and shape its
-direction. See [HISTORY](HISTORY.md) for more details.
-
-# Index
-
-- [Documentation](#documentation)
-- [Contact & Social](#contact--social)
-- [Installation](#installation)
-- [Known Problems and Workarounds](#known-problems-and-workarounds)
-- [Contributing and other ways to support the project](#contributing-and-other-ways-to-support-the-project)
-- [Licenses](#licenses)
+O projeto foi [reativado em
+2022](https://github.com/bit-team/backintime/issues/1232) e, em grande parte,
+graças a Michael Büker ([@emtiu](https://github.com/emtiu)) e Jürgen
+([@aryoda](https://github.com/aryoda)), que ajudaram a relançá-lo e a definir
+sua direção. Consulte [HISTORY](HISTORY.md) para obter mais detalhes.
 
 ---
 
-# Documentation
+# Índice
 
- * [FAQ - Frequently Asked Questions](FAQ.md)
- * [End user documentation](https://backintime.readthedocs.org/) (not totally up-to-date)
- * [Source code documentation for developers](https://backintime-dev.readthedocs.org)
-   (**Disabled** and not up-2-tdate. Please open an issue if you need to use it.)
+- [Documentação](#documentation)
+- [Contato e redes sociais](#contact--social)
+- [Instalação](#installation)
+- [Problemas conhecidos e soluções alternativas](#known-problems-and-workarounds)
+- [Contribuindo e outras formas de apoiar o projeto](#contributing-and-other-ways-to-support-the-project)
+- [Licenças](#licenses)
 
-# Contact & Social
+# Documentação
 
- * **Mailing list**:
-   [bit-dev@python.org](https://mail.python.org/mailman3/lists/bit-dev.python.org/)
-   can be used for **any topic**, question and idea related to _Back In
-   Time_. Despite its name it is not restricted to development topics only.
- * **Fediverse** on **Mastodon**: [@backintime@fosstodon.org](https://fosstodon.org/@backintime)
- * **Bugs** & **Feature Requests**: [Issues section](https://github.com/bit-team/backintime/issues)
- * **Email**: [backintime-project@posteo.de](mailto:backintime-project@posteo.de)
+* [FAQ - Perguntas frequentes](FAQ.md)
+* [Documentação para usuários finais (não totalmente atualizada)](https://backintime.readthedocs.org/) (not totally up-to-date)
+* [Documentação do código-fonte para desenvolvedores](https://backintime-dev.readthedocs.org)
+  (**Desativada** e não está atualizada. Abra uma issue se precisar utilizá-la.)
 
-# Installation
+# Contato e redes sociais
 
-_Back In Time_ is included in
-[many GNU/Linux distributions](https://repology.org/project/backintime/badges).
-Use their repositories to install it. If you want to contribute or using the
-latest development version of _Back In Time_ please see section
-[Build & Install](CONTRIBUTING.md#build--install) in
-[`CONTRIBUTING.md`](CONTRIBUTING.md). Also the dependencies are described there.
+ * **Lista de discussão**:
+    
+ * **Lista de e-mails**:
+    [bit-dev@python.org](https://mail.python.org/mailman3/lists/bit-dev.python.org/)
+    pode ser usada para **qualquer assunto**, pergunta ou ideia relacionada ao _Back In
+    Time_. Apesar do nome, ela não é restrita apenas a assuntos de desenvolvimento.
+* **Fediverse** no **Mastodon**: [@backintime@fosstodon.org](https://fosstodon.org/@backintime)
+* **Bugs** e **solicitações de recursos**: [Seção issues](https://github.com/bit-team/backintime/issues)
+* **E-mail**: [backintime-project@posteo.de](mailto:backintime-project@posteo.de)
 
-# Known Problems and Workarounds
+# Instalação
 
-In the latest stable release:
-- [File permissions handling and therefore possible non-differential backups](#file-permissions-handling-and-therefore-possible-non-differential-backups)
+_Back In Time_ está incluído em
+[muitas distribuições GNU/Linux.](https://repology.org/project/backintime/badges).
+Use os repositórios delas para instalá-lo. Se quiser contribuir ou usar a
+versão mais recente de desenvolvimento do _Back In Time_, consulte a seção
+[Build & Install](CONTRIBUTING.md#build--install) em
+[`CONTRIBUTING.md`](CONTRIBUTING.md). As dependências também são descritas lá.
 
-More problems described in
-[this FAQ section](FAQ.md#problems-errors--solutions).
+# Problemas conhecidos e soluções alternativas
 
-## File permissions handling and therefore possible non-differential backups
+Na versão estável mais recente:
+- [Tratamento das permissões de arquivos e, portanto, possíveis backups não diferenciais](#file-permissions-handling-and-therefore-possible-non-differential-backups)
 
-- In version 1.2.0, the handling of file permissions changed.
-- In versions <= 1.1.24 (until 2017) all file permissions were set to
-  `-rw-r--r--` in the backup target.
-- In versions >= 1.2.0 (since 2019) `rsync` is executed with `--perms` option
-  which tells `rsync` to preserve the source file permission.
+Mais problemas são descritos
+[nesta seção da FAQ.](FAQ.md#problems-errors--solutions).
 
-Therefore backups can be larger and slower, especially the first backup after
-upgrading to a version >= 1.2.0.
+## Tratamento das permissões de arquivos e, portanto, possíveis backups não diferenciais
 
-If you don't like the new behavior, you can use _Expert Options_ ->
-_Paste additional options to rsync_ to add `--no-perms --no-group --no-owner`
-to it. Note that the exact file permissions can still be found in
-`fileinfo.bz2` and are also considered when restoring files.
+- Na versão 1.2.0, o tratamento das permissões de arquivos foi alterado.
+- Nas versões <= 1.1.24 (até 2017), todas as permissões de arquivos eram definidas como
+  `-rw-r--r--` no destino do backup.
+- Nas versões >= 1.2.0 (desde 2019), o `rsync` é executado com a opção `--perms`,
+  que instrui o `rsync` a preservar a permissão do arquivo de origem.
 
-# Contributing and other ways to support the project
-See [CONTRIBUTING](CONTRIBUTING.md) file for an overview about the project's
-workflow and strategy.
+Portanto, os backups podem ser maiores e mais lentos, especialmente o primeiro
+backup após a atualização para uma versão >= 1.2.0.
 
-*Support the maintainer*: The project is maintained in spare time and without
-financial compensation. One way to support the project is
-[donations](https://codeberg.org/buhtz/about-me#donations)
-to the maintainer ([buhtz](https://buhtz.codeberg.page)) via
+Se você não gostar do novo comportamento, pode usar Expert Options ->
+Paste additional options to rsync para adicionar `--no-perms --no-group --no-owner`
+a ele. Observe que as permissões exatas dos arquivos ainda podem ser encontradas
+em `fileinfo.bz2` e também são consideradas ao restaurar arquivos.
+
+# Contribuindo e outras formas de apoiar o projeto
+Consulte o arquivo [CONTRIBUTING](CONTRIBUTING.md) para obter uma visão geral
+do fluxo de trabalho e da estratégia do projeto.
+
+*Apoie o mantenedor*: O projeto é mantido no tempo livre e sem compensação
+financeira. Uma forma de apoiar o projeto é por meio de
+[doações](https://codeberg.org/buhtz/about-me#donations)
+ao mantenedor ([buhtz](https://buhtz.codeberg.page)) via
 <a href="https://liberapay.com/buhtz">
-    <img src="https://codeberg.org/buhtz/about-me/raw/branch/main/liberapay.svg"
-    width="24px" height="24px" />
-    Liberapay</a> and
+<img src="https://codeberg.org/buhtz/about-me/raw/branch/main/liberapay.svg" width="24px" height="24px" />
+Liberapay</a> e
 <a href="https://ko-fi.com/buhtz">
-    <img src="https://codeberg.org/buhtz/about-me/raw/branch/main/kofi.png"
-    width="24px" height="24px" />
-    Ko-fi</a>.
-Please note that donations are made to the maintainer personally,
-not to _Back In Time_ or any other specific
-[project](https://codeberg.org/buhtz/about-me#projects). They support the
-maintainer's work, including work on _Back In Time_.
+<img src="https://codeberg.org/buhtz/about-me/raw/branch/main/kofi.png" width="24px" height="24px" />
+Ko-fi</a>.
+Observe que as doações são feitas pessoalmente ao mantenedor,
+não ao Back In Time nem a qualquer outro
+[project](https://codeberg.org/buhtz/about-me#projects) específico. Elas
+apoiam o trabalho do mantenedor, incluindo o trabalho no _Back In Time_.
 
-# Licenses
-Please keep in mind that code, documentation and other material
-submitted to the project are considered licensed under the same terms (see
-[LICENSES](LICENSES)) as the rest of the work. The project does use the
-specifications from [REUSE Software](https://reuse.software) and
-[SPDX](https://spdx.github.io/spdx-spec) to store license and copyright
-information. See the projects
-[REUSE compliance status](https://api.reuse.software/info/github.com/bit-team/backintime).
+# Licenças
+Tenha em mente que o código, a documentação e outros materiais
+enviados ao projeto são considerados licenciados sob os mesmos termos (consulte
+[LICENSES](LICENSES))) que o restante do trabalho. O projeto utiliza as
+especificações do [REUSE Software](https://reuse.software) e
+[SPDX](https://spdx.github.io/spdx-spec) para armazenar informações de licença
+e direitos autorais. Consulte o
+[status de compliance com o REUSE](https://api.reuse.software/info/github.com/bit-team/backintime).
 
 ---
-<sub>September 2026</sub>
+<sub>Setembro de 2026</sub>
