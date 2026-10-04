@@ -124,4 +124,4 @@ As recomendações a seguir ajudam a orientar os testes, mas usuários experient
 
 * Usuários experientes podem naturalmente explorar fluxos de trabalho adicionais além desta lista.
 
-* Quaisquer ****bugs, travamentos ou comportamentos inesperados**** devem ser relatados nas [issues do projeto](https://github.com/bit-team/backintime/issues/new), incluindo logs, informações da versão ou informações de diagnóstico (use `--diagnostics`) ou capturas de tela, se possível.
+* Quaisquer ****bugs, travamentos ou comportamentos inesperados**** devem ser relatados nas [issues do projeto](https://github.com/bit-team/backintime/issues/new), incluindo logs, informações da versão ou informações de diagnóstico (use `--d iagnostics`) ou capturas de tela, se possível.

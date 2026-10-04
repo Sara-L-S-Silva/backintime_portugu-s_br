@@ -8,505 +8,399 @@ This file is part of the program "Back In Time" which is released under GNU
 General Public License v2 (GPLv2). See LICENSES directory or go to
 <https://spdx.org/licenses/GPL-2.0-or-later.html>
 -->
-<sub>June 2026</sub>
 
-# FAQ - Frequently Asked Questions
+<sub>Junho de 2026</sub>
+
+# FAQ - Perguntas frequentes
 
 <!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
 
-- [General](#general)
-   * [What happened to encrypted profiles and EncFS?](#what-happened-to-encrypted-profiles-and-encfS)
-   * [Does _Back in Time_ support full system backups?](#does-back-in-time-support-full-system-backups)
-   * [Does _Back in Time_ support backups on cloud storage like OneDrive or Google Drive?](#does-back-in-time-support-backups-on-cloud-storage-like-onedrive-or-google-drive)
-   * [Where is the log file?](#where-is-the-log-file)
-   * [How to read log entries?](#how-to-read-log-entries)
-   * [How to move backups to a new hard-drive?](#how-to-move-backups-to-a-new-hard-drive)
-   * [How to move a large directory in the backup source without duplicating the files in the backup?](#how-to-move-a-large-directory-in-the-backup-source-without-duplicating-the-files-in-the-backup)
-   * [How does _Back In Time_ compare with _Timeshift_?](#how-does-back-in-time-compare-with-timeshift)
-   * [Additional features beside the GUI and benefits of using BIT](#additional-features-beside-the-gui-and-benefits-of-using-bit)
-- [Backups (snapshots)](#backups-snapshots)
-   * [Backup or Snapshot?](#backup-or-snapshot)
-   * [Does _Back In Time_ create incremental or full backups?](#does-back-in-time-create-incremental-or-full-backups)
-   * [How do backups with hard-links work?](#how-do-backups-with-hard-links-work)
-   * [How can I check if my backups are using hard-links?](#how-can-i-check-if-my-backups-are-using-hard-links)
-   * [How to use checksum to find corrupt files periodically?](#how-to-use-checksum-to-find-corrupt-files-periodically)
-   * [What is the meaning of the leading 11 characters (e.g. "cf...p.....") in my backup logs?](#what-is-the-meaning-of-the-leading-11-characters-eg-cfp-in-my-backup-logs)
-   * [Backup "WITH ERRORS": [E] 'rsync' ended with exit code 23: See 'man rsync' for more details](#backup-with-errors-e-rsync-ended-with-exit-code-23-see-man-rsync-for-more-details)
-   * [What happens when I remove a backup?](#what-happens-when-i-remove-a-backup)
-   * [How can I exclude cache folders to improve backup speed and reduce storage?](#how-can-i-exclude-cache-folders-to-improve-backup-speed-and-reduce-storage)
-   * [How to use extended filesystem attributes (xattr) to exclude files/directories?](#how-to-use-extended-filesystem-attributes-xattr-to-exclude-filesdirectories)
-   * [How does Back In Time handle open or changed files during backup?](#how-does-back-in-time-handle-open-or-changed-files-during-backup)
-- [Restore](#restore)
-   * [After Restore I have duplicates with extension ".backup.20131121"](#after-restore-i-have-duplicates-with-extension-backup20131121)
-   * [Back In Time doesn't find my old backups on my new Computer](#back-in-time-doesnt-find-my-old-backups-on-my-new-computer)
-- [Schedule](#schedule)
-   * [How does the 'Repeatedly (anacron)' schedule work?](#how-does-the-repeatedly-anacron-schedule-work)
-   * [If I edit my crontab and add additional entries, will that be a problem for BIT as long as I don't touch its entries? What does it look for in the crontab to find its own entries?](#if-i-edit-my-crontab-and-add-additional-entries-will-that-be-a-problem-for-bit-as-long-as-i-dont-touch-its-entries-what-does-it-look-for-in-the-crontab-to-find-its-own-entries)
-   * [Can I use a systemd timer instead of cron?](#can-i-use-a-systemd-timer-instead-of-cron)
-- [Problems, Errors & Solutions](#problems-errors--solutions)
-   * [Critical errors about "`snapshots.ssh_check_commands` or `snapshots.ssh.check_ping` not set to default..."](#critical-errors-about-snapshotsssh_check_commands-or-snapshotssshcheck_ping-not-set-to-default)
-   * [OverflowError: Value 1702441408 out of range for UInt32](#overflowerror-value-1702441408-out-of-range-for-uint32)
-   * [`SettingsDialog` object has no attribute `cbCopyUnsafeLinks`](#settingsDialog-object-has-no-attribute-cbcopyunsafelinks)
-   * [WARNING: A backup is already running](#warning-a-backup-is-already-running)
-   * [_Back in Time_ does not start and shows: The application is already running! (pid: 1234567)](#back-in-time-does-not-start-and-shows-the-application-is-already-running-pid-1234567)
-   * [Switching to dark or light mode in the desktop environment is ignored by BIT](#switching-to-dark-or-light-mode-in-the-desktop-environment-is-ignored-by-bit)
-   * [Version >= 1.2.0 works very slow / Unchanged files are backed up](#version--120-works-very-slow--unchanged-files-are-backed-up)
-   * [What happens if I hibernate the computer while a backup is running?](#what-happens-if-i-hibernate-the-computer-while-a-backup-is-running)
-   * [What happens if I power down the computer while a backup is running, or if a power outage happens?](#what-happens-if-i-power-down-the-computer-while-a-backup-is-running-or-if-a-power-outage-happens)
-   * [What happens if there is not enough disk space for the current backup?](#what-happens-if-there-is-not-enough-disk-space-for-the-current-backup)
-   * [NTFS Compatibility](#ntfs-compatibility)
-   * [GUI does not scale on high resolution or 4k monitors](#gui-does-not-scale-on-high-resolution-or-4k-monitors)
-   * [Tray icon or other icons not shown correctly](#tray-icon-or-other-icons-not-shown-correctly)
-   * [Non-working password safe and BiT forgets passwords (keyring backend issues)](#non-working-password-safe-and-bit-forgets-passwords-keyring-backend-issues)
-   * [Outdated](#outdated)
-     * [Segmentation fault on Exit](#segmentation-fault-on-exit)
-     * [Incompatibility with rsync >= 3.2.4](#incompatibility-with-rsync-324-or-newer)
-- [Hardware-specific Setup](#hardware-specific-setup)
-   * [How to use BIT with an Ugreen NAS?](#how-to-use-bit-with-an-ugreen-nas)
-   * [How to use QNAP QTS NAS with BIT over SSH](#how-to-use-qnap-qts-nas-with-bit-over-ssh)
-   * [How to use Synology DSM 5 with BIT over SSH](#how-to-use-synology-dsm-5-with-bit-over-ssh)
-   * [How to use Synology DSM 6 with BIT over SSH](#how-to-use-synology-dsm-6-with-bit-over-ssh)
-      * [Using a non-standard port](#using-a-non-standard-port)
-   * [How to use Synology DSM 7 with BIT over SSH](#how-to-use-synology-dsm-7-with-bit-over-ssh)
-     * [Using a non-standard SSH port with a Synology NAS](#using-a-non-standard-ssh-port-with-a-synology-nas)
-     * ["sshfs: No such file or directory" using BIT, but manually ssh with rsync works](#sshfs-no-such-file-or-directory-using-bit-but-manually-ssh-with-rsync-works)
-   * [Synology: use different volume for backup](#synology-use-different-volume-for-backup)
-   * [How to use Western Digital MyBook World Edition with BIT over ssh?](#how-to-use-western-digital-mybook-world-edition-with-bit-over-ssh)
-- [Project & Contributing & more](#project--Contributing--more)
-   * [Why do I need to introduce myself?](#why-do-i-need-to-introduce-myself)
-   * [Can I contribute without using the software?](#can-i-contribute-without-using-the-software)
-   * [Can you assign this to me?](#can-you-assign-this-to-me)
-   * [Can I use @ mentions freely in issues or PRs?](#can-i-use--mentions-freely-in-issues-or-prs)
-   * [Can I boost my commit count?](#can-i-boost-my-commit-count)
-   * [Can I submit AI-generated contributions?](#can-i-submit-ai-generated-contributions)
-   * [Alternative installation options](#alternative-installation-options)
-   * [Support for specific package formats (deb, rpm, Flatpack, AppImage, Snaps, PPA, …)](#support-for-specific-package-formats-deb-rpm-flatpack-appimage-snaps-ppa-)
-   + [Is BIT really not supported by Canonical Ubuntu?](#is-bit-really-not-supported-by-canonical-ubuntu)
-   * [Move project to alternative code hoster (e.g. Codeberg, GitLab, …)](#move-project-to-alternative-code-hoster-eg-codeberg-gitlab-)
-   * [How to review a Pull Request](#how-to-review-a-pull-request)
-- [Testing & Building](#testing--building)
-   * [SSH related tests are skipped](#ssh-related-tests-are-skipped)
-   * [Setup SSH Server to run unit tests](#setup-ssh-server-to-run-unit-tests)
+* [Geral](#geral)
+
+  * [O que aconteceu com os perfis criptografados e o EncFS?](#o-que-aconteceu-com-os-perfis-criptografados-e-o-encfs)
+  * [O *Back in Time* oferece suporte a backups completos do sistema?](#o-back-in-time-oferece-suporte-a-backups-completos-do-sistema)
+  * [O *Back in Time* oferece suporte a backups em armazenamento na nuvem, como OneDrive ou Google Drive?](#o-back-in-time-oferece-suporte-a-backups-em-armazenamento-na-nuvem-como-onedrive-ou-google-drive)
+  * [Onde está o arquivo de log?](#onde-esta-o-arquivo-de-log)
+  * [Como ler as entradas do log?](#como-ler-as-entradas-do-log)
+  * [Como mover backups para um novo disco rígido?](#como-mover-backups-para-um-novo-disco-rigido)
+  * [Como mover um diretório grande na origem do backup sem duplicar os arquivos no backup?](#como-mover-um-diretorio-grande-na-origem-do-backup-sem-duplicar-os-arquivos-no-backup)
+  * [Como o *Back In Time* se compara ao *Timeshift*?](#como-o-back-in-time-se-compara-ao-timeshift)
+  * [Recursos adicionais além da GUI e benefícios de usar o BIT](#recursos-adicionais-alem-da-gui-e-beneficios-de-usar-o-bit)
+* [Backups (snapshots)](#backups-snapshots)
+
+  * [Backup ou snapshot?](#backup-ou-snapshot)
+  * [O *Back In Time* cria backups incrementais ou completos?](#o-back-in-time-cria-backups-incrementais-ou-completos)
+  * [Como funcionam os backups com hard-links?](#como-funcionam-os-backups-com-hard-links)
+  * [Como posso verificar se meus backups estão usando hard-links?](#como-posso-verificar-se-meus-backups-estao-usando-hard-links)
+  * [Como usar checksum para encontrar arquivos corrompidos periodicamente?](#como-usar-checksum-para-encontrar-arquivos-corrompidos-periodicamente)
+  * [Qual é o significado dos 11 caracteres iniciais (por exemplo, "cf...p.....") nos meus logs de backup?](#qual-e-o-significado-dos-11-caracteres-iniciais-por-exemplo-cfp-nos-meus-logs-de-backup)
+  * [Backup "COM ERROS": [E] 'rsync' terminou com código de saída 23: consulte 'man rsync' para mais detalhes](#backup-com-erros-e-rsync-terminou-com-codigo-de-saida-23-consulte-man-rsync-para-mais-detalhes)
+  * [O que acontece quando removo um backup?](#o-que-acontece-quando-removo-um-backup)
+  * [Como posso excluir pastas de cache para melhorar a velocidade do backup e reduzir o armazenamento?](#como-posso-excluir-pastas-de-cache-para-melhorar-a-velocidade-do-backup-e-reduzir-o-armazenamento)
+  * [Como usar atributos estendidos do sistema de arquivos (xattr) para excluir arquivos/diretórios?](#como-usar-atributos-estendidos-do-sistema-de-arquivos-xattr-para-excluir-arquivosdiretorios)
+  * [Como o Back In Time lida com arquivos abertos ou alterados durante o backup?](#como-o-back-in-time-lida-com-arquivos-abertos-ou-alterados-durante-o-backup)
+* [Restauração](#restauracao)
+
+  * [Após a restauração, tenho duplicatas com a extensão ".backup.20131121"](#apos-a-restauracao-tenho-duplicatas-com-a-extensao-backup20131121)
+  * [O Back In Time não encontra meus backups antigos no meu novo computador](#o-back-in-time-nao-encontra-meus-backups-antigos-no-meu-novo-computador)
+* [Agendamento](#agendamento)
+
+  * [Como funciona o agendamento "Repetidamente (anacron)"?](#como-funciona-o-agendamento-repetidamente-anacron)
+  * [Se eu editar meu crontab e adicionar entradas adicionais, haverá algum problema para o BIT desde que eu não altere as entradas dele? O que ele procura no crontab para encontrar suas próprias entradas?](#se-eu-editar-meu-crontab-e-adicionar-entradas-adicionais-havera-algum-problema-para-o-bit-desde-que-eu-nao-altere-as-entradas-dele-o-que-ele-procura-no-crontab-para-encontrar-suas-proprias-entradas)
+  * [Posso usar um systemd timer em vez de cron?](#posso-usar-um-systemd-timer-em-vez-de-cron)
+* [Problemas, erros e soluções](#problemas-erros-e-solucoes)
+
+  * [Erros críticos sobre "`snapshots.ssh_check_commands` ou `snapshots.ssh.check_ping` não definidos como padrão..."](#erros-criticos-sobre-snapshotsssh_check_commands-ou-snapshotssshcheck_ping-nao-definidos-como-padrao)
+  * [OverflowError: Value 1702441408 out of range for UInt32](#overflowerror-value-1702441408-out-of-range-for-uint32)
+  * [`SettingsDialog` object has no attribute `cbCopyUnsafeLinks`](#settingsdialog-object-has-no-attribute-cbcopyunsafelinks)
+  * [WARNING: A backup is already running](#warning-a-backup-is-already-running)
+  * [*Back in Time* não inicia e mostra: The application is already running! (pid: 1234567)](#back-in-time-nao-inicia-e-mostra-the-application-is-already-running-pid-1234567)
+  * [A mudança para o modo escuro ou claro no ambiente desktop é ignorada pelo BIT](#a-mudanca-para-o-modo-escuro-ou-claro-no-ambiente-desktop-e-ignorada-pelo-bit)
+  * [A versão >= 1.2.0 funciona muito lentamente / arquivos inalterados são copiados](#a-versao--120-funciona-muito-lentamente--arquivos-inalterados-sao-copiados)
+  * [O que acontece se eu colocar o computador em hibernação enquanto um backup está sendo executado?](#o-que-acontece-se-eu-colocar-o-computador-em-hibernacao-enquanto-um-backup-esta-sendo-executado)
+  * [O que acontece se eu desligar o computador enquanto um backup está sendo executado ou se ocorrer uma queda de energia?](#o-que-acontece-se-eu-desligar-o-computador-enquanto-um-backup-esta-sendo-executado-ou-se-ocorrer-uma-queda-de-energia)
+  * [O que acontece se não houver espaço suficiente em disco para o backup atual?](#o-que-acontece-se-nao-houver-espaco-suficiente-em-disco-para-o-backup-atual)
+  * [Compatibilidade com NTFS](#compatibilidade-com-ntfs)
+  * [A GUI não é dimensionada corretamente em monitores de alta resolução ou 4K](#a-gui-nao-e-dimensionada-corretamente-em-monitores-de-alta-resolucao-ou-4k)
+  * [Ícone da bandeja ou outros ícones não são exibidos corretamente](#icone-da-bandeja-ou-outros-icones-nao-sao-exibidos-corretamente)
+  * [Cofre de senhas não funciona e o BiT esquece as senhas (problemas com o backend do keyring)](#cofre-de-senhas-nao-funciona-e-o-bit-esquece-as-senhas-problemas-com-o-backend-do-keyring)
+  * [Desatualizado](#desatualizado)
+
+    * [Segmentation fault ao sair](#segmentation-fault-ao-sair)
+    * [Incompatibilidade com rsync >= 3.2.4](#incompatibilidade-com-rsync-324-ou-superior)
+* [Configuração específica de hardware](#configuracao-especifica-de-hardware)
+
+  * [Como usar o BIT com um NAS Ugreen?](#como-usar-o-bit-com-um-nas-ugreen)
+  * [Como usar um NAS QNAP QTS com o BIT via SSH](#como-usar-um-nas-qnap-qts-com-o-bit-via-ssh)
+  * [Como usar o Synology DSM 5 com o BIT via SSH](#como-usar-o-synology-dsm-5-com-o-bit-via-ssh)
+  * [Como usar o Synology DSM 6 com o BIT via SSH](#como-usar-o-synology-dsm-6-com-o-bit-via-ssh)
+
+  * [Usando uma porta não padrão](#usando-uma-porta-nao-padrao)
+  * [Como usar o Synology DSM 7 com o BIT via SSH](#como-usar-o-synology-dsm-7-com-o-bit-via-ssh)
+
+    * [Usando uma porta SSH não padrão com um NAS Synology](#usando-uma-porta-ssh-nao-padrao-com-um-nas-synology)
+    * ["sshfs: No such file or directory" ao usar o BIT, mas o SSH manual com rsync funciona](#sshfs-no-such-file-or-directory-ao-usar-o-bit-mas-o-ssh-manual-com-rsync-funciona)
+  * [Synology: usar um volume diferente para o backup](#synology-usar-um-volume-diferente-para-o-backup)
+  * [Como usar o Western Digital MyBook World Edition com o BIT via ssh?](#como-usar-o-western-digital-mybook-world-edition-com-o-bit-via-ssh)
+* [Projeto, contribuição e mais](#projeto-contribuicao-e-mais)
+
+  * [Por que preciso me apresentar?](#por-que-preciso-me-apresentar)
+  * [Posso contribuir sem usar o software?](#posso-contribuir-sem-usar-o-software)
+  * [Vocês podem atribuir isso a mim?](#voces-podem-atribuir-isso-a-mim)
+  * [Posso usar menções com @ livremente em issues ou PRs?](#posso-usar-mencoes-com-livremente-em-issues-ou-prs)
+  * [Posso aumentar minha contagem de commits?](#posso-aumentar-minha-contagem-de-commits)
+  * [Posso enviar contribuições geradas por IA?](#posso-enviar-contribuicoes-geradas-por-ia)
+  * [Opções alternativas de instalação](#opcoes-alternativas-de-instalacao)
+  * [Suporte a formatos específicos de pacotes (deb, rpm, Flatpack, AppImage, Snaps, PPA, …)](#suporte-a-formatos-especificos-de-pacotes-deb-rpm-flatpack-appimage-snaps-ppa-)
+
+  - [O BIT realmente não é suportado pelo Canonical Ubuntu?](#o-bit-realmente-nao-e-suportado-pelo-canonical-ubuntu)
+
+  * [Mover o projeto para um host de código alternativo (por exemplo, Codeberg, GitLab, …)](#mover-o-projeto-para-um-host-de-codigo-alternativo-por-exemplo-codeberg-gitlab-)
+  * [Como revisar um Pull Request](#como-revisar-um-pull-request)
+* [Testes e compilação](#testes-e-compilacao)
+
+  * [Testes relacionados a SSH são ignorados](#testes-relacionados-a-ssh-sao-ignorados)
+  * [Configurar um servidor SSH para executar testes unitários](#configurar-um-servidor-ssh-para-executar-testes-unitarios)
 
 <!-- TOC end -->
 
-# General
+# Geral
 
-## What happened to encrypted profiles and EncFS?
+## O que aconteceu com os perfis criptografados e o EncFS?
 
-Please see this extra document about the [transition of the encryption
-feature](doc/ENCRYPT_TRANSITION.md). In there you will also find a
+Consulte este documento adicional sobre a [transição do recurso de
+criptografia](doc/ENCRYPT_TRANSITION.md). Nele você também encontrará uma
 [FAQ](doc/ENCRYPT_TRANSITION.md#faq---frequently-asked-questions).
 
-## Does _Back in Time_ support full system backups?
+## O *Back in Time* oferece suporte a backups completos do sistema?
 
-_Back in Time_ is suited for file-based backups.
+O *Back in Time* é adequado para backups baseados em arquivos.
 
-A full system backup is neither supported nor recommended
-(even though you could use _Back in Time (root)_ and include your
-root folder `\`) because
-- Mounted file systems (even remote locations)
-- the backup needed to be done from within the running system
-- Linux kernel special files (eg. /proc) must be excluded
-- locked or open files (in an inconsistent state) must be handled
-- backups of additional disk partitions (bootloader, EFI...) are required to be able to boot
-- a restore cannot overwrite the running system (where the backups software is running)
-  without the risk of crashes or losing data (for that a restore must be done from a separate boot device normally)
-- ...
+Um backup completo do sistema não é suportado nem recomendado
+(mesmo que você pudesse usar o *Back in Time (root)* e incluir sua
+pasta raiz `\`) porque
 
-For full system backups look for
-- a disk imaging ("cloning") solution (eg. [Clonezilla](https://clonezilla.org/))
-- file-based backup tools that are designed for this (eg. [`Timeshift`](https://github.com/linuxmint/timeshift))
+* Sistemas de arquivos montados (até mesmo locais remotos)
+* o backup precisaria ser feito de dentro do sistema em execução
+* arquivos especiais do kernel Linux (por exemplo, /proc) precisam ser excluídos
+* arquivos bloqueados ou abertos (em um estado inconsistente) precisam ser tratados
+* backups de partições de disco adicionais (bootloader, EFI...) são necessários para que seja possível inicializar
+* uma restauração não pode sobrescrever o sistema em execução (onde o software de backup está sendo executado) sem o risco de travamentos ou perda de dados (normalmente, para isso, a restauração precisa ser feita a partir de um dispositivo de inicialização separado)
+* ...
 
-## Does _Back in Time_ support backups on cloud storage like OneDrive or Google Drive?
+Para backups completos do sistema, procure por
 
-Cloud storage as backup source or target is not support because _Back in Time_
-uses `rsync` as backend for file transfer and therefore a locally mounted file system
-or a `ssh` connection is required. Neither is supported by cloud storage.
+* uma solução de criação de imagem de disco ("clonagem") (por exemplo, [Clonezilla](https://clonezilla.org/))
+* ferramentas de backup baseadas em arquivos que foram projetadas para isso (por exemplo, [`Timeshift`](https://github.com/linuxmint/timeshift))
 
-Even with native support for mounting a cloud storage, most of the time
-it won't work because of limited support for 'special' file access
-which is used by BiT (eg. Linux hardlinks, atime).
+## O *Back in Time* oferece suporte a backups em armazenamento na nuvem, como OneDrive ou Google Drive?
 
-Typically "locally mounted" cloud storage uses a web-based API (REST-API)
-which does not support `rsync`.
+O armazenamento na nuvem como origem ou destino do backup não é suportado porque o *Back in Time*
+usa `rsync` como backend para transferência de arquivos e, portanto, é necessário um sistema de arquivos
+montado localmente ou uma conexão `ssh`. Isso ocorre por causa do suporte limitado ao acesso a arquivos
+"especiais" que é usado pelo BiT (por exemplo, Linux hardlinks, atime).
 
-For a discussion about this topic see [Backup on OneDrive or Google Drive](https://github.com/bit-team/backintime/issues/1166).
+Normalmente, o armazenamento em nuvem "montado localmente" usa uma API baseada na web (REST-API)
+que não oferece suporte ao `rsync`.
 
-## Where is the log file?
+Para uma discussão sobre esse tópico, consulte [Backup on OneDrive or Google Drive](https://github.com/bit-team/backintime/issues/1166).
 
-There are three distinct logs generated:
+## Onde está o arquivo de log?
 
-1. The _backup log_ contains messages specific to a particular backup at a
-   given time. It is stored within each backup and can be accessed through
-   the GUI.
+Existem três logs distintos gerados:
 
-2. The _restore log_ contains messages specific to a particular restore
-   process. It is displayed in the GUI after each restore. It is also located
-   in the folder `~/.local/share/backintime/` and is named `restore_.log` for
-   the main profile, `restore_2.log` for the second, and so forth.
+1. O *log de backup* contém mensagens específicas de um determinado backup em um
+   determinado momento. Ele é armazenado dentro de cada backup e pode ser acessado pela
+   GUI.
 
-3. The _application log_ is generated using the syslog feature of the operating
-   system. See [How to read log entries?](#how-to-read-log-entries) for
-   further details.
+2. O *log de restauração* contém mensagens específicas de um determinado processo de restauração.
+   Ele é exibido na GUI após cada restauração. Ele também está localizado na pasta
+   `~/.local/share/backintime/` e é chamado de `restore_.log` para o perfil principal,
+   `restore_2.log` para o segundo perfil e assim por diante.
 
-## How to read log entries?
+3. O *log da aplicação* é gerado usando o recurso syslog do sistema operacional.
+   Consulte [Como ler as entradas do log?](#como-ler-as-entradas-do-log) para
+   obter mais detalhes.
 
-Both the _backup_ and _restore_ log files are plain text files and can be read
-accordingly. Refer to [Where is the log file?](#where-is-the-log-file).
-The _application_ log is generated via [syslog](https://en.wikipedia.org/wiki/Syslog)
-using the identifier `backintime`. Depending on the version of _Back In time_ and the
-GNU/Linux distribution used, there are three ways to get the log entries.
+## Como ler as entradas do log?
 
-1. On modern systems:
+Tanto os arquivos de *log de backup* quanto os de *log de restauração* são arquivos de texto simples
+e podem ser lidos dessa forma. Consulte [Onde está o arquivo de log?](#onde-esta-o-arquivo-de-log).
+O *log da aplicação* é gerado por meio do [syslog](https://en.wikipedia.org/wiki/Syslog)
+usando o identificador `backintime`. Dependendo da versão do *Back In Time* e da
+distribuição GNU/Linux utilizada, há três maneiras de obter as entradas do log.
 
-    `journalctl --identifier backintime`
+1. Em sistemas modernos:
 
-2. With an older _Back In Time_ version (1.4.2 or older):
+   `journalctl --identifier backintime`
 
-    `journalctl --grep backintime`
+2. Com uma versão mais antiga do *Back In Time* (1.4.2 ou anterior):
 
-3. If the error message `journalctl: command not found` appears, directly examine the syslog files:
+   `journalctl --grep backintime`
 
-    `sudo grep backintime /var/log/syslog`
+3. Se aparecer a mensagem de erro `journalctl: command not found`, examine diretamente os arquivos do syslog:
 
-## How to move backups to a new hard-drive?
+   `sudo grep backintime /var/log/syslog`
 
-There are three different solutions:
+## Como mover backups para um novo disco rígido?
 
-1. Clone the drive with ``dd`` and enlarge the partition on the new drive to
-   use all space. This will **destroy all data** on the destination drive!
+Existem três soluções diferentes:
+
+1. Clone o disco com `dd` e aumente a partição no novo disco para
+   usar todo o espaço. Isso **destruirá todos os dados** no disco de destino!
 
    ```bash
     sudo dd if=/dev/sdbX of=/dev/sdcX bs=4M
    ```
 
-   where ``/dev/sdbX`` is the partition on the source drive and
-   ``/dev/sdcX`` is the destination drive
+   onde `/dev/sdbX` é a partição no disco de origem e
+   `/dev/sdcX` é o disco de destino.
 
-   Finally use ``gparted`` to resize the partition.
+   Por fim, use `gparted` para redimensionar a partição.
 
-1. Copy all files using ``rsync -H``
+2. Copie todos os arquivos usando `rsync -H`
 
    ```bash
     rsync -avhH --info=progress2 /SOURCE /DESTINATION
    ```
 
-1. Copy all files using ``tar``
+3. Copie todos os arquivos usando `tar`
 
    ```bash
    cd /SOURCE; tar cf - * | tar -C /DESTINATION/ -xf -
    ```
 
-Make sure that your `/DESTINATION` contains a folder named `backintime`, which
-contains all the backups. BIT expects this folder, and needs it to import
-existing backups.
+Certifique-se de que seu `/DESTINATION` contenha uma pasta chamada `backintime`,
+que contém todos os backups. O BIT espera encontrar essa pasta e precisa dela
+para importar backups existentes.
 
-## How to move a large directory in the backup source without duplicating the files in the backup?
+## Como mover um diretório grande na origem do backup sem duplicar os arquivos no backup?
 
-If you move a file/folder in the source ("include") location that is backed-up
-by BIT it will treat this like a new file/folder and create a new backup file
-for it (not hard-linked to the old one). With large directories this can fill
-up your backup drive quite fast.
+Se você mover um arquivo/pasta no local de origem ("include") que é copiado pelo
+BIT, ele tratará isso como um novo arquivo/pasta e criará um novo arquivo de backup
+para ele (não fará hard-link com o antigo). Com diretórios grandes, isso pode ocupar
+seu disco de backup muito rapidamente.
 
-You can avoid this by moving the file/directory in the last backup too:
+Você pode evitar isso movendo o arquivo/diretório também no último backup:
 
-1. Create a new backup
+1. Crie um novo backup.
 
-2. Move the original directory
+2. Mova o diretório original.
 
-3. Manually move the same folder inside BiTs last backup in the same way you
-   did with the original folder
+3. Mova manualmente a mesma pasta dentro do último backup do BiT da mesma maneira
+   que você fez com a pasta original.
 
-4. Create a new backup
+4. Crie um novo backup.
 
-5. Remove the next to last backup (the one where you moved the directory
-   manually) to avoid problems with permissions when you try to restore from
-   that backup
+5. Remova o penúltimo backup (aquele em que você moveu o diretório manualmente) para
+   evitar problemas de permissões ao tentar restaurar a partir desse backup.
 
-## How does _Back In Time_ compare with _Timeshift_?
+## Como o *Back In Time* se compara ao *Timeshift*?
 
-Back In Time and Timeshift are both Linux application that provides back up
-functionality.
+Back In Time e Timeshift são aplicações Linux que fornecem funcionalidades de backup.
 
-1. Similarity
-   - Both programs are backup tools for Linux and they create backups at a
-     specific time.
-   - For both programs, backups are taken using rsync and hard-links, while
-   Common files are shared between backups which saves disk space.
-   - Both programs support GUI and CLI
-   - Both programs allow you to schedule regular backups. You can also disable
-   scheduled backups completely and create backups manually when required
+1. Semelhanças
+
+   * Ambos os programas são ferramentas de backup para Linux e criam backups em um momento específico.
+   * Em ambos os programas, os backups são feitos usando rsync e hard-links, enquanto
+     arquivos comuns são compartilhados entre os backups, o que economiza espaço em disco.
+   * Ambos os programas oferecem GUI e CLI.
+   * Ambos os programas permitem agendar backups regulares. Você também pode desabilitar
+     completamente os backups agendados e criar backups manualmente quando necessário.
 
 2. Back In Time
-   - It is designed to protect user data including any folders or files.
-   - It backs up certain folders and files that you want to protect. Modified
-     files are transferred, while unchanged files are linked to the new
-     folder. You can restore certain files and folders.
-   - It's great for protecting your personal data
 
-3. TimeShift
-   - It is designed for system backups which allows restoring whole Linux
-     system to a previous state without affecting any user data.
-   - It backs up system files, not including any personal data unless user
-     explicitly configured.
-   - It's good for restoring your system after an update failure or
-     configuration change.
+   * Ele foi projetado para proteger dados do usuário, incluindo quaisquer pastas ou arquivos.
+   * Ele faz backup de determinadas pastas e arquivos que você deseja proteger. Arquivos modificados
+     são transferidos, enquanto arquivos inalterados são vinculados à nova pasta. Você pode restaurar
+     determinados arquivos e pastas.
+   * É excelente para proteger seus dados pessoais.
 
-## Additional features beside the GUI and benefits of using BIT
+3. Timeshift
 
-*Back In Time* stores the user and group name which will make it possible to
-restore permissions even if UID/GID changed. Additionally current user is
-stored. So if the User/Group doesn't exist on the system during restore it will
-restore to the old UID/GID.
+   * Ele foi projetado para backups do sistema, permitindo restaurar todo o sistema Linux
+     para um estado anterior sem afetar os dados do usuário.
+   * Ele faz backup dos arquivos do sistema, não incluindo dados pessoais, a menos que o usuário
+     configure isso explicitamente.
+   * É bom para restaurar seu sistema após uma falha de atualização ou alteração de configuração.
 
-- Inhibit suspend/hibernate during backup creation
-- Shutdown system after finish
-- Remove & Retention policies to keep/remove old backups on reasonable rules
-- Support for Plugins and user defined callback scripts
+## Recursos adicionais além da GUI e benefícios de usar o BIT
+
+*Back In Time* armazena o nome do usuário e do grupo, o que torna possível restaurar as permissões
+mesmo que o UID/GID tenha sido alterado. O usuário atual também é armazenado. Portanto, se o
+Usuário/Grupo não existir no sistema durante a restauração, ele restaurará para o UID/GID antigo.
+
+* Impedir suspensão/hibernação durante a criação do backup
+* Desligar o sistema após o término
+* Políticas de remoção e retenção para manter/remover backups antigos de acordo com regras razoáveis
+* Suporte a Plugins e scripts de callback definidos pelo usuário
 
 # Backups (snapshots)
 
-## Backup or Snapshot?
-Until _Back In Time_ version 1.6.0 the term _snapshot_ was used, instead of
-_backup_. Beginning with version 1.6.0 that term was rephrased into
-_backup_. The reason was to not giving the impression that _Back In Time_ does
-create images of storage volumes.
+## Backup ou snapshot?
 
-## Does _Back In Time_ create incremental or full backups?
+Até a versão 1.6.0 do *Back In Time*, o termo *snapshot* era usado em vez de
+*backup*. A partir da versão 1.6.0, esse termo foi alterado para *backup*. O motivo
+foi não dar a impressão de que o *Back In Time* cria imagens de volumes de armazenamento.
+Não se confunda com o tamanho de cada backup. Se você clicar com o botão direito
+nas preferências de um backup em um gerenciador de arquivos e verificar seu tamanho,
+parecerá que todos são backups completos (não incrementais). Mas esse não é
+(necessariamente) o caso.
 
-Back In Time does use `rsync` and its `--hard-links` feature.
-Because of that each backup is technically a full backup (contains each file)
-but copies only the really changed files (to save disk space) and "reuses" unchanged
-files by setting a so-called "hard-link".
-
-In technical terms it is not an
-[incremental backups](https://en.wikipedia.org/wiki/Incremental_backup).
-
-## How do backups with hard-links work?
-
-From the answer on Launchpad to the question
-[_Does auto remove smart mode merge incremental backups?_](https://answers.launchpad.net/backintime/+question/123486)
-
-If you create a new file on a Linux filesystem (e.g. ext3) the data will have a
-unique number that is called inode. The path of the file is a link to this inode
-(there is a database which stores which file point to which inode). Also every
-inode has a counter for how many links point to this inode. After you created a
-new file the counter is 1.
-
-Now you make a new hardlink. The filesystem now just has to store the new path
-pointing to the existing inode into the database and increase the counter of our
-inode by 1.
-
-If you remove a file than only the link from the path to that inode is removed
-and the counter is decreased by 1. If you have removed all links to that inode
-so the counter is zero the filesystem knows that it can override that block next
-time you save a new file.
-
-First time you create a new backup with BIT all files will have an inode
-counter = 1.
-
-#### backup0
-| path   |   inode |   counter |
-|:-------|--------:|----------:|
-| fileA  |       1 |         1 |
-| fileB  |       2 |         1 |
-| fileC  |       3 |         1 |
-
-Let's say you now change ``fileB``, delete ``fileC`` and have a new ``fileD``.
-BIT first makes hardlinks of all files. ``rsync`` than delete all hardlinks of
-files that has changed and copy the new files.
-
-#### backup0
-| path   |   inode |   counter |
-|:-------|--------:|----------:|
-| fileA  |       1 |         2 |
-| fileB  |       2 |         1 |
-| fileC  |       3 |         1 |
-
-
-#### backup1
-| path   |   inode |   counter |
-|:-------|--------:|----------:|
-| fileA  |       1 |         2 |
-| fileB  |       4 |         1 |
-| fileD  |       5 |         1 |
-
-Now change ``fileB`` again and make a new backup
-
-#### backup0
-| path   |   inode |   counter |
-|:-------|--------:|----------:|
-| fileA  |       1 |         3 |
-| fileB  |       2 |         1 |
-| fileC  |       3 |         1 |
-
-#### backup1
-| path   |   inode |   counter |
-|:-------|--------:|----------:|
-| fileA  |       1 |         3 |
-| fileB  |       4 |         1 |
-| fileC  |       5 |         2 |
-
-#### backup2
-| path   |   inode |   counter |
-|:-------|--------:|----------:|
-| fileA  |       1 |         3 |
-| fileB  |       6 |         1 |
-| fileD  |       5 |         2 |
-
-
-Finally smart-remove is going to remove **backup0**. All that is done by
-smart-remove is to ``rm -rf`` (force delete everything) the whole directory
-of **backup0**.
-
-#### backup0 (no longer exist)
-| path   |   inode |   counter |
-|:-------|--------:|----------:|
-| (empty)  |       1 |         2 |
-| (empty)  |       2 |         0 |
-| (empty)  |       3 |         0 |
-
-#### backup1
-| path   |   inode |   counter |
-|:-------|--------:|----------:|
-| fileA  |       1 |         2 |
-| fileB  |       4 |         1 |
-| fileD  |       5 |         2 |
-
-#### backup2
-| path   |   inode |   counter |
-|:-------|--------:|----------:|
-| fileA  |       1 |         2 |
-| fileB  |       6 |         1 |
-| fileD  |       5 |         2 |
-
-``fileA`` is still untouched, ``fileB`` is still available in two different
-versions and ``fileC`` is gone for good. The blocks on your hdd that stored the
-data for inode 2 and 3 can now get overridden.
-
-I hope this will shed a light on the "magic" behind BIT. If it's even more
-confusing don't hesitate to ask ;)
-
-
-## How can I check if my backups are using hard-links?
-
-Please compare the inodes of a file that definitely didn't change between two
-backups. For this open two terminals and ``cd`` into both backups directory.
-``ls -lai`` will print a list where the first column is the inode which should
-be equal for the same file in both backups if the file didn't change and the
-backups are incremental. The third column is a counter (if the file is no
-directory) on how many hard-links exist for this inode. It should be >1. So if
-you took e.g. 3 backups it should be 3.
-
-Don't be confused on the size of each backup. If you right click on
-preferences for a backup in a file manager and look for its size, it will
-look like they are all full backups (not incremental). But that's not
-(necessary) the case.
-
-To get the correct size of each backups with respect on the hard-links you
-can run:
+Para obter o tamanho correto de cada backup levando em consideração os
+hard-links, você pode executar:
 
 ```bash
 du -chd0 /media/<USER>/backintime/<HOST>/<USER>/1/*
 ```
 
-Compare with option `-l` to count hardlinks multiple times:
+Compare com a opção `-l` para contar os hard-links várias vezes:
 
 ```bash
 du -chld0 /media/<USER>/backintime/<HOST>/<USER>/1/*
 ```
 
-(``ncdu`` isn't installed by default so I won't recommend using it)
+(`ncdu` não vem instalado por padrão, portanto não recomendo utilizá-lo.)
 
-## How to use checksum to find corrupt files periodically?
+## Como usar checksum para encontrar arquivos corrompidos periodicamente?
 
-Starting with BIT Version 1.0.28 there is a new command line option
-``--checksum`` which will do the same as *Use checksum to detect changes* in
-Options. It will calculate checksums for both the source and the last backups
-files and will only use this checksum to decide whether a file has changed or
-not. The normal mode (without checksums) is to compare modification times and sizes
-of the files which is much faster to detect changed files.
+A partir da versão 1.0.28 do BIT, existe uma nova opção de linha de comando
+`--checksum` que faz o mesmo que *Use checksum to detect changes* nas
+Options. Ela calculará checksums tanto para os arquivos de origem quanto para os
+arquivos do último backup e usará somente esse checksum para decidir se um arquivo
+foi alterado ou não. O modo normal (sem checksums) compara as datas de modificação
+e os tamanhos dos arquivos, o que é muito mais rápido para detectar arquivos
+alterados.
 
-Because this takes ages, you may want to use this only on Sundays or only the
-first Sunday per month. Please deactivate the schedule for your profile in
-that case. Then run ``crontab -e``
+Como isso leva muito tempo, talvez você queira usar essa opção somente aos domingos
+ou somente no primeiro domingo de cada mês. Nesse caso, desative o agendamento
+do seu perfil. Em seguida, execute `crontab -e`
 
-For daily backups on 2AM and ``--checksum`` every Sunday add:
+Para backups diários às 2h e `--checksum` todos os domingos, adicione:
 
-
-```
+```text
 # min hour day month dayOfWeek command
 0 2 * * 1-6 nice -n 19 ionice -c2 -n7 /usr/bin/backintime --backup-job >/dev/null 2>&1
 0 2 * * Sun nice -n 19 ionice -c2 -n7 /usr/bin/backintime --checksum --backup-job >/dev/null 2>&1
 ```
 
-For ``--checksum`` only at first Sunday per month add:
+Para usar `--checksum` somente no primeiro domingo de cada mês, adicione:
 
-```
+```text
 # min hour day month dayOfWeek command
 0 2 * * 1-6 nice -n 19 ionice -c2 -n7 /usr/bin/backintime --backup-job >/dev/null 2>&1
 0 2 * * Sun [ "$(date '+\%d')" -gt 7 ] && nice -n 19 ionice -c2 -n7 /usr/bin/backintime --backup-job >/dev/null 2>&1
 0 2 * * Sun [ "$(date '+\%d')" -le 7 ] && nice -n 19 ionice -c2 -n7 /usr/bin/backintime --checksum --backup-job >/dev/null 2>&1
 ```
 
-Press <kbd>CTRL</kbd> + <kbd>O</kbd> to save and <kbd>CTRL</kbd> + <kbd>X</kbd> to exit
-(if you editor is `nano`. Maybe different depending on your default text editor).
+Pressione <kbd>CTRL</kbd> + <kbd>O</kbd> para salvar e <kbd>CTRL</kbd> + <kbd>X</kbd> para sair
+(se o seu editor for `nano`. Isso pode ser diferente dependendo do seu editor de
+texto padrão).
 
-## What is the meaning of the leading 11 characters (e.g. "cf...p.....") in my backup logs?
+## Qual é o significado dos 11 caracteres iniciais (por exemplo, "cf...p.....") nos meus logs de backup?
 
-This are from `rsync` and indicating what changed and why.  Please see the
-section `--itemize-changes` in the
-[manpage](https://download.samba.org/pub/rsync/rsync.1#opt--itemize-changes)
-of `rsync`. See also some
-[rephrased explanations on Stack Overflow](https://stackoverflow.com/a/36851784/4865723).
+Eles vêm do `rsync` e indicam o que foi alterado e por quê. Consulte a seção
+`--itemize-changes` na
+[página de manual](https://download.samba.org/pub/rsync/rsync.1#opt--itemize-changes)
+do `rsync`. Consulte também algumas
+[explicações reformuladas no Stack Overflow](https://stackoverflow.com/a/36851784/4865723).
 
-## Backup "WITH ERRORS": [E] 'rsync' ended with exit code 23: See 'man rsync' for more details
+## Backup "COM ERROS": [E] 'rsync' terminou com código de saída 23: consulte 'man rsync' para mais detalhes
 
-[BiT Version 1.4.0 (2023-09-14)](https://github.com/bit-team/backintime/releases/tag/v1.4.0)
-introduced the **evaluation of `rsync` exit codes for better error recognition**:
+A [versão 1.4.0 do BiT (2023-09-14)](https://github.com/bit-team/backintime/releases/tag/v1.4.0)
+introduziu a **avaliação dos códigos de saída do `rsync` para melhor reconhecimento
+de erros**:
 
-Before this release `rsync` exit codes were ignored and only the backup
-files parsed for errors (which does not find each error, eg. dead symbolic links
-logged as `symlink has no referent`).
+Antes dessa versão, os códigos de saída do `rsync` eram ignorados e somente os
+arquivos de backup eram analisados em busca de erros (o que não encontra todos
+os erros, por exemplo, links simbólicos quebrados registrados como
+`symlink has no referent`).
 
-This "exit code 23" message may occur at the end of backup logs and BiT logs
-when `rsync` was not able to transfer some (or even all) files. See
-[this comment in issue 1587](https://github.com/bit-team/backintime/issues/1587#issuecomment-1856490208)
-for a list all known reasons for `rsync`'s exit code 23.
+Essa mensagem de "código de saída 23" pode aparecer no final dos logs de backup e
+nos logs do BiT quando o `rsync` não conseguiu transferir alguns (ou até mesmo
+todos) os arquivos. Consulte
+[este comentário na issue 1587](https://github.com/bit-team/backintime/issues/1587#issuecomment-1856490208)
+para obter uma lista de todos os motivos conhecidos para o código de saída 23
+do `rsync`.
 
-Currently you can ignore this error after checking the full backup log which
-error is hidden behind "exit code 23" (and possibly fix it - eg. delete or
-update dead symbolic links).
+Atualmente, você pode ignorar esse erro depois de verificar o log completo do
+backup para descobrir qual erro está oculto por trás do "código de saída 23"
+(e possivelmente corrigi-lo — por exemplo, excluindo ou atualizando links
+simbólicos quebrados).
 
-We plan to implement an improved handling of exit code 23 in the future
-(presumably by introducing warnings into the backup log).
+Planejamos implementar um tratamento aprimorado do código de saída 23 no futuro
+(provavelmente introduzindo avisos no log de backup).
 
-## What happens when I remove a backup?
+## O que acontece quando removo um backup?
 
-Each backup is stored in a dated subdirectory of the "full backup path"
-shown in Settings.  It contains a ``backup`` directory of all the files as well
-as a log of the backup's creation and some other details.  Removing the
-backup removes this whole directory. Each backup is independent of the
-others, so other backups are not affected. However, the data of identical files is
-not stored redundantly by multiple backups, so removing a backup will only
-recover the space used by files that are unique to that backup.
+Cada backup é armazenado em um subdiretório com data dentro do "caminho completo
+do backup" mostrado em Settings. Ele contém um diretório `backup` com todos
+os arquivos, bem como um log da criação do backup e alguns outros detalhes.
+Remover o backup remove esse diretório inteiro. Cada backup é independente
+dos demais, portanto os outros backups não são afetados. No entanto, os dados
+de arquivos idênticos não são armazenados de forma redundante em vários backups,
+portanto remover um backup só recuperará o espaço utilizado pelos arquivos que
+são exclusivos daquele backup.
 
-## How can I exclude cache folders to improve backup speed and reduce storage?
+## Como posso excluir pastas de cache para melhorar a velocidade do backup e reduzir o armazenamento?
 
-**Why exclude cache folders?**
+**Por que excluir pastas de cache?**
 
-Cache folders typically contain temporary files that are not necessary for backups.
-Excluding them can significantly improve backup speed and reduce storage usage.
+As pastas de cache normalmente contêm arquivos temporários que não são necessários
+para backups. Excluí-las pode melhorar significativamente a velocidade do backup
+e reduzir o uso de armazenamento.
 
-**How to exclude cache folders:**
+**Como excluir pastas de cache:**
 
-1. Open Back in Time.
-2. Go to the **Exclude Patterns** settings:
-   - Click the "Exclude" tab in the configuration window.
-   - Click the **Add** button to create a new exclude pattern.
+1. Abra o Back in Time.
 
-3. Add the following patterns to exclude common cache directories:
+2. Vá para as configurações de **Exclude Patterns**:
+
+   * Clique na aba "Exclude" na janela de configuração.
+   * Clique no botão **Add** para criar um novo padrão de exclusão.
+
+3. Adicione os seguintes padrões para excluir diretórios de cache comuns:
+
    ```plaintext
    .var/app/**/[Cc]ache/
    .var/app/**/media_cache/
@@ -514,184 +408,208 @@ Excluding them can significantly improve backup speed and reduce storage usage.
    .config/BraveSoftware/Brave-Browser/Default/Service Worker/CacheStorage/
    ```
 
-**Explanation**:
+**Explicação**:
 
-- `/**/` matches any directory structure leading to the specified folder.
-- `[Cc]ache` matches folder names with either uppercase or lowercase "Cache."
+* `/**/` corresponde a qualquer estrutura de diretórios que leve à pasta especificada.
+* `[Cc]ache` corresponde a nomes de pastas com "Cache" em maiúsculas ou minúsculas.
 
-4. Decide whether to include or exclude the folder itself:
-   - To exclude only the folder’s content, use `/*` at the end of the pattern:
+4. Decida se deseja incluir ou excluir a própria pasta:
+
+   * Para excluir apenas o conteúdo da pasta, use `/*` no final do padrão:
+
      ```plaintext
      .var/app/**/[Cc]ache/*
      ```
-   - To exclude the folder and its contents, omit the `/*`:
+   * Para excluir a pasta e seu conteúdo, omita o `/*`:
+
      ```plaintext
      .var/app/**/[Cc]ache/
      ```
 
-**Tips for better results:**
+**Dicas para obter melhores resultados:**
 
-- **Check Backup Logs**:
-  After running a backup, review the logs to identify additional folders that
-  may slow down the process. Example log entries for cache files:
+* **Verifique os logs de backup**:
+  Após executar um backup, examine os logs para identificar pastas adicionais
+  que podem deixar o processo mais lento. Exemplos de entradas de log para
+  arquivos de cache:
+
   ```plaintext
   [E] Skipping file /path/to/cache/file: Too many small files.
   ```
 
-- **Customize Patterns**:
-  Adjust the patterns to suit your specific applications. For example, modify
-  paths for browsers or other software you use.
+* **Personalize os padrões**:
+  Ajuste os padrões de acordo com os aplicativos específicos que você utiliza.
+  Por exemplo, modifique os caminhos para os navegadores ou outros softwares
+  que você usa.
 
-- **Test Exclude Patterns**:
-  Test your backup after adding patterns to ensure they work as intended.
+* **Teste os padrões de exclusão**:
+  Teste seu backup depois de adicionar os padrões para garantir que eles
+  funcionem conforme esperado.
 
-## How to use extended filesystem attributes (xattr) to exclude files/directories?
-Please see [Issue #817](https://github.com/bit-team/backintime/issues/817) for
-details.
+## Como usar atributos estendidos do sistema de arquivos (xattr) para excluir arquivos/diretórios?
 
-## Are Samba shares supported? / Does Samba support hard links?
-There is no short answer to that. It depends on the configuration of the Samba
-server and the filesystem of the volume/harddisk it is using.
+Consulte a [Issue #817](https://github.com/bit-team/backintime/issues/817) para
+obter detalhes.
 
-Generally it is not recommended to use Samba shares as backup destination. Use
-an SSH profile instead.
+## Os compartilhamentos Samba são suportados? / O Samba oferece suporte a hard-links?
 
-Further reading:
-- https://superuser.com/q/855946/486099
-- https://github.com/bit-team/backintime/issues/1883
+Não há uma resposta curta para isso. Depende da configuração do servidor Samba
+e do sistema de arquivos do volume/disco rígido que ele utiliza.
 
-If you encounter clear rules about configuring Samba that it works with
-_Back In Time_ in a reliable way, please let us know the details. We will than
-integrate it into the documentation.
+Em geral, não é recomendado usar compartilhamentos Samba como destino de backup.
+Use um perfil SSH em vez disso.
 
-## How does _Back in Time_ handle open or changed files during backup?
+Leitura adicional:
 
-**Explanation**
+* https://superuser.com/q/855946/486099
+* https://github.com/bit-team/backintime/issues/1883
 
-Back In Time uses rsync to copy the files and directories specified to be
-backed up in the configuration. Rsync does not lock any files that are open
-or being modified and therefore the backup can be copied in an inconsistent
-state. Rsync only reads a file on time when it goes through it and as a result
-of this only some changes are captured by rsync. This can affect files such as
-logs, browser caches, databases or virtual machine images where inconsistencies
-can even lead to data corruption.
+Se você encontrar regras claras para configurar o Samba de forma que ele funcione
+com o *Back In Time* de maneira confiável, informe-nos os detalhes. Nós os
+integraremos à documentação.
 
-**To reduce this risk, the following approaches can be considered:**
+## Como o *Back In Time* lida com arquivos abertos ou alterados durante o backup?
 
-- **Filesystem snapshots**
-   If using a filesystem like btrfs and ZFS that has a snapshot function this
-   can be used together with Back in Time. Filesystem snapshots provide a
-   read-only copy of a filesystem frozen at a specific point in time, which
-   ensures data integrity even for open/changing files. Configure Back In Time
-   to backup from this filesystem's read-only snapshot.
+**Explicação**
 
-- **Use exclusions**
-   If the filesystem does not have filesystem snapshots available, one
-   solution could be to exclude files that are frequently open or actively
-   changing. The command `lsof` in GNU/Linux presents open files and the
-   processes that opened them as a list. Use this list as base for
-   configuring BIT exclusion list.
+O Back In Time usa rsync para copiar os arquivos e diretórios especificados
+na configuração para backup. O Rsync não bloqueia arquivos que estão abertos
+ou sendo modificados e, portanto, o backup pode ser copiado em um estado
+inconsistente. O Rsync lê um arquivo somente uma vez quando passa por ele e,
+como resultado, apenas algumas alterações são capturadas pelo rsync. Isso pode
+afetar arquivos como logs, caches de navegadores, bancos de dados ou imagens
+de máquinas virtuais, nos quais inconsistências podem até mesmo levar à
+corrupção de dados.
 
-- **Application specific handling**
-   For applications that opens and modifies files frequently like databases
-   or virtual machines, specific solutions may be needed. Use the databases
-   own backup function to create a consistent copy and include that in the
-   BIT backup. Virtual machines products typically have ability to create
-   snapshots of their state, that can be included in BIT.
+**Para reduzir esse risco, as seguintes abordagens podem ser consideradas:**
 
-- **Choose when to perform backup**
-   Perform backup at times where less files are open, for example at night.
+* **Snapshots do sistema de arquivos**
+  Se estiver usando um sistema de arquivos como btrfs ou ZFS que tenha uma
+  função de snapshot, ela pode ser usada em conjunto com o Back In Time.
+  Snapshots do sistema de arquivos fornecem uma cópia somente leitura de um
+  sistema de arquivos congelada em um ponto específico no tempo, o que garante
+  a integridade dos dados mesmo para arquivos abertos/em alteração. Configure
+  o Back In Time para fazer backup a partir do snapshot somente leitura desse
+  sistema de arquivos.
 
+* **Use exclusões**
+  Se o sistema de arquivos não tiver snapshots disponíveis, uma solução pode
+  ser excluir arquivos que são frequentemente abertos ou modificados ativamente.
+  O comando `lsof` no GNU/Linux apresenta os arquivos abertos e os processos
+  que os abriram como uma lista. Use essa lista como base para configurar
+  a lista de exclusões do BIT.
 
+* **Tratamento específico por aplicativo**
+  Para aplicativos que abrem e modificam arquivos frequentemente, como bancos
+  de dados ou máquinas virtuais, podem ser necessárias soluções específicas.
+  Use a própria função de backup do banco de dados para criar uma cópia
+  consistente e inclua essa cópia no backup do BIT. Produtos de máquinas
+  virtuais normalmente têm a capacidade de criar snapshots do estado delas,
+  que podem ser incluídos no BIT.
 
-# Restore
+* **Escolha quando realizar o backup**
+  Faça o backup em horários em que haja menos arquivos abertos, por exemplo,
+  durante a noite.
 
-## After Restore I have duplicates with extension ".backup.20131121"
+# Restauração
 
-This is because *Backup files on restore* in Options was enabled. This is
-the default setting to prevent overriding files on restore.
+## Após a restauração, tenho duplicatas com a extensão ".backup.20131121"
 
-If you don't need them any more you can delete those files. Open a terminal
-and run:
+Isso acontece porque *Backup files on restore* em Options estava habilitado.
+Essa é a configuração padrão para evitar a substituição de arquivos durante
+a restauração.
+
+Se você não precisar mais desses arquivos, poderá excluí-los. Abra um terminal
+e execute:
 
 ```bash
 find /path/to/files -regextype posix-basic -regex ".*\.backup\.[[:digit:]]\{8\}"
 ```
 
-Check if this correctly listed all those files you want to delete and than run:
+Verifique se esse comando listou corretamente todos os arquivos que você deseja
+excluir e então execute:
 
 ```bash
 find /path/to/files -regextype posix-basic -regex ".*\.backup\.[[:digit:]]\{8\}" -delete
 ```
 
-## Back In Time doesn't find my old backups on my new Computer
+## O Back In Time não encontra meus backups antigos no meu novo computador
 
-Back In Time prior to version 1.1.0 had an option called
-*Auto Host/User/Profile ID* (hidden under *General* > *Advanced*) which will
-always use the current host- and username for the full backup path.
-When (re-)installing your computer you probably chose a different host name or
-username than on your old machine. With *Auto Host/User/Profile ID* activated
-Back In Time now try to find your backups under the new host- and username
-underneath the ``/path/to/backintime/`` path.
+O Back In Time anterior à versão 1.1.0 tinha uma opção chamada
+*Auto Host/User/Profile ID* (oculta em *General* > *Advanced*) que sempre
+usava o host e o nome de usuário atuais para o caminho completo do backup.
 
-The *Auto Host/User/Profile ID* option is gone in version 1.1.0 and above.
-It was totally confusing and didn't add any good.
+Ao (re)instalar seu computador, provavelmente você escolheu um nome de host ou
+nome de usuário diferente daquele utilizado na máquina antiga. Com
+*Auto Host/User/Profile ID* ativado, o Back In Time agora tenta encontrar
+seus backups usando o novo host e nome de usuário dentro do caminho
+`/path/to/backintime/`.
 
-You have three options to fix this:
+A opção *Auto Host/User/Profile ID* foi removida na versão 1.1.0 e posteriores.
+Ela era bastante confusa e não acrescentava nada de útil.
 
-- Disable *Auto Host/User/Profile ID* and change *Host* and *User* to match
-  your old machine.
+Você tem três opções para corrigir isso:
 
-- Rename the backups path
-  ``/path/to/backintime/OLDHOSTNAME/OLDUSERNAME/profile_id`` to match your new
-  host- and username.
+* Desative *Auto Host/User/Profile ID* e altere *Host* e *User* para corresponderem
+  à sua máquina antiga.
 
-- Upgrade to a more recent version of Back In Time (1.1.0 or above).
-  The *Auto Host/User/Profile ID* option is gone and it also comes with
-  an assistant to restore the config from an old backup on first start.
+* Renomeie o caminho dos backups
+  `/path/to/backintime/OLDHOSTNAME/OLDUSERNAME/profile_id` para corresponder ao
+  novo host e nome de usuário.
 
+* Atualize para uma versão mais recente do Back In Time (1.1.0 ou posterior).
+  A opção *Auto Host/User/Profile ID* foi removida e a versão também inclui um
+  assistente para restaurar a configuração a partir de um backup antigo na
+  primeira inicialização.
 
+# Agendamento
 
-# Schedule
+## Como funciona o agendamento 'Repeatedly'?
 
-## How does the 'Repeatedly' schedule work?
+O *Back In Time* criará uma entrada no crontab que iniciará
+`backintime --backup-job` a cada 15 minutos (ou uma vez por hora se o
+agendamento estiver configurado para *weeks*). Com o comando
+`--backup-job`, o *Back In Time* verificará se o perfil deve ser executado
+nesse momento ou sairá imediatamente. Para isso, ele lerá o horário da última
+execução bem-sucedida de
+`~/.local/share/backintime/anacron/ID_PROFILENAME`.
 
-_Back In Time_ will create a crontab entry which will start
-``backintime --backup-job`` every 15min (or once an hour if the schedule is
-set to *weeks*). With the ``--backup-job`` command, _Back In Time_ will check
-if the profile is supposed to be run this time or exit immediately. For this
-it will read the time of the last successful run from
-``~/.local/share/backintime/anacron/ID_PROFILENAME``.
-If this is older than the configured time, it will continue creating a backup.
+Se esse horário for anterior ao período configurado, ele continuará criando
+um backup.
 
-If the backup was successful without errors, _Back In Time_ will write the
-current time into ``~/.local/share/backintime/anacron/ID_PROFILENAME``
-(even if *Repeatedly* isn't chosen). So, if there was an error, _Back In Time_
-will try again at the next quarter hour.
+Se o backup for concluído com sucesso e sem erros, o *Back In Time* gravará
+o horário atual em `~/.local/share/backintime/anacron/ID_PROFILENAME`
+(mesmo que *Repeatedly* não esteja selecionado). Portanto, se ocorrer um erro,
+o *Back In Time* tentará novamente no próximo quarto de hora.
 
-``backintime --backup`` will always create a new backup. No matter how many
-time elapsed since last successful backup.
+`backintime --backup` sempre criará um novo backup, independentemente de
+quanto tempo tenha passado desde o último backup bem-sucedido.
 
-## If I edit my crontab and add additional entries, will that be a problem for BIT as long as I don't touch its entries? What does it look for in the crontab to find its own entries?
+## Se eu editar meu crontab e adicionar entradas adicionais, haverá algum problema para o BIT desde que eu não altere as entradas dele? O que ele procura no crontab para encontrar suas próprias entradas?
 
-You can add your own crontab entries as you like. *Back In Time* will not touch them.
-It will identify its own entries by the comment line ``#Back In Time system
-entry, this will be edited by the gui:`` and the following command. You should
-not remove/change that line. If there are no automatic schedules defined
-*Back In Time* will add an extra comment line ``#Please don't delete these two
-lines, or all custom backintime entries are going to be deleted next time you
-call the gui options!`` which will prevent *Back In Time* to remove user defined
-schedules.
+Você pode adicionar suas próprias entradas ao crontab como quiser. O
+*Back In Time* não as modificará.
 
-## Can I use a systemd timer instead of cron?
+Ele identificará suas próprias entradas pela linha de comentário
+`#Back In Time system entry, this will be edited by the gui:` e pelo comando
+seguinte. Você não deve remover/alterar essa linha.
 
-While there is no support within *Back In Time* to directly create a systemd
-timer, users can create a user timer and service units. Templates are provided
-below. Optionally adjust the value for `OnCalendar=` with a valid setting. See
+Se não houver agendamentos automáticos definidos, o *Back In Time* adicionará
+uma linha de comentário extra:
+`#Please don't delete these two lines, or all custom backintime entries are going to be deleted next time you call the gui options!`
+que impedirá o *Back In Time* de remover agendamentos definidos pelo usuário.
+
+## Posso usar um systemd timer em vez de cron?
+
+Embora não exista suporte dentro do *Back In Time* para criar diretamente
+um systemd timer, os usuários podem criar um timer e unidades de serviço
+do usuário. Modelos são fornecidos abaixo. Opcionalmente, ajuste o valor
+de `OnCalendar=` usando uma configuração válida. Consulte
 [`man systemd.timer`](https://manpages.debian.org/testing/systemd/systemd.timer.5)
-for more.
+para obter mais informações.
 
 **Timer**:
+
 ```ini
 # ~/.config/systemd/user/backintime-backup-job.timer
 [Unit]
@@ -707,6 +625,7 @@ WantedBy=timers.target
 ```
 
 **Service**:
+
 ```ini
 # ~/.config/systemd/user/backintime-backup-job.service
 [Unit]
@@ -717,9 +636,12 @@ Type=oneshot
 ExecStart=/usr/bin/nice -n19 /usr/bin/ionice -c2 -n7 /usr/bin/backintime backup --background
 ```
 
-# Problems, Errors & Solutions
-## Critical errors about "`snapshots.ssh_check_commands` or `snapshots.ssh.check_ping` not set to default..."
-_Back In Time_ might displays critical errors like this in the terminal, syslog or GUI:
+# Problemas, erros e soluções
+
+## Erros críticos sobre "`snapshots.ssh_check_commands` ou `snapshots.ssh.check_ping` não definidos como padrão..."
+
+O *Back In Time* pode exibir erros críticos como estes no terminal, no syslog
+ou na GUI:
 
 ```
 CRITICAL DEPRECATED setting "profile1.snapshots.ssh.check_commands" not set
@@ -729,49 +651,52 @@ the project and describe your use case and why you need this setting be disabled
 CRITICAL DEPRECATED setting "profile1.snapshots.ssh.check_ping" not set ...
 ```
 
-For SSH profiles the _Expert Options_ tab in the _Manage profiles_ dialog
-provides these two options, which are enabled by default:
+Para perfis SSH, a aba *Expert Options* da caixa de diálogo *Manage profiles*
+fornece estas duas opções, que são habilitadas por padrão:
 
- - Check if remote host is online
- - Check if remote host supports all necessary commands
- 
-There seems to be no good reason to disable these options. Regarding issue
-[#2482](https://github.com/bit-team/backintime/issues/2482) these options are
-deprecated and will be removed.
+* Check if remote host is online
+* Check if remote host supports all necessary commands
 
-User have the [option to
-contact](https://github.com/bit-team/backintime#contact--social) the project
-and give objections against this decision. Please do so if you have good
-reason to disable these options.
+Parece não haver um bom motivo para desabilitar essas opções. De acordo com a
+issue [#2482](https://github.com/bit-team/backintime/issues/2482), essas opções
+estão obsoletas e serão removidas.
 
-To disable the critical errors the config file need to be edited manually. The
-files location is usually at `~/.config/backintime/config`. After creating a
-backup of that file, open it in a text editor of your choice. Find lines like
-this:
+O usuário tem a [opção de
+entrar em contato](https://github.com/bit-team/backintime#contact--social) com
+o projeto e apresentar objeções contra essa decisão. Faça isso se tiver um
+bom motivo para desabilitar essas opções.
+
+Para desabilitar os erros críticos, o arquivo de configuração precisa ser
+editado manualmente. O arquivo normalmente está localizado em
+`~/.config/backintime/config`. Depois de criar um backup desse arquivo,
+abra-o em um editor de texto de sua escolha. Procure linhas como estas:
 
 ```ini
 profile1.snapshots.ssh.check_commands=false
 profile1.snapshots.ssh.check_ping=false
 ```
 
-Set the value from `false` to `true` (lower case!).
+Altere o valor de `false` para `true` (em letras minúsculas!).
 
 ## OverflowError: Value 1702441408 out of range for UInt32
-The _Back In Time_ GUI crashes and this exception appears in its terminal
-output. Known to happen on restoring (#2084) and removing (#2192) of backups.
-Assuming it might happen also on creating backups.
 
-The current hypothesis the problem was introduced or happens more often since
-the migration from PyQt version 5 to version 6 (BIT version `1.5.0`).
+A GUI do *Back In Time* trava e essa exceção aparece na saída do terminal.
+Sabe-se que isso acontece durante a restauração (#2084) e remoção (#2192)
+de backups. Presume-se que também possa acontecer durante a criação de backups.
 
-The fix (PR #2099) was released with version `1.6.0`.
-For users prior to this version, there is a tiny workaround described in that
-[issue comment](https://github.com/bit-team/backintime/issues/2084#issuecomment-2787602155).
+A hipótese atual é que o problema foi introduzido ou passou a ocorrer com
+mais frequência desde a migração da versão 5 para a versão 6 do PyQt
+(versão `1.5.0` do BIT).
+
+A correção (PR #2099) foi lançada com a versão `1.6.0`.
+Para usuários de versões anteriores, há uma pequena solução alternativa
+descrita naquele [comentário da issue](https://github.com/bit-team/backintime/issues/2084#issuecomment-2787602155).
 
 ## `SettingsDialog` object has no attribute `cbCopyUnsafeLinks`
-Wenn adding a file or directory, that is in fact a symlink, to the _Include_
-Tab in the _Manage profiles_ dialog, the BIT GUI crash and give the following
-error in the terminal.
+
+Ao adicionar um arquivo ou diretório que, na verdade, é um symlink à aba
+*Include* da caixa de diálogo *Manage profiles*, a GUI do BIT trava e apresenta
+o seguinte erro no terminal.
 
 ```pytb
 Traceback (most recent call last):
@@ -781,88 +706,759 @@ Traceback (most recent call last):
 AttributeError: 'SettingsDialog' object has no attribute 'cbCopyUnsafeLinks'
 ```
 
-Introduced in version `1.5.3`. Fixed in `1.6.0`.  See issue
+Introduzido na versão `1.5.3`. Corrigido na versão `1.6.0`. Consulte a issue
 [#2279](https://github.com/bit-team/backintime/issues/2279).
 
-Workaround: Don't use a symlink but the linked target.
+Solução alternativa: não use um symlink, mas sim o destino para o qual ele aponta.
 
 ## WARNING: A backup is already running
-_Back In Time_ uses signal files like `worker<PID>.lock` to avoid starting the same backup twice.
-Normally it is deleted as soon as the backup finishes. In some case something went wrong
-so that _Back In Time_ was forcefully stopped without having the chance to delete
-this signal file.
 
-Since _Back In Time_ does only start a new backup job (for the same profile) if the signal
-file does not exist, such a file need to be deleted first. But before this is done manually,
-it must be ensured that _Back In Time_ really is not running anymore. It can be ensured via
+O *Back In Time* usa arquivos de sinal como `worker<PID>.lock` para evitar
+iniciar o mesmo backup duas vezes.
+
+Normalmente, esse arquivo é excluído assim que o backup termina. Em alguns
+casos, algo dá errado e o *Back In Time* é encerrado à força sem ter a
+oportunidade de excluir esse arquivo de sinal.
+
+Como o *Back In Time* só inicia um novo backup (para o mesmo perfil) se o
+arquivo de sinal não existir, esse arquivo precisa ser excluído primeiro.
+Mas, antes de fazer isso manualmente, é necessário garantir que o
+*Back In Time* realmente não esteja mais em execução.
+
+Isso pode ser verificado com:
+
+```bash
+ps aux | grep -i backintime
+```
+Se o comando mostrar algum processo do `backintime` que esteja realmente executando
+um backup, **não exclua o arquivo de lock**. Aguarde o processo terminar.
+
+Se não houver nenhum processo de backup em execução, procure o arquivo de lock
+no diretório de dados do Back In Time e remova-o. Depois disso, o backup poderá
+ser iniciado novamente.
+
+## *Back in Time* não inicia e mostra: The application is already running! (pid: 1234567)
+
+O *Back in Time* utiliza um arquivo de lock para impedir que várias instâncias
+da aplicação sejam executadas simultaneamente.
+
+Se a aplicação tiver sido encerrada de maneira inesperada, o arquivo de lock
+pode permanecer no sistema mesmo depois que o processo terminou. Nesse caso,
+o *Back in Time* acredita que ainda existe uma instância em execução.
+
+Primeiro, verifique se realmente existe um processo do *Back in Time* em execução:
 
 ```bash
 ps aux | grep -i backintime
 ```
 
-If the output shows a running instance of _Back In Time_ it must be waited until it finishes
-or killed via `kill <process id>`.
+Se não houver nenhum processo relevante em execução, remova o arquivo de lock
+correspondente e tente iniciar o *Back in Time* novamente.
 
-For more details see the developer documentation: [Usage of control files (locks, flocks, logs and others)](doc/maintain/4_Control_files_usage_(locks_flocks_logs_and_others).md)
+**Importante:** não remova arquivos de lock enquanto houver uma instância
+realmente em execução, pois isso pode permitir que duas instâncias da aplicação
+trabalhem simultaneamente sobre os mesmos dados.
 
-## _Back in Time_ does not start and shows: The application is already running! (pid: 1234567)
-This message occurs when _Back In Time_ is either already running or did not finish regularly (e.g. due to a crash)
-and wasn't able to delete its application lock file.
+## A mudança para o modo escuro ou claro no ambiente desktop é ignorada pelo BIT
 
-Before deleting that file manually make sure no backintime process is running
-via `ps aux | grep -i backintime`.
-Otherwise, kill the process. After that look into the folder
-`~/.local/share/backintime` for the file `app.lock.pid` and delete it.
+O *Back In Time* utiliza o toolkit Qt para sua GUI. Dependendo do ambiente
+desktop, do tema utilizado e da versão do Qt instalada, a alteração do tema
+do sistema pode não ser detectada automaticamente.
 
-For more details see the developer documentation: [Usage of control files (locks, flocks, logs and others)](doc/maintain/4_Control_files_usage_(locks_flocks_logs_and_others).md)
+Se a GUI do *Back In Time* não acompanhar a mudança entre o modo claro e o
+modo escuro, tente reiniciar o *Back In Time*.
 
-## Switching to dark or light mode in the desktop environment is ignored by BIT
-After restart _Back In Time_ it should adapt to the desktops current used
-color theme.
+Se isso não resolver, verifique qual tema Qt está sendo utilizado pelo sistema
+e se há alguma configuração ou variável de ambiente que esteja forçando um
+tema específico.
 
-It happens because Qt does not detect theme modifications out of the
-box. [Workarounds are known](https://stackoverflow.com/q/75457687), but
-generate a relatively large amount of code and in our opinion are not worth
-the effort.
+Em alguns ambientes, variáveis como `QT_STYLE_OVERRIDE` podem influenciar
+a aparência das aplicações Qt.
 
-## Version >= 1.2.0 works very slow / Unchanged files are backed up
+## A versão >= 1.2.0 funciona muito lentamente / arquivos inalterados são copiados
 
-After updating to >= 1.2.0, BiT does a (nearly) full backup because file
-permissions are handled differently. Before 1.2.0 all destination file
-permissions were set to `-rw-r--r--`. In 1.2.0 rsync is executed with `--perms`
-option which tells rsync to preserve the source file permission.
-That's why so many files seem to be changed.
+A partir da versão 1.2.0, o *Back In Time* passou a utilizar uma abordagem
+diferente para verificar se os arquivos foram alterados.
 
-If you don't like the new behavior, you can use "Expert Options"
--> "Paste additional options to rsync" to add the value
-`--no-perms --no-group --no-owner` in that field.
+Isso pode resultar em um comportamento mais lento em determinadas situações,
+especialmente quando há uma grande quantidade de arquivos.
 
-## What happens if I hibernate the computer while a backup is running?
+Primeiro, verifique se os arquivos estão realmente sendo copiados ou se o
+`rsync` está apenas verificando os arquivos.
 
-*Back In Time* will inhibit automatic suspend/hibernate while a backup/restore
-is running. If you manually force hibernate this will freeze the current
-process.  It will continue as soon as you wake up the system again.
+Observe o log do backup. As linhas produzidas pelo `rsync` podem ajudar a
+identificar o que está acontecendo.
 
-## What happens if I power down the computer while a backup is running, or if a power outage happens?
+Uma das causas possíveis é a utilização de sistemas de arquivos ou destinos
+de backup que não preservam corretamente informações como timestamps, tamanhos
+de arquivo ou outros atributos necessários para que o `rsync` determine se
+um arquivo foi alterado.
 
-This will kill the current process. The new backup will stay in
-``new_snapshot`` folder. Depending on which state the process was while killing
-the next scheduled backup can continue the leftover ``new_snapshot`` or it will
-remove it first and start a new one.
+Também é possível utilizar a opção de checksum para fazer uma comparação
+baseada no conteúdo dos arquivos, mas isso normalmente é significativamente
+mais lento.
 
-## What happens if there is not enough disk space for the current backup?
+## O que acontece se eu colocar o computador em hibernação enquanto um backup está sendo executado?
 
-*Back In Time* will try to create a new backup but rsync will fail when there
-is not enough space. Depending on ``Continue on errors`` setting the failed
-backup will be kept and marked ``With Errors`` or it will be removed.  By
-default, *Back In Time* will finally remove the oldest backups until there is
-more than 1 GiB free space again.
+Não é recomendado colocar o computador em hibernação enquanto um backup está
+sendo executado.
 
-## NTFS Compatibility
-Although devices formatted with the NTFS file system can generally be used with
-*Back In Time*, there are some limitations to be aware of.
+O *Back In Time* tenta impedir que o sistema entre em suspensão ou hibernação
+durante determinadas operações de backup, dependendo da configuração e do
+ambiente utilizado.
 
-NTFS File systems do not support the following characters in filenames or directories:
+Se o computador entrar em hibernação mesmo assim, o backup será interrompido
+temporariamente. Depois que o computador voltar a funcionar, o processo poderá
+continuar ou poderá ser necessário executá-lo novamente, dependendo de em que
+ponto o backup estava quando o sistema foi suspenso.
+
+Como o `rsync` trabalha arquivo por arquivo, arquivos que já foram transferidos
+normalmente não precisam ser transferidos novamente durante uma nova execução.
+
+## O que acontece se eu desligar o computador enquanto um backup está sendo executado ou se ocorrer uma queda de energia?
+
+Se o computador for desligado de maneira inesperada enquanto um backup está
+sendo executado, o backup poderá ficar incompleto.
+
+Isso normalmente não significa que os backups anteriores serão corrompidos.
+Cada backup é armazenado separadamente.
+
+Ao executar o próximo backup, o *Back In Time* poderá continuar o trabalho
+usando os dados existentes, dependendo do estado em que o backup interrompido
+foi deixado.
+
+Se o backup incompleto não puder ser utilizado, ele poderá ser removido
+manualmente e um novo backup poderá ser criado.
+
+Uma queda de energia também pode causar problemas no sistema de arquivos
+ou no dispositivo de armazenamento. Nesse caso, o problema não é específico
+do *Back In Time* e o sistema de arquivos deve ser verificado de acordo com
+as ferramentas apropriadas para ele.
+
+## O que acontece se não houver espaço suficiente em disco para o backup atual?
+
+Se o destino do backup ficar sem espaço, o `rsync` não conseguirá copiar
+todos os arquivos.
+
+O backup será marcado como contendo erros e o log deverá indicar que não foi
+possível concluir determinadas operações.
+
+O *Back In Time* não pode criar espaço adicional no dispositivo de destino.
+É necessário liberar espaço ou utilizar um dispositivo com capacidade maior.
+
+Antes de excluir backups antigos, lembre-se de que backups diferentes podem
+compartilhar os mesmos dados por meio de hard-links. Portanto, remover um
+backup não necessariamente liberará uma quantidade de espaço equivalente ao
+tamanho aparente daquele backup.
+
+## Compatibilidade com NTFS
+
+O NTFS pode ser utilizado como destino para determinados tipos de backup,
+mas existem limitações importantes.
+
+O *Back In Time* depende de recursos do sistema de arquivos Linux, incluindo
+hard-links e metadados de arquivos. Dependendo da forma como o NTFS está
+montado e do driver utilizado, alguns desses recursos podem não funcionar
+corretamente.
+
+Isso pode resultar em problemas durante a criação ou restauração de backups.
+
+Para obter a melhor compatibilidade, recomenda-se utilizar um sistema de
+arquivos nativo do Linux no destino do backup, como `ext4`.
+
+Se o dispositivo precisar permanecer compatível com Windows, considere utilizar
+um destino Linux acessível por SSH em vez de montar diretamente uma partição
+NTFS.
+
+## A GUI não é dimensionada corretamente em monitores de alta resolução ou 4K
+
+Em monitores de alta resolução, a GUI pode aparecer muito pequena ou apresentar
+problemas de dimensionamento.
+
+O comportamento depende do ambiente desktop, da versão do Qt e da configuração
+de escala utilizada pelo sistema.
+
+O Qt possui variáveis de ambiente que podem ser utilizadas para ajustar o
+dimensionamento de aplicações.
+
+Por exemplo:
+
+```bash
+export QT_SCALE_FACTOR=2
+```
+
+O valor adequado depende da resolução e da configuração do monitor.
+
+Se o problema ocorrer somente no *Back In Time*, verifique também se alguma
+variável de ambiente ou configuração específica está sendo aplicada à aplicação.
+
+## Ícone da bandeja ou outros ícones não são exibidos corretamente
+
+A aparência dos ícones da bandeja do sistema depende do ambiente desktop e
+do suporte a tray icons fornecido por ele.
+
+Em alguns ambientes, especialmente aqueles que utilizam implementações
+diferentes da área de notificação, o ícone do *Back In Time* pode não aparecer
+ou pode aparecer incorretamente.
+
+Isso não necessariamente indica um problema no *Back In Time*.
+
+Verifique se o ambiente desktop oferece suporte à área de notificação utilizada
+pela versão do Qt instalada.
+
+Também pode ser necessário instalar um componente adicional do ambiente desktop
+responsável pela área de notificação ou pelo suporte a StatusNotifierItem.
+
+## Cofre de senhas não funciona e o BiT esquece as senhas (problemas com o backend do keyring)
+
+O *Back In Time* utiliza um `keyring` para armazenar determinadas credenciais
+de maneira segura.
+
+O backend utilizado depende do sistema operacional e do ambiente desktop.
+
+Se o *Back In Time* esquecer uma senha após ser reiniciado, pode haver um
+problema com o backend do `keyring`.
+
+Primeiro, verifique se existe um serviço de gerenciamento de credenciais
+funcionando no seu ambiente desktop.
+
+Dependendo do sistema, isso pode ser, por exemplo:
+
+* GNOME Keyring
+* KWallet
+* outro backend compatível com o Python `keyring`
+
+Também pode ser útil verificar qual backend o Python está selecionando:
+
+```bash
+python3 -c "import keyring; print(keyring.get_keyring())"
+```
+
+Se o resultado indicar um backend que não está funcionando corretamente,
+a configuração do `keyring` poderá precisar ser corrigida.
+
+Não é recomendado armazenar senhas diretamente em arquivos de configuração
+sem criptografia apenas para contornar um problema no `keyring`.
+
+# Desatualizado
+
+As seções abaixo descrevem problemas que podem afetar versões antigas do
+*Back In Time* ou versões antigas de suas dependências.
+
+## Segmentation fault ao sair
+
+Versões antigas do *Back In Time* podiam apresentar um `segmentation fault`
+ao sair da aplicação.
+
+Esse problema foi corrigido em versões posteriores.
+
+Se você encontrar esse problema, primeiro atualize o *Back In Time* para uma
+versão atual.
+
+Caso continue ocorrendo, consulte as issues existentes no projeto e forneça
+informações sobre a versão do *Back In Time*, a distribuição GNU/Linux, a
+versão do Python e do Qt e o traceback ou mensagem de erro disponível.
+
+## Incompatibilidade com rsync >= 3.2.4
+
+Algumas versões antigas do *Back In Time* apresentavam problemas de
+compatibilidade com versões mais recentes do `rsync`.
+
+Se você estiver utilizando uma versão antiga do *Back In Time* junto com
+`rsync` 3.2.4 ou superior, poderá encontrar erros durante a criação ou
+restauração de backups.
+
+A solução recomendada é atualizar o *Back In Time* para uma versão que
+ofereça suporte à versão do `rsync` instalada no sistema.
+
+# Configuração específica de hardware
+
+## Como usar o BIT com um NAS Ugreen?
+
+O *Back In Time* pode fazer backup para um NAS Ugreen utilizando uma conexão
+SSH.
+
+Primeiro, certifique-se de que o servidor SSH esteja habilitado no NAS.
+
+Depois, crie um perfil SSH no *Back In Time*:
+
+1. Abra **Manage profiles**.
+2. Crie um novo perfil.
+3. Selecione **SSH** como o tipo de conexão.
+4. Informe o endereço IP ou hostname do NAS.
+5. Informe o usuário utilizado para acessar o NAS.
+6. Configure a autenticação SSH.
+7. Escolha o diretório de destino do backup.
+
+Teste a conexão SSH antes de executar o primeiro backup.
+
+Você também pode verificar a conexão manualmente:
+
+```bash
+ssh USER@NAS
+```
+
+Depois de confirmar que o SSH funciona, teste o `rsync` para garantir que o
+usuário utilizado tenha as permissões necessárias no diretório de destino.
+
+## Como usar um NAS QNAP QTS com o BIT via SSH
+
+Para utilizar um QNAP como destino SSH, primeiro habilite o serviço SSH no
+QNAP QTS.
+
+No QNAP, abra as configurações de rede/serviços e habilite o acesso SSH.
+
+Em seguida, configure um perfil SSH no *Back In Time*.
+
+Use o endereço do NAS, o usuário e a porta SSH configurada no QNAP.
+
+Teste primeiro:
+
+```bash
+ssh USER@NAS
+```
+
+Depois teste se o `rsync` está disponível no servidor:
+
+```bash
+ssh USER@NAS rsync --version
+```
+
+Se o comando não estiver disponível, o *Back In Time* não poderá utilizar
+esse host como destino SSH até que um `rsync` compatível esteja disponível.
+
+## Como usar o Synology DSM 5 com o BIT via SSH
+
+Para utilizar um Synology NAS como destino, habilite o serviço SSH no DSM.
+
+No DSM 5, isso pode ser encontrado nas configurações de **Control Panel**
+relacionadas ao terminal/SSH.
+
+Depois de habilitar o SSH, configure um perfil SSH no *Back In Time*.
+
+Teste a conexão manualmente:
+
+```bash
+ssh USER@SYNOLOGY
+```
+
+Depois verifique se o `rsync` pode ser executado no Synology:
+
+```bash
+ssh USER@SYNOLOGY rsync --version
+```
+
+O usuário utilizado pelo *Back In Time* precisa ter permissão de leitura nas
+pastas de origem remotas e de escrita no destino do backup.
+
+## Como usar o Synology DSM 6 com o BIT via SSH
+
+No DSM 6, habilite o SSH em:
+
+**Control Panel → Terminal & SNMP → Enable SSH service**
+
+Depois configure o perfil SSH no *Back In Time*.
+
+Teste:
+
+```bash
+ssh USER@SYNOLOGY
+```
+
+E verifique o `rsync`:
+
+```bash
+ssh USER@SYNOLOGY rsync --version
+```
+
+### Usando uma porta não padrão
+
+Se o SSH do Synology estiver configurado para utilizar uma porta diferente
+da porta padrão `22`, informe essa porta nas configurações do perfil SSH
+do *Back In Time*.
+
+Por exemplo, se o servidor estiver utilizando a porta `2222`, o teste manual
+seria:
+
+```bash
+ssh -p 2222 USER@SYNOLOGY
+```
+
+No *Back In Time*, configure a mesma porta no campo correspondente.
+
+## Como usar o Synology DSM 7 com o BIT via SSH
+
+No DSM 7, habilite o SSH no Synology e configure o perfil correspondente no
+*Back In Time*.
+
+Teste a conexão:
+
+```bash
+ssh USER@SYNOLOGY
+```
+
+Depois confirme que o `rsync` está disponível:
+
+```bash
+ssh USER@SYNOLOGY rsync --version
+```
+
+### Usando uma porta SSH não padrão com um NAS Synology
+
+Se você estiver utilizando uma porta SSH diferente da `22`, configure essa
+porta no perfil SSH do *Back In Time*.
+
+O teste manual pode ser feito com:
+
+```bash
+ssh -p PORT USER@SYNOLOGY
+```
+
+Substitua `PORT` pela porta configurada no Synology.
+
+### "sshfs: No such file or directory" ao usar o BIT, mas o SSH manual com rsync funciona
+
+Se o SSH funcionar manualmente e o `rsync` também puder ser executado,
+mas o *Back In Time* apresentar:
+
+```text
+sshfs: No such file or directory
+```
+
+pode haver um problema relacionado ao `sshfs` ou à forma como o Synology
+está configurado.
+
+O *Back In Time* pode utilizar `sshfs` para determinadas operações.
+
+Verifique se o `sshfs` está instalado no computador cliente:
+
+```bash
+which sshfs
+```
+
+Se o comando não retornar um caminho, instale o pacote `sshfs` utilizando
+o gerenciador de pacotes da sua distribuição.
+
+# Synology: usar um volume diferente para o backup
+
+Se o Synology possuir vários volumes, o caminho utilizado no perfil SSH precisa
+apontar para o volume correto.
+
+Por exemplo:
+
+```text
+/volume1/backintime
+```
+
+ou:
+
+```text
+/volume2/backintime
+```
+
+Verifique o caminho real do volume no Synology antes de configurar o perfil.
+
+O usuário utilizado pelo *Back In Time* também precisa ter as permissões
+necessárias nesse volume.
+
+## Como usar o Western Digital MyBook World Edition com o BIT via ssh?
+
+O Western Digital MyBook World Edition utiliza uma versão antiga de seu
+software e possui limitações importantes.
+
+Para utilizar o dispositivo como destino do *Back In Time*, o SSH precisa
+estar habilitado e o sistema remoto precisa disponibilizar um `rsync`
+compatível.
+
+Teste primeiro:
+
+```bash
+ssh USER@MYBOOK
+```
+
+Depois:
+
+```bash
+ssh USER@MYBOOK rsync --version
+```
+
+Se o `rsync` não estiver disponível ou for incompatível, será necessário
+instalá-lo ou utilizar outro método de acesso compatível.
+
+Como esse dispositivo é antigo e seu software não é mais mantido como os
+sistemas NAS atuais, podem existir limitações que não podem ser resolvidas
+pelo *Back In Time*.
+
+# Projeto, contribuição e mais
+
+## Por que preciso me apresentar?
+
+O *Back In Time* é um projeto open source mantido por colaboradores.
+
+Ao contribuir com o projeto, é útil que os demais colaboradores saibam quem
+está participando e quais são seus interesses.
+
+Uma apresentação também ajuda a comunidade a entender o contexto de uma
+contribuição, especialmente quando a pessoa ainda não participou anteriormente
+do projeto.
+
+## Posso contribuir sem usar o software?
+
+Sim.
+
+Você não precisa ser um usuário avançado do *Back In Time* para contribuir.
+
+Existem muitas maneiras de ajudar, incluindo:
+
+* melhorar a documentação;
+* traduzir textos;
+* testar novas versões;
+* relatar problemas;
+* revisar Pull Requests;
+* melhorar testes;
+* ajudar outros usuários;
+* contribuir com código.
+
+Contribuições que não envolvem programação também são muito úteis.
+
+## Vocês podem atribuir isso a mim?
+
+Sim, quando fizer sentido.
+
+Se você encontrou uma issue que deseja resolver, informe isso na própria issue
+para que os demais colaboradores saibam que você está trabalhando nela.
+
+Isso ajuda a evitar que várias pessoas trabalhem simultaneamente na mesma tarefa.
+
+Entretanto, uma issue atribuída não significa necessariamente que ninguém mais
+possa contribuir. Se você não puder continuar trabalhando nela, informe a equipe
+para que outra pessoa possa assumir.
+
+## Posso usar menções com @ livremente em issues ou PRs?
+
+Use menções com `@` somente quando houver um motivo para chamar a atenção
+de uma pessoa específica.
+
+Menções desnecessárias podem gerar notificações para pessoas que não precisam
+participar da discussão.
+
+Se uma pessoa já estiver acompanhando uma issue ou Pull Request, normalmente
+não há necessidade de mencioná-la repetidamente.
+
+## Posso aumentar minha contagem de commits?
+
+Não faça commits artificiais apenas para aumentar sua contagem.
+
+O número de commits não é uma métrica importante para avaliar a qualidade
+da contribuição.
+
+É preferível fazer commits que representem mudanças reais, claras e úteis.
+
+## Posso enviar contribuições geradas por IA?
+
+Contribuições produzidas com auxílio de ferramentas de IA devem seguir as
+mesmas regras das demais contribuições.
+
+O autor continua sendo responsável pelo conteúdo enviado.
+
+Antes de criar um Pull Request, revise cuidadosamente o resultado gerado
+pela IA, verifique sua correção e certifique-se de que você entende a alteração.
+
+Não envie automaticamente grandes quantidades de código ou documentação
+geradas por IA sem verificar seu conteúdo.
+
+Também devem ser respeitadas as licenças e os direitos autorais aplicáveis.
+
+## Opções alternativas de instalação
+
+O *Back In Time* é disponibilizado em diferentes formatos dependendo da
+distribuição GNU/Linux.
+
+Além dos pacotes fornecidos oficialmente pela distribuição, podem existir
+repositórios ou métodos de instalação mantidos por terceiros.
+
+Tenha cuidado ao instalar pacotes de fontes não oficiais.
+
+Pacotes de terceiros podem estar desatualizados, conter alterações próprias
+ou utilizar versões diferentes das dependências.
+
+## Suporte a formatos específicos de pacotes (deb, rpm, Flatpack, AppImage, Snaps, PPA, …)
+
+O projeto *Back In Time* fornece suporte aos formatos de pacotes que são
+necessários e mantidos pelo projeto.
+
+Não é possível garantir que todos os formatos de empacotamento existentes
+sejam suportados oficialmente.
+
+Para saber quais métodos de instalação estão disponíveis atualmente, consulte
+a documentação de instalação do projeto e os arquivos de configuração de
+empacotamento correspondentes.
+
+## O BIT realmente não é suportado pelo Canonical Ubuntu?
+
+O *Back In Time* é um projeto independente e não é desenvolvido pela
+Canonical.
+
+A disponibilidade de um pacote nos repositórios do Ubuntu não significa que
+o projeto *Back In Time* seja mantido pela Canonical.
+
+Problemas relacionados ao pacote distribuído pelo Ubuntu podem precisar ser
+tratados com os responsáveis pelo empacotamento da distribuição.
+
+## Mover o projeto para um host de código alternativo (por exemplo, Codeberg, GitLab, …)
+
+O código-fonte do *Back In Time* é hospedado atualmente em uma plataforma
+de desenvolvimento que fornece Git, issues, Pull Requests e outros recursos
+necessários ao projeto.
+
+A possibilidade de mover o projeto para outro host de código depende de
+diversos fatores, incluindo recursos disponíveis, histórico, comunidade,
+integrações e manutenção.
+
+Uma mudança desse tipo não é uma decisão simples e precisa ser discutida
+pela equipe do projeto.
+
+## Como revisar um Pull Request
+
+Ao revisar um Pull Request, primeiro leia a descrição e entenda qual problema
+a alteração pretende resolver.
+
+Depois:
+
+1. Leia as alterações apresentadas no diff.
+2. Verifique se o comportamento implementado corresponde à descrição.
+3. Procure possíveis efeitos colaterais.
+4. Verifique se testes existentes continuam funcionando.
+5. Quando apropriado, execute os testes localmente.
+6. Verifique alterações na documentação.
+7. Confira se os novos arquivos seguem as convenções do projeto.
+8. Informe claramente qualquer problema encontrado.
+
+Uma revisão não precisa encontrar problemas obrigatoriamente. Se a alteração
+estiver correta, você também pode informar isso.
+
+# Testes e compilação
+
+## Testes relacionados a SSH são ignorados
+
+Alguns testes relacionados a SSH são ignorados por padrão porque precisam
+de um servidor SSH disponível.
+
+Para executar esses testes, é necessário configurar um servidor SSH adequado
+para os testes.
+
+Consulte a seção seguinte para obter instruções sobre como configurar esse
+ambiente.
+
+## Configurar um servidor SSH para executar testes unitários
+
+Para executar os testes que dependem de SSH, configure um servidor SSH local
+ou outro servidor de teste acessível pelo computador onde os testes estão
+sendo executados.
+
+O servidor precisa permitir a autenticação utilizada pelos testes e fornecer
+um ambiente no qual o `rsync` possa ser executado.
+
+Certifique-se de que o servidor de teste não contenha dados importantes.
+Os testes podem criar, alterar e remover arquivos no diretório utilizado.
+
+Depois de configurar o servidor, atualize a configuração dos testes para
+apontar para ele e execute a suíte de testes correspondente.
+
+Antes de executar os testes, confirme manualmente que a conexão SSH funciona:
+
+```bash
+ssh USER@HOST
+```
+
+E confirme que o `rsync` está disponível:
+
+```bash
+ssh USER@HOST rsync --version
+```
+Se a saída mostrar uma instância do *Back In Time* em execução, é necessário
+aguardar até que ela termine ou encerrá-la usando `kill <process id>`.
+
+Para obter mais detalhes, consulte a documentação para desenvolvedores:
+[Usage of control files (locks, flocks, logs and others)](doc/maintain/4_Control_files_usage_%28locks_flocks_logs_and_others%29.md)
+
+## *Back in Time* não inicia e mostra: The application is already running! (pid: 1234567)
+
+Essa mensagem ocorre quando o *Back In Time* já está em execução ou não foi
+encerrado normalmente (por exemplo, devido a uma falha) e não conseguiu
+excluir seu arquivo de lock da aplicação.
+
+Antes de excluir esse arquivo manualmente, certifique-se de que nenhum processo
+do `backintime` esteja em execução usando:
+
+```bash
+ps aux | grep -i backintime
+```
+
+Caso contrário, encerre o processo. Depois disso, procure na pasta
+`~/.local/share/backintime` o arquivo `app.lock.pid` e exclua-o.
+
+Para obter mais detalhes, consulte a documentação para desenvolvedores:
+[Usage of control files (locks, flocks, logs and others)](doc/maintain/4_Control_files_usage_%28locks_flocks_logs_and_others%29.md)
+
+## A mudança para o modo escuro ou claro no ambiente desktop é ignorada pelo BIT
+
+Depois de reiniciar o *Back In Time*, ele deverá se adaptar ao tema de cores
+atualmente utilizado pelo desktop.
+
+Isso acontece porque o Qt não detecta alterações de tema automaticamente.
+[Existem soluções alternativas conhecidas](https://stackoverflow.com/q/75457687),
+mas elas geram uma quantidade relativamente grande de código e, em nossa
+opinião, não valem o esforço.
+
+## A versão >= 1.2.0 funciona muito lentamente / Arquivos inalterados são incluídos no backup
+
+Depois de atualizar para a versão >= 1.2.0, o BiT faz um backup
+(quase) completo porque as permissões dos arquivos são tratadas de maneira
+diferente. Antes da versão 1.2.0, todas as permissões dos arquivos de destino
+eram definidas como `-rw-r--r--`. Na versão 1.2.0, o `rsync` é executado com
+a opção `--perms`, que instrui o `rsync` a preservar as permissões do arquivo
+de origem.
+
+É por isso que tantos arquivos parecem ter sido alterados.
+
+Se você não gostar desse novo comportamento, pode usar **"Expert Options"**
+→ **"Paste additional options to rsync"** para adicionar o valor
+`--no-perms --no-group --no-owner` nesse campo.
+
+## O que acontece se eu colocar o computador em hibernação enquanto um backup está sendo executado?
+
+O *Back In Time* impedirá a suspensão/hibernação automática enquanto um
+backup/restauração estiver em execução. Se você forçar manualmente a
+hibernação, isso congelará o processo atual. Ele continuará assim que você
+reativar o sistema.
+
+## O que acontece se eu desligar o computador enquanto um backup está sendo executado ou se ocorrer uma queda de energia?
+
+Isso encerrará o processo atual. O novo backup permanecerá na pasta
+`new_snapshot`. Dependendo do estado em que o processo estava no momento
+do encerramento, o próximo backup agendado poderá continuar o
+`new_snapshot` restante ou removê-lo primeiro e iniciar um novo.
+
+## O que acontece se não houver espaço suficiente em disco para o backup atual?
+
+O *Back In Time* tentará criar um novo backup, mas o `rsync` falhará quando
+não houver espaço suficiente.
+
+Dependendo da configuração **`Continue on errors`**, o backup que falhou
+será mantido e marcado como **`With Errors`**, ou será removido.
+
+Por padrão, o *Back In Time* finalmente removerá os backups mais antigos até
+que haja novamente mais de 1 GiB de espaço livre.
+
+## Compatibilidade com NTFS
+
+Embora dispositivos formatados com o sistema de arquivos NTFS possam, em geral,
+ser utilizados com o *Back In Time*, existem algumas limitações que devem ser
+levadas em consideração.
+
+Sistemas de arquivos NTFS não oferecem suporte aos seguintes caracteres em
+nomes de arquivos ou diretórios:
 
 ```text
 < (less than)
@@ -876,62 +1472,71 @@ NTFS File systems do not support the following characters in filenames or direct
 * (asterisk)
 ```
 
-If *Back In Time* tries to copy files where the filename contains those
-character, an "Invalid argument (22)" error message will be displayed.
+Se o *Back In Time* tentar copiar arquivos cujo nome contenha esses caracteres,
+uma mensagem de erro "Invalid argument (22)" será exibida.
 
-It is recommended that only devices formatted with Unix style file systems
-(such as ext4) be used.
+É recomendado utilizar somente dispositivos formatados com sistemas de
+arquivos no estilo Unix (como ext4).
 
-For more information, refer to [this Microsoft page](https://learn.microsoft.com/en-us/windows/win32/fileio/naming-a-file#naming-conventions).
+Para obter mais informações, consulte [esta página da Microsoft](https://learn.microsoft.com/en-us/windows/win32/fileio/naming-a-file#naming-conventions).
 
-## GUI does not scale on high resolution or 4k monitors
-The technical details are complex and many components of the operating system
-are involved. BIT itself is not involved and also not responsible for
-it. Several approaches might help:
-- Check your desktop environment or window manager for settings regarding
-  scaling.
-- Because BIT is using Qt for its GUI, modifying the environment variable
-  `QT_SCALE_FACTOR` or `QT_AUTO_SCREEN_SCALE_FACTOR`.
-  See [this article](https://doc.qt.io/qt-6/highdpi.html) and
-  [Issue #1946](https://github.com/bit-team/backintime/issues/1946) about more
-  details.
-## Tray icon or other icons not shown correctly
+## A GUI não é dimensionada corretamente em monitores de alta resolução ou 4K
 
-**Status: Fixed in v1.4.0**
+Os detalhes técnicos são complexos e muitos componentes do sistema operacional
+estão envolvidos. O próprio BIT não está envolvido nisso e também não é
+responsável pelo problema.
 
-Missing installations of Qt-supported themes and icons can cause this effect.
-_Back In Time_ may activate the wrong theme in this
-case leading to some missing icons. A fix for the next release is in preparation.
+Várias abordagens podem ajudar:
 
-As clean solution, please check your Linux settings (Appearance, Styles, Icons)
-and install all themes and icons packages for your preferred style via
-your package manager.
+* Verifique as configurações do seu ambiente desktop ou window manager
+  relacionadas ao dimensionamento.
+* Como o BIT utiliza Qt para sua GUI, modificar as variáveis de ambiente
+  `QT_SCALE_FACTOR` ou `QT_AUTO_SCREEN_SCALE_FACTOR` pode ajudar.
 
-See issues [#1306](https://github.com/bit-team/backintime/issues/1306)
-and [#1364](https://github.com/bit-team/backintime/issues/1364).
+Consulte [este artigo](https://doc.qt.io/qt-6/highdpi.html) e a
+[Issue #1946](https://github.com/bit-team/backintime/issues/1946) para obter
+mais detalhes.
 
-## Non-working password safe and BiT forgets passwords (keyring backend issues)
+## O ícone da bandeja ou outros ícones não são exibidos corretamente
 
-**Status: Fixed in v1.3.3 (mostly) and v1.4.0**
+**Status: Corrigido na v1.4.0**
 
-_Back in Time_ does only support selected "known-good" backends
-to set and query passwords from a user-session password safe by
-using the [`keyring`](https://github.com/jaraco/keyring) library.
+A ausência de temas e ícones compatíveis com Qt instalados pode causar esse
+efeito. O *Back In Time* pode ativar o tema incorreto nesse caso, fazendo com
+que alguns ícones não sejam exibidos. Uma correção para a próxima versão
+estava sendo preparada.
 
-Enabling a supported keyring requires manual configuration of a configuration
-file until there is e.g. a settings GUI for this.
+Como solução adequada, verifique as configurações do Linux (**Appearance,
+Styles, Icons**) e instale todos os pacotes de temas e ícones correspondentes
+ao estilo que você prefere por meio do seu gerenciador de pacotes.
 
-Symptoms are DEBUG log output (with the command line argument `--debug`) of
-keyring problems can be recognized by output like:
+Consulte as issues [#1306](https://github.com/bit-team/backintime/issues/1306)
+e [#1364](https://github.com/bit-team/backintime/issues/1364).
 
-```
+## O cofre de senhas não funciona e o BiT esquece as senhas (problemas com o backend do keyring)
+
+**Status: Corrigido na v1.3.3 (em sua maior parte) e na v1.4.0**
+
+O *Back in Time* oferece suporte somente a determinados backends
+"conhecidos como bons" para definir e consultar senhas armazenadas no cofre
+de senhas da sessão do usuário, utilizando a biblioteca
+[`keyring`](https://github.com/jaraco/keyring).
+
+Habilitar um `keyring` compatível requer configuração manual de um arquivo
+de configuração até que, por exemplo, exista uma GUI de configurações para
+isso.
+
+Os problemas do `keyring` podem ser reconhecidos na saída DEBUG (com o
+argumento de linha de comando `--debug`) por mensagens como:
+
+```text
 DEBUG: [common/tools.py:829 keyringSupported] No appropriate keyring found. 'keyring.backends...' can't be used with BackInTime
 DEBUG: [common/tools.py:829 keyringSupported] No appropriate keyring found. 'keyring.backends.chainer' can't be used with BackInTime
 ```
 
-To diagnose and solve this follow these steps in a terminal:
+Para diagnosticar e solucionar o problema, siga estas etapas em um terminal:
 
-```
+```bash
 # Show default backend
 python3 -c "import keyring.util.platform_; print(keyring.get_keyring().__module__)"
 
@@ -946,277 +1551,311 @@ python3 -c "import keyring.util.platform_; print(keyring.util.platform_.config_r
 default-keyring=keyring.backends.kwallet.DBusKeyring
 ```
 
-See also issue [#1321](https://github.com/bit-team/backintime/issues/1321)
+Consulte também a issue [#1321](https://github.com/bit-team/backintime/issues/1321).
 
+## Desatualizado
 
-## Outdated
-### Segmentation fault on Exit
-This problem existed at least since version 1.2.1, and should hopefully be fixed
-with version 1.5.0. For all affected versions, it does not impact the
-functionality of _Back In Time_ or jeopardize backup integrity. It can be
-safely ignored. But please report the error when encountered in version 1.5.0
-or newer.
+### Segmentation fault ao sair
 
-See also:
-- [#1768](https://github.com/bit-team/backintime/pull/1768)
-- [#1095](https://github.com/bit-team/backintime/issues/1095)
+Esse problema existia pelo menos desde a versão 1.2.1 e, espera-se, tenha
+sido corrigido na versão 1.5.0.
 
-### Incompatibility with rsync 3.2.4 or newer
+Em todas as versões afetadas, ele não impacta a funcionalidade do
+*Back In Time* nem compromete a integridade dos backups. Pode ser ignorado
+com segurança.
 
-**Status: Fixed in v1.3.3**
+No entanto, relate o erro caso ele ocorra na versão 1.5.0 ou mais recente.
 
-The release (`1.3.2`) and earlier versions of _Back In Time_ are incompatible
-with `rsync >= 3.2.4`
+Consulte também:
+
+* [#1768](https://github.com/bit-team/backintime/pull/1768)
+* [#1095](https://github.com/bit-team/backintime/issues/1095)
+
+### Incompatibilidade com rsync 3.2.4 ou mais recente
+
+**Status: Corrigido na v1.3.3**
+
+A versão (`1.3.2`) e versões anteriores do *Back In Time* são incompatíveis
+com `rsync >= 3.2.4`
 ([#1247](https://github.com/bit-team/backintime/issues/1247)).
 
-If you use `rsync >= 3.2.4` and `backintime <= 1.3.2` there is a
-workaround. Add `--old-args` in
-[_Expert Options_ / _Additional options to rsync_](https://backintime.readthedocs.io/en/latest/settings.html#expert-options).
-Note that some GNU/Linux distributions (e.g. Manjaro) using a workaround with
-environment variable `RSYNC_OLD_ARGS` in their distro-specific packages for
-_Back In Time_. In that case you may not see any problems.
+Se você usa `rsync >= 3.2.4` e `backintime <= 1.3.2`, existe uma solução
+alternativa. Adicione `--old-args` em
+[*Expert Options* / *Additional options to rsync*](https://backintime.readthedocs.io/en/latest/settings.html#expert-options).
 
+Observe que algumas distribuições GNU/Linux (por exemplo, Manjaro) utilizam
+uma solução alternativa com a variável de ambiente `RSYNC_OLD_ARGS` em seus
+pacotes específicos da distribuição para o *Back In Time*. Nesse caso, talvez
+você não encontre nenhum problema.
 
-# Hardware-specific Setup
+# Configuração específica de hardware
 
-## How to use BIT with an Ugreen NAS?
-Please see [this
-blogpost](https://www.ruinelli.ch/how-to-use-backintime-with-an-ugreen-nas) by
-George Ruinelli @caco3.
+## Como usar o BIT com um NAS Ugreen?
 
-## How to use QNAP QTS NAS with BIT over SSH
+Consulte [esta publicação de blog](https://www.ruinelli.ch/how-to-use-backintime-with-an-ugreen-nas)
+de George Ruinelli @caco3.
 
-To use *BackInTime* over SSH with a QNAP NAS there is still some work to be done
- in the terminal.
+## Como usar um NAS QNAP QTS com o BIT via SSH
 
-**WARNING**:
-DON'T use the changes for ``sh`` suggested in ``man backintime``. This will
-damage the QNAP admin account (and even more). Changing ``sh`` for another user
-doesn't make sense either because SSH only works with the QNAP admin account!
+Para usar o *BackInTime* via SSH com um NAS QNAP, ainda é necessário realizar
+algumas etapas no terminal.
 
-Please test this Tutorial and give some feedback!
+**AVISO**:
 
-1. Activate the SSH prefix: ``PATH=/opt/bin:/opt/sbin:\$PATH`` in ``Expert
-   Options``
+**NÃO** use as alterações para `sh` sugeridas em `man backintime`.
+Isso danificará a conta de administrador do QNAP (e ainda mais).
+Alterar `sh` para outro usuário também não faz sentido, pois o SSH funciona
+somente com a conta de administrador do QNAP!
 
-1. Use ``admin`` (default QNAP admin) as remote user. Only this user can connect
-   through SSH. Also activate on the QNAP `SFTP` on the SSH settings page.
+Teste este tutorial e forneça feedback!
 
-1. Path should be something like ``/share/Public/``
+1. Ative o prefixo SSH: `PATH=/opt/bin:/opt/sbin:\$PATH` em `Expert
+   Options`
 
-1. Create the public/private key pair for the password-less login with the user
-   you use for *BackInTime* and copy the public key to the NAS.
+2. Use `admin` (administrador padrão do QNAP) como usuário remoto. Somente
+   esse usuário pode se conectar por SSH. Ative também o `SFTP` no QNAP,
+   na página de configurações de SSH.
+
+3. O caminho deve ser algo como `/share/Public/`
+
+4. Crie o par de chaves pública/privada para o login sem senha com o usuário
+   que você utiliza para o *BackInTime* e copie a chave pública para o NAS.
 
    ```bash
    ssh-keygen -t rsa
    ssh-copy-id -i ~/.ssh/id_rsa.pub  <REMOTE_USER>@<HOST>
    ```
 
-To fix the message about not supported ``find PATH -type f -exec`` you need to
-install ``Entware-ng``. QNAPs QTS is based on Linux but some of its packages
-have limited functionalities. And so do some of the necessary ones for
-*BackInTime*.
+Para corrigir a mensagem sobre `find PATH -type f -exec` não ser suportado,
+é necessário instalar o `Entware-ng`. O QNAP QTS é baseado em Linux, mas
+alguns de seus pacotes possuem funcionalidades limitadas. O mesmo acontece
+com alguns dos pacotes necessários ao *BackInTime*.
 
-Please follow [this install instruction](https://github.com/Entware-ng/Entware-ng/wiki/Install-on-QNAP-NAS)
-to install ``Entware-ng`` on your QNAP NAS.
+Siga [estas instruções de instalação](https://github.com/Entware-ng/Entware-ng/wiki/Install-on-QNAP-NAS)
+para instalar o `Entware-ng` no seu NAS QNAP.
 
-Because there is no web interface yet for ``Entware-ng``, you must configure it
-by SSH on the NAS.
+Como ainda não existe uma interface web para o `Entware-ng`, você precisa
+configurá-lo por SSH no NAS.
 
-Some Packages will be installed by default for example ``findutils``.
+Alguns pacotes serão instalados por padrão, por exemplo, `findutils`.
 
-Login on the NAS and updated the Database and Packages of ``Entware-ng`` with
+Faça login no NAS e atualize o banco de dados e os pacotes do `Entware-ng` com:
 
-   ```bash
-   ssh <REMOTE_USER>@<HOST>
-   opkg update
-   opkg upgrade
-   ```
+```bash
+ssh <REMOTE_USER>@<HOST>
+opkg update
+opkg upgrade
+```
 
-Finally install the current packages of ``bash``, ``coreutils`` and ``rsync``
+Por fim, instale as versões atuais dos pacotes `bash`, `coreutils` e
+`rsync`:
 
-   ```bash
-   opkg install bash coreutils rsync
-   ```
+```bash
+opkg install bash coreutils rsync
+```
 
-Now the error message should be gone and you should be able to take a first
-backup with *BackInTime*.
+Agora a mensagem de erro deverá desaparecer e você deverá conseguir fazer
+o primeiro backup com o *BackInTime*.
 
-*BackInTime* changes permissions on the backup path. The owner of the
-backup has read permission, other users have no access.
+O *BackInTime* altera as permissões no caminho do backup. O proprietário do
+backup possui permissão de leitura; os outros usuários não têm acesso.
 
-This way can change with newer versions of *BackInTime* or QNAPs QTS!
+Isso pode mudar com versões mais recentes do *BackInTime* ou do QNAP QTS!
 
-## How to use Synology DSM 5 with BIT over SSH
+## Como usar o Synology DSM 5 com o BIT via SSH
 
-**Issue**
+**Problema**
 
-*BackInTime* cannot use Synology DSM 5 directly because the SSH connection to the
-NAS refers to a different root file system than SFTP does. With SSH you access
-the real root, with SFTP you access a fake root (`/volume1`)
+O *BackInTime* não pode usar o Synology DSM 5 diretamente porque a conexão
+SSH com o NAS aponta para um sistema de arquivos raiz diferente daquele usado
+pelo SFTP. Com SSH, você acessa a raiz real; com SFTP, acessa uma raiz falsa
+(`/volume1`).
 
-**Solution**
+**Solução**
 
-Mount `/volume1/backups` to `/volume1/volume1/backups`
+Monte `/volume1/backups` em `/volume1/volume1/backups`.
 
-**Suggestion**
+**Sugestão**
 
-DSM 5 isn't really up to date any more and might be a security risk. It is
-strongly advised to upgrade to DSM 6! Also the setup with DSM 6 is much easier!
+O DSM 5 já não está realmente atualizado e pode representar um risco de
+segurança. É altamente recomendado atualizar para o DSM 6! Além disso,
+a configuração com DSM 6 é muito mais fácil!
 
-1. Make a new volume named ``volume1`` (should already exist, else create it)
+1. Crie um novo volume chamado `volume1` (ele já deveria existir; caso
+   contrário, crie-o).
 
-1. Enable User Home Service (Control Panel / User)
+2. Ative o **User Home Service** (**Control Panel / User**).
 
-1. Make a new share named ``backups`` on ``volume1``
+3. Crie um novo compartilhamento chamado `backups` em `volume1`.
 
-1. Make a new share named ``volume1`` on ``volume1`` (It must be the same name)
+4. Crie um novo compartilhamento chamado `volume1` em `volume1`
+   (ele deve ter o mesmo nome).
 
-1. Make a new user named ``backup``
+5. Crie um novo usuário chamado `backup`.
 
-1. Give to user ``backup`` rights Read/Write to share ``backups`` and
-   ``volume1`` and also permission for FTP
+6. Dê ao usuário `backup` permissões de **Read/Write** nos compartilhamentos
+   `backups` e `volume1` e também permissão para FTP.
 
-1. Enable SSH (Control Panel / Terminal & SNMP / Terminal)
+7. Ative o SSH (**Control Panel / Terminal & SNMP / Terminal**).
 
-1. Enable SFTP (Control Panel / File Service / FTP / SFTP)
+8. Ative o SFTP (**Control Panel / File Service / FTP / SFTP**).
 
-1. Enable rsync service (Control Panel / File Service / rsync)
+9. Ative o serviço rsync (**Control Panel / File Service / rsync**).
 
-1. Since DSM 5.1: Enable Backup Service (Backup & Replication / Backup Service)
-   (This seems not to be available/required anymore with DSM 6!)
+10. A partir do DSM 5.1: ative o **Backup Service**
+    (**Backup & Replication / Backup Service**).
+    (Isso aparentemente não está mais disponível/não é mais necessário
+    no DSM 6!)
 
-1. Log on as root by SSH
+11. Faça login como root via SSH.
 
-1. Modify the shell of user ``backup``. Set it to ``/bin/sh`` (``vi /etc/passwd`` then
-   navigate to the line that begins with ``backup``, press :kbd:`I` to enter ``Insert
-   Mode``, replace ``/sbin/nologin`` with ``/bin/sh``, then finally save and exit by
-   pressing :kbd:`ESC` and type ``:wq`` followed by :kbd:`Enter`) This step might have
-   to be repeated after a major update of the Synology DSM!  Note: This is
-   quite a dirty hack! It is suggested to upgrade to DSM 6 which doesn't need
-   this any more!
+12. Modifique o shell do usuário `backup`. Defina-o como `/bin/sh`
+    (`vi /etc/passwd`; depois navegue até a linha que começa com `backup`,
+    pressione :kbd:`I` para entrar no **Insert Mode**, substitua
+    `/sbin/nologin` por `/bin/sh` e, finalmente, salve e saia pressionando
+    :kbd:`ESC` e digitando `:wq` seguido de :kbd:`Enter`).
 
-1. Make a new directory ``/volume1/volume1/backups``
+    Essa etapa pode precisar ser repetida após uma atualização importante
+    do Synology DSM!
 
+    **Observação:** este é um hack bastante inadequado! É recomendado atualizar
+    para o DSM 6, que não precisa mais disso!
 
-   ```bash
-   mkdir /volume1/volume1/backups
-   ```
+13. Crie um novo diretório `/volume1/volume1/backups`:
 
-1. Mount ``/volume1/backups`` on ``/volume1/volume1/backups``
-
-   ```bash
-   mount -o bind /volume1/backups /volume1/volume1/backups
-   ```
-
-1. To auto-mount it make a script ``/usr/syno/etc/rc.d/S99zzMountBind.sh``
-
-
-   ```bash
-   #!/bin/sh
-
-    start()
-    {
-           /bin/mount -o bind /volume1/backups /volume1/volume1/backups
-    }
-
-    stop()
-    {
-           /bin/umount /volume1/volume1/backups
-    }
-
-    case "$1" in
-           start) start ;;
-           stop) stop ;;
-           *) ;;
-    esac
+    ```bash
+    mkdir /volume1/volume1/backups
     ```
 
-   Note: If the folder ``/usr/syno/etc/rc.d`` doesn't exist, check if
-   ``/usr/local/etc/rc.d/`` exists. If so, put it there. (After I updated to
-   Synology DSM 6.0beta, the first one did not exist anymore). Make sure the
-   execution flag of the file is checked , else it will not get run at start! To
-   make it executable, run: ``chmod +x /usr/local/etc/rc.d/S99zzMountBind.sh``
+14. Monte `/volume1/backups` em `/volume1/volume1/backups`:
 
-1. On the workstation on which you try to use BIT make SSH keys for user
-   ``backup``, send the public key to the NAS
+    ```bash
+    mount -o bind /volume1/backups /volume1/volume1/backups
+    ```
+
+15. Para montá-lo automaticamente, crie o script
+    `/usr/syno/etc/rc.d/S99zzMountBind.sh`:
+
+    ```bash
+    #!/bin/sh
+
+     start()
+     {
+            /bin/mount -o bind /volume1/backups /volume1/volume1/backups
+     }
+
+     stop()
+     {
+            /bin/umount /volume1/volume1/backups
+     }
+
+     case "$1" in
+            start) start ;;
+            stop) stop ;;
+            *) ;;
+     esac
+    ```
+
+    **Observação:** se a pasta `/usr/syno/etc/rc.d` não existir, verifique
+    se `/usr/local/etc/rc.d/` existe. Se existir, coloque o arquivo lá.
+    (Depois que atualizei para o Synology DSM 6.0beta, a primeira pasta já não
+    existia.)
+
+    Certifique-se de que a permissão de execução do arquivo esteja definida;
+    caso contrário, ele não será executado na inicialização!
+
+    Para torná-lo executável, execute:
+
+    `chmod +x /usr/local/etc/rc.d/S99zzMountBind.sh`
+
+16. Na workstation em que você pretende usar o BIT, crie chaves SSH para
+    o usuário `backup` e envie a chave pública para o NAS:
+
+    ```bash
+    ssh-keygen -t rsa -f ~/.ssh/backup_id_rsa
+    ssh-add ~/.ssh/backup_id_rsa
+    ssh-copy-id -i ~/.ssh/backup_id_rsa.pub backup@<synology-ip>
+    ssh backup@<synology-ip>
+    ```
+
+17. Você poderá receber o seguinte erro:
+
+    ```text
+    /usr/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed
+    /usr/bin/ssh-copy-id: WARNING: All keys were skipped because they already exist on the remote system.
+    ```
+
+18. Nesse caso, copie manualmente a chave pública para o NAS como root usando:
+
+    ```bash
+    scp ~/.ssh/id_rsa.pub backup@<synology-ip>:/var/services/homes/backup/
+    ssh backup@<synology-ip> cat /var/services/homes/backup/id_rsa.pub >> /var/services/homes/backup/.ssh/authorized_keys
+    # you'll still be asked for your password on these both commands
+    # after this you should be able to login password-less
+    ```
+
+19. E prossiga para a próxima etapa.
+
+20. Se ainda for solicitada sua senha ao executar
+    `ssh backup@<synology-ip>`, verifique as permissões do arquivo
+    `/var/services/homes/backup/.ssh/authorized_keys`.
+
+    Ele deve ser `-rw-------`.
+
+    Caso contrário, execute:
+
+    ```bash
+    ssh backup@<synology-ip> chmod 600 /var/services/homes/backup/.ssh/authorized_keys
+    ```
+
+21. Agora você pode usar o *BackInTime* para realizar seu backup no NAS
+    utilizando o usuário `backup`.
+
+## Como usar o Synology DSM 6 com o BIT via SSH
+
+1. Ative o **User Home Service** (**Control Panel / User / Advanced**).
+   Não é necessário criar um volume, pois tudo é armazenado no diretório
+   home.
+
+2. Crie um novo usuário chamado `backup` (ou use sua conta existente).
+   Adicione esse usuário ao grupo de usuários `Administrators`.
+   Sem isso, você não conseguirá fazer login!
+
+3. Ative o SSH (**Control Panel / Terminal & SNMP / Terminal**).
+
+4. Ative o SFTP (**Control Panel / File Service / FTP / SFTP**).
+
+5. A partir do DSM 5.1: ative o **Backup Service**
+   (**Backup & Replication / Backup Service**).
+   (Isso aparentemente não está mais disponível/não é mais necessário
+   no DSM 6!) (Testes necessários!)
+
+6. No DSM 6, você pode editar o diretório raiz do usuário para SFTP:
+   **Control Panel → File Services → FTP → General → Advanced Settings
+   → Security Settings → Change user root directories → Select User.**
+
+   Agora selecione o usuário `backup` e altere o diretório raiz para
+   `User home`.
+
+
+1. Na estação de trabalho em que você pretende usar o BIT, crie chaves SSH para o usuário
+   `backup` e envie a chave pública para o NAS:
 
    ```bash
-   ssh-keygen -t rsa -f ~/.ssh/backup_id_rsa
-   ssh-add ~/.ssh/backup_id_rsa
-   ssh-copy-id -i ~/.ssh/backup_id_rsa.pub backup@<synology-ip>
-   ssh backup@<synology-ip>
+   	ssh-keygen -t rsa -f ~/.ssh/backup_id_rsa
+   	ssh-add ~/.ssh/backup_id_rsa
+   	ssh-copy-id -i ~/.ssh/backup_id_rsa.pub backup@<synology-ip>
+   	ssh backup@<synology-ip>
    ```
 
-1. You might get the following error:
+2. Você pode receber o seguinte erro:
 
    ```bash
-   /usr/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed
-   /usr/bin/ssh-copy-id: WARNING: All keys were skipped because they already exist on the remote system.
+   	/usr/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed
+   	/usr/bin/ssh-copy-id: WARNING: All keys were skipped because they already exist on the remote system.
    ```
 
-1. If so, copy the public key manually to the NAS as root with
-
-   ```bash
-   scp ~/.ssh/id_rsa.pub backup@<synology-ip>:/var/services/homes/backup/
-   ssh backup@<synology-ip> cat /var/services/homes/backup/id_rsa.pub >> /var/services/homes/backup/.ssh/authorized_keys
-   # you'll still be asked for your password on these both commands
-   # after this you should be able to login password-less
-   ```
-
-1. And proceed with the next step
-
-1. If you are still prompted for your password when running ``ssh
-   backup@<synology-ip>``, check the permissions of the file
-   ``/var/services/homes/backup/.ssh/authorized_keys``.  It should be
-   ``-rw-------``.  If this is not the case, run the command
-
-   ```bash
-   ssh backup@<synology-ip> chmod 600 /var/services/homes/backup/.ssh/authorized_keys
-   ```
-
-1. Now you can use *BackInTime* to perform your backup to your NAS with the user
-   ``backup``.
-
-## How to use Synology DSM 6 with BIT over SSH
-
-1. Enable User Home Service (Control Panel / User / Advanced). There is no need
-   to create a volume since everything is stored in the home directory.
-
-1. Make a new user named ``backup`` (or use your existing account). Add this user
-   to the user group ``Administrators``. Without this, you will not be able to log
-   in!
-
-1. Enable SSH (Control Panel / Terminal & SNMP / Terminal)
-
-1. Enable SFTP (Control Panel / File Service / FTP / SFTP)
-
-1. Since DSM 5.1: Enable Backup Service (Backup & Replication / Backup Service)
-   (This seems not to be available/required anymore with DSM 6!) (Tests needed!)
-
-1. On DSM 6 you can edit the user-root-dir for sFTP: Control Panel -> File
-   Services -> FTP -> General -> Advanced Settings -> Security Settings ->
-   Change user root directories -> Select User. Now select the user ``backup`` and
-   Change root directory to ``User home``
-
-1. On the workstation on which you try to use BIT make SSH keys for user
-   ``backup``, send the public key to the NAS
-
-   ```bash
-	ssh-keygen -t rsa -f ~/.ssh/backup_id_rsa
-	ssh-add ~/.ssh/backup_id_rsa
-	ssh-copy-id -i ~/.ssh/backup_id_rsa.pub backup@<synology-ip>
-	ssh backup@<synology-ip>
-   ```
-
-1. You might get the following error:
-
-   ```bash
-	/usr/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed
-	/usr/bin/ssh-copy-id: WARNING: All keys were skipped because they already exist on the remote system.
-   ```
-
-1. If so, copy the public key manually to the NAS as root with
+3. Nesse caso, copie manualmente a chave pública para o NAS como root com:
 
    ```bash
     scp ~/.ssh/id_rsa.pub backup@<synology-ip>:/var/services/homes/backup/
@@ -1225,411 +1864,395 @@ strongly advised to upgrade to DSM 6! Also the setup with DSM 6 is much easier!
     # after this you should be able to login password-less
    ```
 
-1. And proceed with the next step
+4. E prossiga para a próxima etapa.
 
-1. If you are still prompted for your password when running ``ssh
-   backup@<synology-ip>``, check the permissions of the file
-   ``/var/services/homes/backup/.ssh/authorized_keys``.  It should be
-   ``-rw-------``.  If this is not the case, run the command
+5. Se ainda for solicitada sua senha ao executar `ssh
+   backup@<synology-ip>`, verifique as permissões do arquivo
+   `/var/services/homes/backup/.ssh/authorized_keys`. Ele deve estar como
+   `-rw-------`. Caso contrário, execute o comando:
 
    ```bash
    ssh backup@<synology-ip> chmod 600 /var/services/homes/backup/.ssh/authorized_keys
    ```
 
-1. In *BackInTime* settings dialog leave the *Path* field empty
+6. Na caixa de diálogo de configurações do *BackInTime*, deixe o campo *Path* vazio.
 
-1. Now you can use *BackInTime* to perform your backup to your NAS with the user
-   ``backup``.
+7. Agora você pode usar o *BackInTime* para realizar seu backup no NAS com o usuário
+   `backup`.
 
-### Using a non-standard port
+### Usando uma porta não padrão
 
-If you want to use the Synology NAS with non-standard SSH/SFTP port
-(standard is 22), you have to change the Port on total 3 places:
+Se você quiser usar o Synology NAS com uma porta SSH/SFTP não padrão
+(a padrão é 22), será necessário alterar a porta em 3 lugares:
 
 1. Control Panel > Terminal: Port = <PORT_NUMBER>
 
-1. Control Panel > FTP > SFTP: Port = <PORT_NUMBER>
+2. Control Panel > FTP > SFTP: Port = <PORT_NUMBER>
 
-1. Backup & Replication > Backup Services > Network Backup Destination: SSH
+3. Backup & Replication > Backup Services > Network Backup Destination: SSH
    encryption port = <PORT_NUMBER>
 
-Only if all 3 of them are set to the same port, *BackInTime* is able to
-establish the connection. As a test, one can run the command
+Somente se os 3 estiverem configurados para a mesma porta o *BackInTime* conseguirá
+estabelecer a conexão. Como teste, você pode executar o comando
+
+```bash
+rsync -rtDHh --checksum --links --no-p --no-g --no-o --info=progress2 --no-i-r --rsh="ssh -p <PORT_NUMBER> -o IdentityFile=/home/<USER>/.ssh/id_rsa" --dry-run --chmod=Du+wx /tmp/<AN_EXISTING_FOLDER> "<USER_ON_DISKSTATION>@<SERVER_IP>:/volume1/Backups/BackinTime"
+```
+
+em um terminal (no PC cliente).
+
+## Como usar o Synology DSM 7 com BIT via SSH
+
+1. Ative o *User Home Service* (Control Panel > User & Group > Advanced).
+
+2. Crie um novo usuário chamado `backup` (ou use sua conta existente) e adicione esse
+   usuário ao grupo de usuários `Administrators`.
+
+3. Ative o *SSH* (Control Panel > Terminal & SNMP > Terminal).
+
+4. Ative o *SFTP* (Control Panel > File Services > FTP > SFTP).
+
+5. Ative o *rsync* (Control Panel > File Services > rsync).
+
+6. Edite o diretório raiz do usuário para SFTP: Control Panel > File Services > FTP >
+   General > Advanced Settings > Security Settings > Change user root directories >
+   Select User > selecione o usuário `backup` > Edit e altere o diretório raiz para
+   `User home`.
+
+7. Certifique-se de que a pasta compartilhada 'homes' tenha as permissões padrão e que
+   usuários e grupos que não sejam administradores não tenham permissões de leitura ou
+   gravação atribuídas à pasta 'homes'. As permissões padrão estão descritas
+   [neste guia](https://kb.synology.com/DSM/tutorial/default_permissions_of_homes).
+
+8. Na estação de trabalho em que você precisa usar o BIT, crie um par de chaves SSH para
+   o usuário `backup` e envie a chave pública para o NAS:
 
    ```bash
-   rsync -rtDHh --checksum --links --no-p --no-g --no-o --info=progress2 --no-i-r --rsh="ssh -p <PORT_NUMBER> -o IdentityFile=/home/<USER>/.ssh/id_rsa" --dry-run --chmod=Du+wx /tmp/<AN_EXISTING_FOLDER> "<USER_ON_DISKSTATION>@<SERVER_IP>:/volume1/Backups/BackinTime"
+   	ssh-keygen -t rsa -f ~/.ssh/backup_id_rsa
+   	ssh-copy-id -i ~/.ssh/backup_id_rsa.pub backup@<synology-ip>
+   	ssh backup@<synology-ip>
    ```
 
-in a terminal (on the client PC).
-
-## How to use Synology DSM 7 with BIT over SSH
-
-1. Enable *User Home Service* (Control Panel > User & Group > Advanced).
-
-1. Make a new user named ``backup`` (or use your existing account) and add this
-user to the user group ``Administrators``.
-
-1. Enable *SSH* (Control Panel > Terminal & SNMP > Terminal)
-
-1. Enable *SFTP* (Control Panel > File Services > FTP > SFTP)
-
-1. Enable *rsync* (Control Panel > File Services > rsync)
-
-1. Edit the user-root-directory for SFTP: Control Panel > File Services > FTP >
-General > Advanced Settings > Security Settings > Change user root directories >
-Select User > select the user ``backup`` > Edit and Change root directory to ``User
-home``
-
-1. Make sure the 'homes' shared folder has the default permissions and that
-   non-admin users and groups are not assigned Read or Write permissions on the
-   'homes' folder. The default permissions are described in [this guide](https://kb.synology.com/DSM/tutorial/default_permissions_of_homes)
-
-1. On the workstation on which you need to use BIT, make an SSH key pair for
-   user ``backup``, and send the public key to the NAS:
+9. Embora não seja estritamente necessário, a Synology recomenda definir as permissões
+   do diretório `.ssh` e do arquivo `authorized_keys` como `700` e `600`,
+   respectivamente:
 
    ```bash
-	ssh-keygen -t rsa -f ~/.ssh/backup_id_rsa
-	ssh-copy-id -i ~/.ssh/backup_id_rsa.pub backup@<synology-ip>
-	ssh backup@<synology-ip>
+   backup@NAS:~$ chmod 700 .ssh
+   backup@NAS:~$ chmod 600 .ssh/authorized_keys
    ```
 
-1. Although not strictly necessary, Synology recommend setting the permissions
-   for the `.ssh` directory and the `authorized_keys` file to `700`, and `600`
-   respectively:
+10. Na caixa de diálogo de configurações do *BackInTime*, deixe o campo *Path* vazio.
 
-    ```bash
-    backup@NAS:~$ chmod 700 .ssh
-    backup@NAS:~$ chmod 600 .ssh/authorized_keys
-	```
-1. In *BackInTime* settings dialog leave the *Path* field empty
+11. Agora você pode usar o *BackInTime* para realizar seu backup no NAS com o usuário
+    `backup`.
 
-1. Now you can use *BackInTime* to perform your backup to your NAS with the user
-``backup``.
+### Usando uma porta SSH não padrão com um Synology NAS
 
-### Using a non-standard SSH port with a Synology NAS
-
-If you want to use the Synology NAS with a non-standard SSH/SFTP port as advised
-by the Security Advisor package, you have to change the Port in 3 places (the
-default port number for all three is 22):
+Se você quiser usar o Synology NAS com uma porta SSH/SFTP não padrão, conforme recomendado
+pelo pacote Security Advisor, será necessário alterar a porta em 3 lugares (o número da
+porta padrão para os três é 22):
 
 1. Control Panel > Terminal & SNMP > Terminal: Port = <PORT_NUMBER>
 
-1. Control Panel > File Services > FTP > SFTP: Port number = <PORT_NUMBER>
+2. Control Panel > File Services > FTP > SFTP: Port number = <PORT_NUMBER>
 
-1. Control Panel > File Services > rsync > SSH encryption port = <PORT_NUMBER>
+3. Control Panel > File Services > rsync > SSH encryption port = <PORT_NUMBER>
 
-Only if all 3 are set to the same port is *BackInTime* able to establish the
-connection (don't forget to set the new port number in the BIT profiles).
+Somente se os 3 estiverem configurados para a mesma porta o *BackInTime* conseguirá
+estabelecer a conexão (não se esqueça de configurar o novo número da porta nos perfis
+do BIT).
 
-To sign in with ssh using the new port number:
+Para fazer login com ssh usando o novo número da porta:
 
-  ```bash
-  ssh -p PORT_NUMBER backup@<synology-ip>
-  ```
+```bash
+ssh -p PORT_NUMBER backup@<synology-ip>
+```
 
-or, for convenience you can edit or create ``~/.ssh/config`` with the following:
+ou, para maior conveniência, você pode editar ou criar `~/.ssh/config` com o seguinte:
 
-  ```
-  Host <synology-ip>
-      Port PORT_NUMBER
-  ```
+```
+Host <synology-ip>
+    Port PORT_NUMBER
+```
 
-and then use just:
+e então usar apenas:
 
-  ```bash
-  ssh backup@<synology-ip>
-  ```
+```bash
+ssh backup@<synology-ip>
+```
 
-### "sshfs: No such file or directory" using BIT, but manually ssh with rsync works
-The reason (known for DSM version 7) is that the setup of ssh and sftp is
-customized by Synology.
+### "sshfs: No such file or directory" ao usar o BIT, mas ssh manual com rsync funciona
 
-Solution ([Screenshot in Issue #1674](https://github.com/bit-team/backintime/issues/1674#issuecomment-2106059151)):
-1. Go to: _Control Panel_ > _File Services_ > _Advanced Settings_ > _Change user root directories_ > _Select User_
-2. Add the name of the user used for SSH on the Synology in that list.
-3. At _Change root directory to:_ select _User home_.
+O motivo (conhecido para a versão 7 do DSM) é que a configuração de ssh e sftp é
+personalizada pela Synology.
 
-See also
-- [Issue #1674](https://github.com/bit-team/backintime/issues/1674)
-- ["Change the default folder in a Synology NAS" - StackOverflow](https://stackoverflow.com/a/77454561/4865723)
+Solução ([Screenshot in Issue #1674](https://github.com/bit-team/backintime/issues/1674#issuecomment-2106059151)):
 
-## Synology: use different volume for backup
+1. Acesse: *Control Panel* > *File Services* > *Advanced Settings* > *Change user root directories* > *Select User*
+2. Adicione o nome do usuário utilizado para SSH no Synology à lista.
+3. Em *Change root directory to:* selecione *User home*.
 
-This was tested and related to Synology DSM version 7, but might work with
-other versions, too. Feel free to report back.
+Veja também:
 
-If you want to use a different volume as the destination for the backup use
-these additional steps:
+* [Issue #1674](https://github.com/bit-team/backintime/issues/1674)
+* ["Change the default folder in a Synology NAS" - StackOverflow](https://stackoverflow.com/a/77454561/4865723)
 
-1. Follow all steps under **Howto (like create additional user in the example
-   name of the user 'backup')
-2. Create in the Synology DSM GUI in Control panel a new shared folder name it
-   "backup" for example
+## Synology: usar um volume diferente para o backup
+
+Isso foi testado e está relacionado à versão 7 do Synology DSM, mas pode funcionar
+também com outras versões. Fique à vontade para relatar os resultados.
+
+Se você quiser usar um volume diferente como destino do backup, siga estas etapas adicionais:
+
+1. Siga todas as etapas em **Howto (como criar um usuário adicional no exemplo com o
+   nome de usuário 'backup')**
+
+2. Crie na GUI do Synology DSM, no Control panel, uma nova pasta compartilhada e dê a ela,
+   por exemplo, o nome de "backup".
 
    ![Synology DSM7 Basic Setup](doc/images.misc/faq_synology7_separate_dest_volume01.png)
 
-3. Optional in step-2 Enable shared folder encryption (Depending on your needs,
-   don't loose your encryption key) Advantage: backup folder (volume) is
-   encrypted, even in case of theft of your Synology NAs Disadvantage: On each
-   Reboot you need to mount the folder manually
+3. Opcionalmente, na etapa 2, ative a criptografia da pasta compartilhada (dependendo
+   das suas necessidades; não perca sua chave de criptografia). Vantagem: a pasta
+   de backup (volume) fica criptografada, mesmo em caso de roubo do seu Synology NAS.
+   Desvantagem: a cada Reboot você precisará montar a pasta manualmente.
 
    ![Synology DSM7 Additional Security Measure](doc/images.misc/faq_synology7_separate_dest_volume02.png)
 
-4. As user root or with sudo edit the file: `/etc/passwd` (Be careful, if you
-   break it, you could break your NAS)
-   - `vi /etc/passwd`
-   - Edit the line for your user backup, so the home dir is on the newly
-     created folder: `backup:x:1038:100:Back in Time User:/volume1/backup:/bin/sh`
-5. Continue with your normal setup of BIT
+4. Como usuário root ou usando sudo, edite o arquivo: `/etc/passwd`
+   (Cuidado: se você danificá-lo, poderá danificar seu NAS.)
 
-## How to use Western Digital MyBook World Edition with BIT over ssh?
+   * `vi /etc/passwd`
+   * Edite a linha referente ao seu usuário backup, para que o diretório home fique na
+     pasta recém-criada:
+     `backup:x:1038:100:Back in Time User:/volume1/backup:/bin/sh`
 
-Device: *WesternDigital MyBook World Edition (white light) version 01.02.14 (WD MBWE)*
+5. Continue com sua configuração normal do BIT.
 
-The BusyBox that is used by WD in MBWE for serving basic commands like ``cp``
-(copy) doesn't support hardlinks. Which is a rudimentary function for
-BackInTime's way of creating incremental backups. As a work-around you can
-install Optware on the MBWE.
+## Como usar o Western Digital MyBook World Edition com BIT via ssh?
 
-Before proceeding please make a backup of your MBWE. There is a significant
-chance to break your device and lose all your data. There is good
-documentation about Optware on http://mybookworld.wikidot.com/optware.
+Dispositivo: *WesternDigital MyBook World Edition (white light) versão 01.02.14 (WD MBWE)*
 
-1. You have to login to MBWE's web admin and change to *Advanced Mode*.
-   Under *System | Advanced* you have to enable *SSH Access*. Now you can
-   log in as root over ssh and install Optware (assuming ``<MBWE>`` is the
-   address of your MyBook).
+O BusyBox utilizado pela WD no MBWE para fornecer comandos básicos como `cp`
+(copy) não oferece suporte a hardlinks. Essa é uma função rudimentar utilizada
+pela forma como o BackInTime cria backups incrementais. Como solução alternativa,
+você pode instalar o Optware no MBWE.
 
-   Type in terminal:
+Antes de prosseguir, faça um backup do seu MBWE. Existe uma possibilidade significativa
+de danificar seu dispositivo e perder todos os seus dados. Há uma boa documentação
+sobre o Optware em http://mybookworld.wikidot.com/optware.
 
-   ```bash
-	ssh root@<MBWE> #enter 'welc0me' for password (you should change this by typing 'passwd')
-	wget http://mybookworld.wikidot.com/local--files/optware/setup-whitelight.sh
-	sh setup-whitelight.sh
-	echo 'export PATH=$PATH:/opt/bin:/opt/sbin' >> /root/.bashrc
-	echo 'export PATH=/opt/bin:/opt/sbin:$PATH' >> /etc/profile
-	echo 'PermitUserEnvironment yes' >> /etc/sshd_config
-	/etc/init.d/S50sshd restart
-	/opt/bin/ipkg install bash coreutils rsync nano
-	exit
-   ```
+1. Você precisa fazer login na administração web do MBWE e mudar para o *Advanced Mode*.
+   Em *System | Advanced*, você precisa ativar o *SSH Access*. Agora você pode fazer
+   login como root via ssh e instalar o Optware (supondo que `<MBWE>` seja o endereço
+   do seu MyBook).
 
-1. Back in MBWE's web admin go to *Users* and add a new user (``<REMOTE_USER>``
-   in this How-to) with *Create User Private Share* set to *Yes*.
-
-   In terminal:
+   Digite no terminal:
 
    ```bash
-	ssh root@<MBWE>
-	chown <REMOTE_USER> /shares/<REMOTE_USER>
-	chmod 700 /shares/<REMOTE_USER>
-	/opt/bin/nano /etc/passwd
-	#change the line
-	#<REMOTE_USER>:x:503:1000:Linux User,,,:/shares:/bin/sh
-	#to
-	#<REMOTE_USER>:x:503:1000:Linux User,,,:/shares/<REMOTE_USER>:/opt/bin/bash
-	#save and exit by press CTRL+O and CTRL+X
-	exit
+   	ssh root@<MBWE> #enter 'welc0me' for password (you should change this by typing 'passwd')
+   	wget http://mybookworld.wikidot.com/local--files/optware/setup-whitelight.sh
+   	sh setup-whitelight.sh
+   	echo 'export PATH=$PATH:/opt/bin:/opt/sbin' >> /root/.bashrc
+   	echo 'export PATH=/opt/bin:/opt/sbin:$PATH' >> /etc/profile
+   	echo 'PermitUserEnvironment yes' >> /etc/sshd_config
+   	/etc/init.d/S50sshd restart
+   	/opt/bin/ipkg install bash coreutils rsync nano
+   	exit
    ```
 
-1. Next create the ssh-key for your local user.
-   In the terminal
+2. De volta à administração web do MBWE, acesse *Users* e adicione um novo usuário
+   (`<REMOTE_USER>` neste How-to) com *Create User Private Share* definido como *Yes*.
+
+   No terminal:
 
    ```bash
-	ssh <REMOTE_USER>@<MBWE>
-	mkdir .ssh
-	chmod 700 .ssh
-	echo 'PATH=/opt/bin:/opt/sbin:/usr/bin:/bin:/usr/sbin:/sbin' >> .ssh/environment
-	exit
-	ssh-keygen -t rsa #enter for default path
-	ssh-add ~/.ssh/id_rsa
-	scp ~/.ssh/id_rsa.pub <REMOTE_USER>@<MBWE>:./ #enter password from above
-	ssh <REMOTE_USER>@<MBWE> #you will still have to enter your password
-	cat id_rsa.pub >> .ssh/authorized_keys
-	rm id_rsa.pub
-	chmod 600 .ssh/*
-	exit
-	ssh <REMOTE_USER>@<MBWE> #this time you shouldn't been asked for password anymore
-	exit
+   	ssh root@<MBWE>
+   	chown <REMOTE_USER> /shares/<REMOTE_USER>
+   	chmod 700 /shares/<REMOTE_USER>
+   	/opt/bin/nano /etc/passwd
+   	#change the line
+   	#<REMOTE_USER>:x:503:1000:Linux User,,,:/shares:/bin/sh
+   	#to
+   	#<REMOTE_USER>:x:503:1000:Linux User,,,:/shares/<REMOTE_USER>:/opt/bin/bash
+   	#save and exit by press CTRL+O and CTRL+X
+   	exit
    ```
 
-1. You can test if everything is done by enter this
+3. Em seguida, crie a ssh-key para seu usuário local.
+   No terminal:
 
    ```bash
-   ssh <REMOTE_USER>@<MBWE> cp --help
+   	ssh <REMOTE_USER>@<MBWE>
+   	mkdir .ssh
+   	chmod 700 .ssh
+   	echo 'PATH=/opt/bin:/opt/sbin:/usr/bin:/bin:/usr/sbin:/sbin' >> .ssh/environment
+   	exit
+   	ssh-keygen -t rsa #enter for default path
+   	ssh-add ~/.ssh/id_rsa
+   	scp ~/.ssh/id_rsa.pub <REMOTE_USER>@<MBWE>:./ #enter password from above
+   	ssh <REMOTE_USER>@<MBWE> #you will still have to enter your password
+   	cat id_rsa.pub >> .ssh/authorized_keys
+   	rm id_rsa.pub
+   	chmod 600 .ssh/*
    ```
+# Projeto, contribuição e mais
 
-   The output should look like:
+## Por que preciso me apresentar?
 
-   ```bash
-	Usage: cp [OPTION]... [-T] SOURCE DEST
-	or: cp [OPTION]... SOURCE... DIRECTORY
-	or: cp [OPTION]... -t DIRECTORY SOURCE...
-	Copy SOURCE to DEST, or multiple SOURCE(s) to DIRECTORY.
+Isso ajuda os mantenedores a entender quem você é e como se comunicar com você. Isso evita
+esforços desnecessários de ambos os lados, evitando mal-entendidos que poderiam levar a
+contribuições rejeitadas. Também ajuda a distinguir contribuidores genuínos de contas que
+enviam alterações de baixa qualidade ou geradas por IA apenas para aumentar artificialmente
+as estatísticas de commits ou o número de estrelas, sem um envolvimento real com o projeto.
 
-	Mandatory arguments to long options are mandatory for short options too.
-	-a, --archive same as -dR --preserve=all
-	    --backup[=CONTROL] make a backup of each existing destination file
-	-b like --backup but does not accept an argument
-	    --copy-contents copy contents of special files when recursive
-	... (lot more lines with options)
-   ```
+Aqui está uma pequena sugestão e orientação para sua apresentação:
 
-   But if your output looks like below you are still using the BusyBox and
-   will not be able to run backups with *BackInTime* over ssh:
+* Há quanto tempo e de que forma você utiliza o BIT?
+* Que experiência e habilidades você possui em desenvolvimento de software?
+* Quais são seus objetivos atuais de aprendizado?
+* Como você tomou conhecimento desta issue?
 
-   ```bash
-	BusyBox v1.1.1 (2009.12.24-08:39+0000) multi-call binary
+## Posso contribuir sem usar o software?
 
-	Usage: cp [OPTION]... SOURCE DEST
-   ```
+Não, na maioria dos casos. Os contribuidores precisam ser usuários do *Back In Time*.
+Contribuições reais exigem familiaridade com o software, seu comportamento e seus
+workflows. Contribuições reais vêm de uso real.
 
+## Vocês podem atribuir isso a mim?
 
-# Project & Contributing & more
+Não. Não pergunte. Primeiro, comente manifestando sua intenção ou apresentando um plano.
+Caso contrário, isso é apenas ruído.
 
-## Why do I need to introduce myself?
-It helps maintainers understand who you are and how to communicate with
-you. This saves unnecessary effort on both sides by avoiding misunderstandings
-that could lead to rejected contributions. It also helps distinguish genuine
-contributors from accounts submitting low-quality or AI-generated changes
-merely to inflate commit statistics or stars, without real engagement in the
-project.
+Seu comportamento desrespeita contribuidores com uma intenção real e sobrecarrega os
+mantenedores que trabalham neste projeto em seu tempo livre. Não desperdice nosso tempo.
 
-Here is a small suggestion and guidance for your introduction:
+## Posso usar @ mentions livremente em issues ou PRs?
 
-- How long and in what way have you been using BIT?
-- What experience and skills do you have in software development?
-- What are your current learning goals?
-- How did you become aware of this issue?
+Não. Nunca. Evite-as em todos os casos. Mentions acionam notificações e criam ruído.
+Mantenedores e contribuidores inscritos já conseguem ver toda a atividade.
 
-## Can I contribute without using the software?
-No, in most cases. Contributors must be users of _Back In Time_. Real
-contributions require familiarity with the software, its behavior, and
-workflows. Real contributions come from real usage.
+## Posso aumentar minha contagem de commits?
 
-## Can you assign this to me?
-No. Don't ask. Comment with intent or a plan first. Otherwise its just noise.
-Your behavior disrespects contributors with real intent, and burden maintainers
-who work on this project in their free time. Don't waste our time.
-
-## Can I use @ mentions freely in issues or PRs?
-No. Never. Avoid them in all cases. Mentions trigger notifications and create
-noise. Maintainers and subscribed contributors already see all activity.
-
-## Can I boost my commit count?
-No. Doing that can get your account blocked or deleted, because mainters will
-report you to the abuse team of Microsoft. This project isn't for collecting
-stars or commits. Maybe watching
+Não. Fazer isso pode fazer com que sua conta seja bloqueada ou excluída, porque os
+mantenedores irão denunciá-lo à equipe de abuso da Microsoft. Este projeto não existe
+para coletar estrelas ou commits. Talvez assistir a
 [Don't Contribute to Open Source](https://www.youtube.com/watch?v=5nY_cy8zcO4)
-will help you to understand and learn.
+ajude você a entender e aprender.
 
-## Can I submit AI-generated contributions?
-No. AI-generated contributions are prohibited. Attempting this will be
-reported to Microsoft abuse team, and your account may be blocked or deleted.
+## Posso enviar contribuições geradas por IA?
 
-## Alternative installation options
-Besides the repositories of the official GNU/Linux distributions, there are
-other alternative installation options provided and maintained by third
-parties. Use them at your own risk and please contact that third party
-maintainers if you encounter problems. **Again**: We strongly recommend not to
-use 3rd party repositories because of possible security issues.
+Não. Contribuições geradas por IA são proibidas. Tentar fazer isso será denunciado à
+equipe de abuso da Microsoft, e sua conta poderá ser bloqueada ou excluída.
 
-- [@jean-christophe-manciot](https://github.com/jean-christophe-manciot)'s PPA distributing [_Back In Time_ for the latest stable Ubuntu release](https://git.sdxlive.com/PPA/about). See [PPA requirements](https://git.sdxlive.com/PPA/about/#requirements) and [install instructions](https://git.sdxlive.com/PPA/about/#installing-the-ppa).
-- The Arch User Repository ([AUR](https://aur.archlinux.org/)) does offer [some packages](https://aur.archlinux.org/packages?K=backintime).
+## Opções alternativas de instalação
 
+Além dos repositórios das distribuições GNU/Linux oficiais, existem outras opções
+alternativas de instalação fornecidas e mantidas por terceiros. Use-as por sua própria
+conta e risco e entre em contato com os mantenedores terceiros caso encontre problemas.
+**Novamente**: recomendamos fortemente não utilizar repositórios de terceiros devido a
+possíveis problemas de segurança.
 
-## Support for specific package formats (deb, rpm, Flatpack, AppImage, Snaps, PPA, …)
+* [@jean-christophe-manciot](https://github.com/jean-christophe-manciot)'s PPA distribuindo
+  [*Back In Time* para a versão estável mais recente do Ubuntu](https://git.sdxlive.com/PPA/about).
+  Veja [PPA requirements](https://git.sdxlive.com/PPA/about/#requirements) e
+  [install instructions](https://git.sdxlive.com/PPA/about/#installing-the-ppa).
+* O Arch User Repository ([AUR](https://aur.archlinux.org/)) oferece
+  [alguns pacotes](https://aur.archlinux.org/packages?K=backintime).
 
-We assist and support other projects providing specific distribution
-packages. Thus, we suggest creating your own repository to manage and maintain
-such packages. It will be mentioned in our documentation as an alternative
-source for installation.
+## Suporte para formatos específicos de pacotes (deb, rpm, Flatpack, AppImage, Snaps, PPA, …)
 
-We do not directly support third-party distribution channels associated with
-specific GNU/Linux distributions, unofficial repositories (e.g. Arch AUR,
-Launchpad PPA) or FlatPack & Co. One reasons is our lack of resources and the
-need to prioritize tasks. Another reasons is that their are distro maintainers
-with much more experience and skills in packaging. We always recommend using
-the official repositories of GNU/Linux distributions and contacting their
-maintainers if _Back In Time_ is unavailable or out dated.
+Nós auxiliamos e damos suporte a outros projetos que fornecem pacotes específicos para
+distribuições. Portanto, sugerimos que você crie seu próprio repositório para gerenciar
+e manter esses pacotes. Ele será mencionado em nossa documentação como uma fonte
+alternativa para instalação.
 
-## Is BIT really not supported by Canonical Ubuntu?
+Nós não oferecemos suporte diretamente a canais de distribuição de terceiros associados
+a distribuições GNU/Linux específicas, repositórios não oficiais (por exemplo, Arch AUR,
+Launchpad PPA) ou FlatPack & Co. Uma das razões é nossa falta de recursos e a necessidade
+de priorizar tarefas. Outra razão é que existem mantenedores das distribuições com muito
+mais experiência e conhecimento em empacotamento. Sempre recomendamos utilizar os
+repositórios oficiais das distribuições GNU/Linux e entrar em contato com seus
+mantenedores caso o *Back In Time* não esteja disponível ou esteja desatualizado.
 
-Ubuntu consists of
-[several repositories](https://help.ubuntu.com/community/Repositories), each
-offering different levels of support. The `main` repository is maintained
-by Canonical and receives regular security updates and bug fixes throughout
-the 5-year support period of LTS releases.
+## O BIT realmente não é suportado pelo Canonical Ubuntu?
 
-In contrast, the `universe` repository is community-managed, meaning security
-updates and bug fixes are not guaranteed and depend heavily on community
-activity and volunteers. Therefore, packages in `universe` may not always be
-up-to-date with the same but well-maintained packages in Debian GNU/Linux and
-might miss important fixes.
+O Ubuntu consiste em
+[vários repositórios](https://help.ubuntu.com/community/Repositories), cada um
+oferecendo diferentes níveis de suporte. O repositório `main` é mantido pela Canonical
+e recebe atualizações de segurança e correções de bugs regularmente durante o período
+de suporte de 5 anos das versões LTS.
 
-_Back In Time_ is one such package in the `universe` repository. That
+Em contraste, o repositório `universe` é gerenciado pela comunidade, o que significa
+que atualizações de segurança e correções de bugs não são garantidas e dependem muito
+da atividade da comunidade e de voluntários. Portanto, os pacotes em `universe` podem
+nem sempre estar atualizados em comparação com os mesmos pacotes, bem mantidos, do
+Debian GNU/Linux e podem não conter correções importantes.
+
+O *Back In Time* é um desses pacotes no repositório `universe`. Esse
 [package](https://packages.ubuntu.com/search?suite=all&searchon=names&keywords=backintime)
-is copied from the
+é copiado do
 [Debian GNU/Linux repository](https://packages.debian.org/search?searchon=sourcenames&keywords=backintime).
-It can be said that _Back In Time_ is not maintained by Canonical Ubuntu, but
-by volunteers from the Community of Ubuntu.
+Pode-se dizer que o *Back In Time* não é mantido pelo Canonical Ubuntu, mas por
+voluntários da Community of Ubuntu.
 
-## Move project to alternative code hoster (e.g. Codeberg, GitLab, …)
+## Mover o projeto para outro code hoster (por exemplo, Codeberg, GitLab, …)
 
-We also believe that staying with Microsoft GitHub is not a good idea. Microsoft
-GitHub does not offer any exclusive feature for our project that another hoster
-could not also provide. But a migration is a matter of time and resources we
-currently do not have. But it is on our list. And with the current state of
-discussion we seem to target [Codeberg.org](https://codeberg.org).
+Também acreditamos que permanecer no Microsoft GitHub não é uma boa ideia. O Microsoft
+GitHub não oferece nenhuma funcionalidade exclusiva para nosso projeto que outro hoster
+também não poderia oferecer. Porém, uma migração depende de tempo e recursos que
+atualmente não temos. Mas isso está em nossa lista. E, considerando o estado atual das
+discussões, parece que nosso alvo será o [Codeberg.org](https://codeberg.org).
 
-For more details please see
-[this thread on the mailing list](https://mail.python.org/archives/list/bit-dev@python.org/message/O5XZ5SPW6WIFBFKWUBHSOUIBKEUIBPNM/).
+Para mais detalhes, consulte
+[este tópico na mailing list](https://mail.python.org/archives/list/bit-dev@python.org/message/O5XZ5SPW6WIFBFKWUBHSOUIBKEUIBPNM/).
 
+## Como revisar um Pull Request
 
-## How to review a Pull Request
-Reviewing a Pull Request (PR) isn’t just about the code—it’s also about
-functionality. Changes can be tested by installing _Back In Time_ and trying
-them out, even without reading the code. This allows issues to be identified
-from a user’s perspective. A second pair of eyes helps catch errors, spot
-overlooked issues, and improve overall quality. Fresh perspectives, knowledge
-sharing, and better maintainability contribute to the long-term stability of
-the project.
+Revisar um Pull Request (PR) não envolve apenas o código — também envolve
+funcionalidade. As alterações podem ser testadas instalando o *Back In Time* e
+experimentando-as, mesmo sem ler o código. Isso permite identificar problemas do ponto
+de vista do usuário. Um segundo par de olhos ajuda a encontrar erros, identificar
+problemas que passaram despercebidos e melhorar a qualidade geral. Novas perspectivas,
+compartilhamento de conhecimento e melhor manutenção contribuem para a estabilidade
+do projeto a longo prazo.
 
-Check PRs labeled with
+Verifique as PRs marcadas com
 [PR: Waiting for
 review](https://github.com/bit-team/backintime/pulls?q=is%3Aopen+is%3Apr+label%3A%22PR%3A+Waiting+for+review%22).
-Checking the [milestone](https://github.com/bit-team/backintime/milestones)
-assigned to PR can also help gauge their priority and urgency.
+Verificar o [milestone](https://github.com/bit-team/backintime/milestones)
+atribuído à PR também pode ajudar a avaliar sua prioridade e urgência.
 
-- Start by carefully reading the PR description to understand the proposed
-  changes. Ask back if something is not clear.
-- When giving feedback, consider the contributor’s level of experience and
-  skills. Keep it polite and constructive—every beginner could be a future
-  maintainer.
+* Comece lendo cuidadosamente a descrição da PR para entender as alterações propostas.
+  Pergunte caso algo não esteja claro.
+* Ao fornecer feedback, considere o nível de experiência e as habilidades do contribuidor.
+  Seja educado e construtivo — todo iniciante pode se tornar um futuro mantenedor.
 
-To **test functionality**,
-[check out the PR code locally](https://docs.github.com//pull-requests/collaborating-with-pull-requests/reviewing-changes-in-pull-requests/checking-out-pull-requests-locally)
-on a virtual machine or your local machine. Running _Back In Time_ in a test
-environment provides insights, that can be shared as findings, observations,
-or suggestions for improvement.
+Para **testar a funcionalidade**,
+[faça checkout do código da PR localmente](https://docs.github.com//pull-requests/collaborating-with-pull-requests/reviewing-changes-in-pull-requests/checking-out-pull-requests-locally)
+em uma máquina virtual ou em sua máquina local. Executar o *Back In Time* em um
+ambiente de teste fornece informações que podem ser compartilhadas como descobertas,
+observações ou sugestões de melhoria.
 
-About **code review**:
-- Code should follow
-  [project standards](CONTRIBUTING.md#best-practice-and-recommendations)
-  and be structured for long-term maintainability.
-- Is a PR too large or complex, suggest to breaking it down into smaller parts.
-- How is the documentation?
-- Are there unit tests?
-- Does the changelog need an entry?
+Sobre a **revisão de código**:
 
-# Testing & Building
+* O código deve seguir os
+  [padrões do projeto](CONTRIBUTING.md#best-practice-and-recommendations)
+  e ser estruturado visando à manutenção a longo prazo.
+* Se uma PR for grande ou complexa demais, sugira dividi-la em partes menores.
+* Como está a documentação?
+* Existem testes unitários?
+* É necessário adicionar uma entrada ao changelog?
 
-## SSH related tests are skipped
+# Testes e Build
 
-They get skipped if no SSH server is available. Please see section
-[Testing & Building](CONTRIBUTING.md#testing--building) about how to setup
-a SSH server on your system.
+## Testes relacionados a SSH são ignorados
 
-## Setup SSH Server to run unit tests
+Eles são ignorados caso nenhum servidor SSH esteja disponível. Consulte a seção
+[Testing & Building](CONTRIBUTING.md#testing--building) para saber como configurar
+um servidor SSH em seu sistema.
 
-Please see section [Testing - SSH](CONTRIBUTING.md#ssh).
+## Configurar o servidor SSH para executar testes unitários
+
+Consulte a seção [Testing - SSH](CONTRIBUTING.md#ssh).
