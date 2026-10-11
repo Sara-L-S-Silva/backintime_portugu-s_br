@@ -1,4 +1,4 @@
-# Remove & Retention
+# Remoção e retenção
 <!--
 SPDX-FileCopyrightText: © 2025 Christian BUHTZ <c.buhtz@posteo.jp>
 
@@ -8,185 +8,184 @@ This file is part of the program "Back In Time" which is released under GNU
 General Public License v2 (GPLv2). See LICENSES directory or go to
 <https://spdx.org/licenses/GPL-2.0-or-later.html>
 -->
-## Overview
-Backups can be automatically deleted or retained based on rules.
-These rules allow for fine-grained management of the backup archive,
-reducing storage space usage. The process runs at the end of every backup
-run, even if no new backup is created.
+## Visão geral
+Backups podem ser removidos ou retidos automaticamente com base em regras.
+Essas regras permitem um gerenciamento detalhado do arquivo de backups,
+reduzindo o uso de espaço de armazenamento. O processo é executado ao final
+de cada execução de backup, mesmo que nenhum backup novo seja criado.
 
 !!! note
-    The feature was also known as _Auto-remove_ or _Smart Remove_ in earlier
-    versions of _Back In Time_ (prior to 1.6.0).
+    Esse recurso também era conhecido como _Auto-remove_ ou _Smart Remove_ em
+    versões anteriores do _Back In Time_ (anteriores à 1.6.0).
 
-![Dialog tab - Remove and Retention](_images/tab_remove_retention.png)
+![Aba do diálogo - Remoção e retenção](_images/tab_remove_retention.png)
 
-Here is a brief overview of the rules available:
+Veja uma breve visão geral das regras disponíveis:
       
-- **Keep the most recent backup**: The last (or freshest) backup will be retained.
-- **Keep named backups**: All backups with a name are excluded from every
-  rule and never removed. This is the only one rule that can not be overruled
-  by other rules.
-- **Remove backups older than `N` Days/Weeks/Years**: Backups older than
-  the specified time period are removed immediately.
-- **Retention policy**: Rules about which backups to keep. The
-  rest will be removed immediately.
-    - **Keep all backups for the last `N` days**
-    - **Keep the last backup for each day/week/month for the last `N` days/weeks/months**
-    - **Keep the last backup for each year for all years**
-- **Remove oldest backup if the free space is less than `N` GiB/MiB**: If the
-  threshold of free storage space is reached, the oldest backups will be
-  removed until enough storage space is available again.
-- **Remove oldest backup if the free inodes are less than `N` %**: If the
-  threshold of free inodes is reached, the oldest backups will be
-  removed until enough inodes are available again.
+- **Manter o backup mais recente**: O último backup (ou o mais novo) será mantido.
+- **Manter backups nomeados**: Todos os backups com um nome são excluídos de todas as
+  regras e nunca são removidos. Esta é a única regra que não pode ser substituída
+  por outras regras.
+- **Remover backups com mais de `N` dias/semanas/anos**: Backups anteriores
+  ao período especificado são removidos imediatamente.
+- **Política de retenção**: Regras que determinam quais backups manter. Os
+  demais serão removidos imediatamente.
+    - **Manter todos os backups dos últimos `N` dias**
+    - **Manter o último backup de cada dia/semana/mês dos últimos `N` dias/semanas/meses**
+    - **Manter o último backup de cada ano, para todos os anos**
+- **Remover o backup mais antigo se o espaço livre for inferior a `N` GiB/MiB**: Se o
+  limite de espaço de armazenamento livre for atingido, os backups mais antigos serão
+  removidos até que haja espaço de armazenamento suficiente novamente.
+- **Remover o backup mais antigo se os inodes livres forem inferiores a `N` %**: Se o
+  limite de inodes livres for atingido, os backups mais antigos serão
+  removidos até que haja inodes suficientes novamente.
 
 !!! warning
-    All rules are processed from top to bottom, as presented in the GUI or in
-    this manual. Later rules **do override** earlier ones and are **not
-    constrained** by them. The only exception is the first rule
-    *Keep named backups*.
+    Todas as regras são processadas de cima para baixo, conforme apresentadas na GUI ou
+    neste manual. Regras posteriores **substituem** as anteriores e **não são
+    limitadas** por elas. A única exceção é a primeira regra,
+    *Manter backups nomeados*.
 
-In the examples below:
+Nos exemplos abaixo:
 
-- The <span style="color: #e655ec;"><strong>item in pink is the current backup</strong></span>.
-- <strong>Items in black are the existing backups</strong>.
-- <span style="color: #60a776;"><strong>Items in green are backups identified for retention</strong></span>.
-- <span style="color: #d23c48;"><strong>Items in red are backups identified for removal</strong></span>.
-- <span style="color: #6681a5;"><strong>Items in blue (sometimes <span style="color: #e655ec;">mixed with pink</span>) in the final column are the final retained backups</strong></span>.
+- O <span style="color: #e655ec;"><strong>item em rosa é o backup atual</strong></span>.
+- <strong>Os itens em preto são os backups existentes</strong>.
+- <span style="color: #60a776;"><strong>Os itens em verde são backups identificados para retenção</strong></span>.
+- <span style="color: #d23c48;"><strong>Os itens em vermelho são backups identificados para remoção</strong></span>.
+- <span style="color: #6681a5;"><strong>Os itens em azul (às vezes <span style="color: #e655ec;">combinados com rosa</span>) na coluna final são os backups mantidos ao final</strong></span>.
 
-## Rules in details
-### Keep the most recent backups
-The most recently created backups, in other words the freshest one, will be
-retained and not deleted by any of the configured rules. Despite it is present
-in the graphical frontend, that behavior cannot be changed.
+## Detalhes das regras
+### Manter os backups mais recentes
+Os backups criados mais recentemente, ou seja, os mais novos, serão
+mantidos e não serão excluídos por nenhuma das regras configuradas. Embora
+essa opção apareça na interface gráfica, esse comportamento não pode ser alterado.
 
-### Keep named backups
-Beside the timestamp regularly used to identify backups, it is possible to
-attach a name to it. Those named backups are never touched by any other
-rule. It is a guarantee that they won't be removed. See
-[Main Window](main_window.md) for more details about named backups.
+### Manter backups nomeados
+Além do timestamp normalmente usado para identificar backups, é possível
+associar um nome a eles. Nenhuma outra regra afeta esses backups nomeados.
+Isso garante que eles não serão removidos. Consulte
+[Janela principal](main_window.md) para obter mais detalhes sobre backups nomeados.
 
-### Remove backups older than …
+### Remover backups com mais de …
 
-**Remove backups older than `N` Years**
+**Remover backups com mais de `N` anos**
 
-- Calculation is based on 12 months.
-- Current month is ignored.
-- _Example_: Older than two years, at date 2025-04-17, result in
-  removing backups before (or older than) 2023-04-01.
-![Rule - Remove older than 2 years](_images/rule_older_than_n_years.png)
+- O cálculo é baseado em 12 meses.
+- O mês atual é ignorado.
+- _Exemplo_: Para backups com mais de dois anos, na data 2025-04-17, serão
+  removidos os backups anteriores a (ou mais antigos que) 2023-04-01.
+![Regra - Remover backups com mais de 2 anos](_images/rule_older_than_n_years.png)
 
-**Remove backups older than `N` Weeks**
+**Remover backups com mais de `N` semanas**
 
-- Calculation is based on calendar weeks with Monday as first day of a week.
-- Current week is ignored.
-- _Example_: Older than two weeks, at Friday 2025-08-29, result in removing
-  backups before (or older than) Monday 2025-08-11.
+- O cálculo é baseado em semanas do calendário, considerando segunda-feira como o primeiro dia da semana.
+- A semana atual é ignorada.
+- _Exemplo_: Para backups com mais de duas semanas, na sexta-feira 2025-08-29, serão removidos
+  os backups anteriores a (ou mais antigos que) segunda-feira 2025-08-11.
 
-![Rule - Remove older than 2 weeks](_images/rule_older_than_n_weeks.png)
+![Regra - Remover backups com mais de 2 semanas](_images/rule_older_than_n_weeks.png)
 
-**Remove backups older than `N` Days**
+**Remover backups com mais de `N` dias**
 
-- Calculation is based on full days from 0:00 to 23:59.
-- Current day is ignored.
-- _Example_: Older than 3 days, at date 2025-01-10, result in removing backups
-  before (or older than) 2025-01-07.
+- O cálculo é baseado em dias completos, das 0:00 às 23:59.
+- O dia atual é ignorado.
+- _Exemplo_: Para backups com mais de 3 dias, na data 2025-01-10, serão removidos os backups
+  anteriores a (ou mais antigos que) 2025-01-07.
 
-![Rule - Remove older than 3 days](_images/rule_older_than_n_days.png)
+![Regra - Remover backups com mais de 3 dias](_images/rule_older_than_n_days.png)
 
-### Retention policy
-Backups are retained if they fit at least one of the the rules from the
-retention policy. All other backups, not covered by the retention policy,
-will be removed.
+### Política de retenção
+Os backups são mantidos se corresponderem a pelo menos uma das regras da
+política de retenção. Todos os outros backups, não abrangidos pela política de
+retenção, serão removidos.
 
-The values specified are treated as a period rather than a count. For example,
-imagine keeping the last backup of each month for the past six months,
-including the current running months. However, only four of these six months
-have backups. In this case, only four backups are retained. The period is
-not extended further into the past to reach a total of six backups. See the
-rules below for more illustrated examples.
+Os valores especificados são tratados como um período, e não como uma contagem. Por exemplo,
+imagine que se mantenha o último backup de cada mês dos últimos seis meses,
+incluindo o mês atual. No entanto, somente quatro desses seis meses têm backups.
+Nesse caso, apenas quatro backups serão mantidos. O período não é
+estendido para trás para atingir um total de seis backups. Consulte as
+regras abaixo para ver mais exemplos ilustrados.
 
-**Keep all backups for the last `N` days**
+**Manter todos os backups dos últimos `N` dias**
 
-- Calculation is based on full days from 0:00 to 23:59.
-- Current day is included.
+- O cálculo é baseado em dias completos, das 0:00 às 23:59.
+- O dia atual está incluído.
 
-_Example_:
+_Exemplo_:
 
-![Rule - Keep all for the last 2 days](_images/rule_keep_all_for_n_days.png)
+![Regra - Manter todos os backups dos últimos 2 dias](_images/rule_keep_all_for_n_days.png)
 
-**Keep the last backup for each day for the last `N` days**
+**Manter o último backup de cada dia dos últimos `N` dias**
 
-- Calculation is based on full days from 0:00 to 23:59.
-- Current day is included.
+- O cálculo é baseado em dias completos, das 0:00 às 23:59.
+- O dia atual está incluído.
 
-_Example_:
+_Exemplo_:
 
-![Rule - Keep last for each day for the last 5 days](_images/rule_keep_last_each_day_for_n_days.png)
+![Regra - Manter o último backup de cada dia dos últimos 5 dias](_images/rule_keep_last_each_day_for_n_days.png)
 
-**Keep the last backup for each week for the last `N` weeks**
+**Manter o último backup de cada semana das últimas `N` semanas**
 
-- Calculation is based on full calendar weeks starting from Monday.
-- Current week is included.
+- O cálculo é baseado em semanas completas do calendário, começando na segunda-feira.
+- A semana atual está incluída.
 
-_Example_:
+_Exemplo_:
 
-![Rule - Keep last for each week for the last 4 weeks](_images/rule_keep_last_each_week_for_n_weeks.png)
+![Regra - Manter o último backup de cada semana das últimas 4 semanas](_images/rule_keep_last_each_week_for_n_weeks.png)
 
-**Keep the last backup for each month for the last `N` months**
+**Manter o último backup de cada mês dos últimos `N` meses**
 
-- Calculation is based on full calendar months.
-- Current month is included.
+- O cálculo é baseado em meses completos do calendário.
+- O mês atual está incluído.
 
-_Example_:
+_Exemplo_:
 
-![Rule - Keep last for each months for the last 4 months](_images/rule_keep_last_each_month_for_n_months.png)
+![Regra - Manter o último backup de cada mês dos últimos 4 meses](_images/rule_keep_last_each_month_for_n_months.png)
 
-**Keep the last backup for each year for all years**
+**Manter o último backup de cada ano, para todos os anos**
 
-- Calculation is based on calendar years.
-- Current year is included.
-- Despite it is present in the graphical frontend, that behavior cannot be
-  changed, if _Retention Policy_ is enabled.
+- O cálculo é baseado em anos do calendário.
+- O ano atual está incluído.
+- Embora essa opção apareça na interface gráfica, esse comportamento não pode ser
+  alterado quando a _Política de retenção_ está ativada.
 
-_Example_:
+_Exemplo_:
 
-![Rule - Keep last for each year for all years](_images/rule_keep_last_each_year_for_all_years.png)
+![Regra - Manter o último backup de cada ano, para todos os anos](_images/rule_keep_last_each_year_for_all_years.png)
 
-### Run in background mode on remote host
-The remove command can be executed on the local machine or on a remote host via
-SSH. The latter can save time and resources.
+### Executar em background mode no remote host
+O comando de remoção pode ser executado na máquina local ou em um remote host via
+SSH. A segunda opção pode economizar tempo e recursos.
 
-## Interactions between and mutual constraints of the rules
-All rules are applied and executed immediately one by one and in the order as
-presented in the GUI and here in the manual. This contain the potential of
-confusing interactions between the rules.
+## Interações entre as regras e restrições mútuas
+Todas as regras são aplicadas e executadas imediatamente, uma por uma, na ordem
+em que são apresentadas na GUI e neste manual. Isso pode levar a interações
+confusas entre as regras.
 
-### Example: Three years and all years.
-Imagine this two rules:
+### Exemplo: três anos e todos os anos
+Imagine estas duas regras:
 
-1. Remove backups older than 3 years.
-2. Keep last backup for each year for all years.
+1. Remover backups com mais de 3 anos.
+2. Manter o último backup de cada ano, para todos os anos.
 
-We continue to assume that multiple backups per year have been available over
-the past five years.
+Vamos continuar supondo que houve vários backups por ano nos últimos
+cinco anos.
 
-Rule 2 in isolation would result in five retained backups, one for each of the
-five existing years. But rule 1 will be executed beforehand. Rule 1 will remove
-all backups from four and five years ago.
+A regra 2, isoladamente, resultaria em cinco backups mantidos, um para cada um dos
+cinco anos existentes. Mas a regra 1 será executada antes. A regra 1 removerá
+todos os backups de quatro e cinco anos atrás.
     
-### Example: Six months but less storage space
-Imagine this two rules:
+### Exemplo: seis meses, mas menos espaço de armazenamento
+Imagine estas duas regras:
 
-1. Keep last backup for each months for 6 months.
-2. Remove oldest backups if the free space is less than 100 GiB.
+1. Manter o último backup de cada mês por 6 meses.
+2. Remover os backups mais antigos se o espaço livre for inferior a 100 GiB.
 
-The consequence of rule 1 is that six backups are kept, one for each
-months. Additionally imagine some more backups because of the other keep rules
-beforehand. This consumes so much storage space that there is only 80 GiB free
-space left. This is less than the 100 GiB limit configured in rule 2. Because
-of that the two oldest backups (of months five and six) will be
-removed. After this 105 GiB storage space is available again and the rule
-stops. The final consequence is that backups of four months are kept, instead
-of six months as configured in rule 1.
-
+A consequência da regra 1 é que seis backups serão mantidos, um para cada
+mês. Imagine também que haja alguns outros backups mantidos pelas regras
+anteriores. Isso consome tanto espaço de armazenamento que restam apenas 80 GiB
+livres. Esse valor é inferior ao limite de 100 GiB configurado na regra 2. Por
+isso, os dois backups mais antigos (dos meses cinco e seis) serão
+removidos. Depois disso, haverá 105 GiB de espaço de armazenamento disponível novamente e a regra
+será interrompida. Como resultado final, serão mantidos backups de quatro meses,
+em vez dos seis meses configurados na regra 1.

@@ -1,121 +1,125 @@
-Creative Commons Legal Code
+Código Legal da Creative Commons
 
 CC0 1.0 Universal
 
-    CREATIVE COMMONS CORPORATION IS NOT A LAW FIRM AND DOES NOT PROVIDE
-    LEGAL SERVICES. DISTRIBUTION OF THIS DOCUMENT DOES NOT CREATE AN
-    ATTORNEY-CLIENT RELATIONSHIP. CREATIVE COMMONS PROVIDES THIS
-    INFORMATION ON AN "AS-IS" BASIS. CREATIVE COMMONS MAKES NO WARRANTIES
-    REGARDING THE USE OF THIS DOCUMENT OR THE INFORMATION OR WORKS
-    PROVIDED HEREUNDER, AND DISCLAIMS LIABILITY FOR DAMAGES RESULTING FROM
-    THE USE OF THIS DOCUMENT OR THE INFORMATION OR WORKS PROVIDED
-    HEREUNDER.
+    A CREATIVE COMMONS CORPORATION NÃO É UM ESCRITÓRIO DE ADVOCACIA E NÃO
+    PRESTA SERVIÇOS JURÍDICOS. A DISTRIBUIÇÃO DESTE DOCUMENTO NÃO CRIA UMA
+    RELAÇÃO ADVOGADO-CLIENTE. A CREATIVE COMMONS FORNECE ESTAS
+    INFORMAÇÕES "NO ESTADO EM QUE SE ENCONTRAM". A CREATIVE COMMONS NÃO
+    OFERECE GARANTIAS QUANTO AO USO DESTE DOCUMENTO OU DAS INFORMAÇÕES OU
+    OBRAS FORNECIDAS NOS TERMOS DESTE DOCUMENTO E SE ISENTA DE
+    RESPONSABILIDADE POR DANOS RESULTANTES DO USO DESTE DOCUMENTO OU DAS
+    INFORMAÇÕES OU OBRAS FORNECIDAS NOS TERMOS DESTE DOCUMENTO.
 
-Statement of Purpose
+Declaração de Propósito
 
-The laws of most jurisdictions throughout the world automatically confer
-exclusive Copyright and Related Rights (defined below) upon the creator
-and subsequent owner(s) (each and all, an "owner") of an original work of
-authorship and/or a database (each, a "Work").
+As leis da maioria das jurisdições em todo o mundo conferem automaticamente
+Direitos Autorais e Direitos Conexos exclusivos (definidos abaixo) ao criador
+e ao(s) proprietário(s) subsequente(s) (cada um e todos, um "proprietário") de
+uma obra original de autoria e/ou de um banco de dados (cada um, uma "Obra").
 
-Certain owners wish to permanently relinquish those rights to a Work for
-the purpose of contributing to a commons of creative, cultural and
-scientific works ("Commons") that the public can reliably and without fear
-of later claims of infringement build upon, modify, incorporate in other
-works, reuse and redistribute as freely as possible in any form whatsoever
-and for any purposes, including without limitation commercial purposes.
-These owners may contribute to the Commons to promote the ideal of a free
-culture and the further production of creative, cultural and scientific
-works, or to gain reputation or greater distribution for their Work in
-part through the use and efforts of others.
+Certos proprietários desejam renunciar permanentemente a esses direitos
+sobre uma Obra com o propósito de contribuir para um acervo comum de obras
+criativas, culturais e científicas ("Acervo Comum"), no qual o público possa,
+com segurança e sem receio de futuras reivindicações por violação de direitos,
+se basear, modificar, incorporar em outras obras, reutilizar e redistribuir
+da forma mais livre possível, em qualquer formato e para quaisquer fins,
+incluindo, sem limitação, fins comerciais. Esses proprietários podem
+contribuir para o Acervo Comum para promover o ideal de uma cultura livre e
+a produção contínua de obras criativas, culturais e científicas, ou para
+obter reconhecimento ou maior distribuição de sua Obra, em parte por meio
+do uso e dos esforços de outras pessoas.
 
-For these and/or other purposes and motivations, and without any
-expectation of additional consideration or compensation, the person
-associating CC0 with a Work (the "Affirmer"), to the extent that he or she
-is an owner of Copyright and Related Rights in the Work, voluntarily
-elects to apply CC0 to the Work and publicly distribute the Work under its
-terms, with knowledge of his or her Copyright and Related Rights in the
-Work and the meaning and intended legal effect of CC0 on those rights.
+Para esses e/ou outros propósitos e motivações, e sem qualquer expectativa
+de consideração ou compensação adicional, a pessoa que associa o CC0 a uma
+Obra (o "Declarante"), na medida em que seja titular dos Direitos Autorais
+e Direitos Conexos sobre a Obra, opta voluntariamente por aplicar o CC0 à
+Obra e distribuí-la publicamente nos termos deste documento, ciente de seus
+Direitos Autorais e Direitos Conexos sobre a Obra e do significado e efeito
+jurídico pretendido do CC0 sobre esses direitos.
 
-1. Copyright and Related Rights. A Work made available under CC0 may be
-protected by copyright and related or neighboring rights ("Copyright and
-Related Rights"). Copyright and Related Rights include, but are not
-limited to, the following:
+1. Direitos Autorais e Direitos Conexos. Uma Obra disponibilizada sob o
+CC0 pode estar protegida por direitos autorais e direitos conexos ou
+similares ("Direitos Autorais e Direitos Conexos"). Os Direitos Autorais e
+Direitos Conexos incluem, entre outros, os seguintes:
 
-  i. the right to reproduce, adapt, distribute, perform, display,
-     communicate, and translate a Work;
- ii. moral rights retained by the original author(s) and/or performer(s);
-iii. publicity and privacy rights pertaining to a person's image or
-     likeness depicted in a Work;
- iv. rights protecting against unfair competition in regards to a Work,
-     subject to the limitations in paragraph 4(a), below;
-  v. rights protecting the extraction, dissemination, use and reuse of data
-     in a Work;
- vi. database rights (such as those arising under Directive 96/9/EC of the
-     European Parliament and of the Council of 11 March 1996 on the legal
-     protection of databases, and under any national implementation
-     thereof, including any amended or successor version of such
-     directive); and
-vii. other similar, equivalent or corresponding rights throughout the
-     world based on applicable law or treaty, and any national
-     implementations thereof.
+  i. o direito de reproduzir, adaptar, distribuir, executar, exibir,
+     comunicar e traduzir uma Obra;
+ ii. direitos morais mantidos pelo(s) autor(es) e/ou intérprete(s) original(is);
+iii. direitos de publicidade e privacidade relativos à imagem ou
+     representação de uma pessoa retratada em uma Obra;
+ iv. direitos de proteção contra a concorrência desleal em relação a uma Obra,
+     sujeitos às limitações do parágrafo 4(a) abaixo;
+  v. direitos que protegem a extração, disseminação, uso e reutilização de dados
+     em uma Obra;
+ vi. direitos sobre bancos de dados (como os decorrentes da Diretiva 96/9/EC do
+     Parlamento Europeu e do Conselho, de 11 de março de 1996, relativa à
+     proteção jurídica das bases de dados, e de qualquer implementação
+     nacional dessa diretiva, incluindo qualquer versão alterada ou que a
+     substitua); e
+vii. outros direitos similares, equivalentes ou correspondentes em todo o
+     mundo, com base na legislação ou em tratados aplicáveis, e quaisquer
+     implementações nacionais desses instrumentos.
 
-2. Waiver. To the greatest extent permitted by, but not in contravention
-of, applicable law, Affirmer hereby overtly, fully, permanently,
-irrevocably and unconditionally waives, abandons, and surrenders all of
-Affirmer's Copyright and Related Rights and associated claims and causes
-of action, whether now known or unknown (including existing as well as
-future claims and causes of action), in the Work (i) in all territories
-worldwide, (ii) for the maximum duration provided by applicable law or
-treaty (including future time extensions), (iii) in any current or future
-medium and for any number of copies, and (iv) for any purpose whatsoever,
-including without limitation commercial, advertising or promotional
-purposes (the "Waiver"). Affirmer makes the Waiver for the benefit of each
-member of the public at large and to the detriment of Affirmer's heirs and
-successors, fully intending that such Waiver shall not be subject to
-revocation, rescission, cancellation, termination, or any other legal or
-equitable action to disrupt the quiet enjoyment of the Work by the public
-as contemplated by Affirmer's express Statement of Purpose.
+2. Renúncia. Na maior medida permitida pela legislação aplicável, sem
+contrariá-la, o Declarante renuncia, abandona e cede expressa, integral,
+permanente, irrevogável e incondicionalmente a todos os seus Direitos
+Autorais e Direitos Conexos e às reivindicações e causas de pedir associadas,
+sejam atualmente conhecidas ou desconhecidas (incluindo reivindicações e
+causas de pedir existentes e futuras), sobre a Obra: (i) em todos os
+territórios do mundo; (ii) pelo prazo máximo previsto pela legislação ou
+pelos tratados aplicáveis (incluindo prorrogações futuras); (iii) em qualquer
+meio atual ou futuro e para qualquer número de cópias; e (iv) para qualquer
+finalidade, incluindo, sem limitação, fins comerciais, publicitários ou
+promocionais (a "Renúncia"). O Declarante faz a Renúncia em benefício de
+cada integrante do público em geral e em prejuízo de seus herdeiros e
+sucessores, com a plena intenção de que tal Renúncia não esteja sujeita a
+revogação, rescisão, cancelamento, término ou qualquer outra medida
+jurídica ou equitativa que perturbe o usufruto pacífico da Obra pelo público,
+conforme previsto na Declaração de Propósito expressa do Declarante.
 
-3. Public License Fallback. Should any part of the Waiver for any reason
-be judged legally invalid or ineffective under applicable law, then the
-Waiver shall be preserved to the maximum extent permitted taking into
-account Affirmer's express Statement of Purpose. In addition, to the
-extent the Waiver is so judged Affirmer hereby grants to each affected
-person a royalty-free, non transferable, non sublicensable, non exclusive,
-irrevocable and unconditional license to exercise Affirmer's Copyright and
-Related Rights in the Work (i) in all territories worldwide, (ii) for the
-maximum duration provided by applicable law or treaty (including future
-time extensions), (iii) in any current or future medium and for any number
-of copies, and (iv) for any purpose whatsoever, including without
-limitation commercial, advertising or promotional purposes (the
-"License"). The License shall be deemed effective as of the date CC0 was
-applied by Affirmer to the Work. Should any part of the License for any
-reason be judged legally invalid or ineffective under applicable law, such
-partial invalidity or ineffectiveness shall not invalidate the remainder
-of the License, and in such case Affirmer hereby affirms that he or she
-will not (i) exercise any of his or her remaining Copyright and Related
-Rights in the Work or (ii) assert any associated claims and causes of
-action with respect to the Work, in either case contrary to Affirmer's
-express Statement of Purpose.
+3. Licença Pública Subsidiária. Se qualquer parte da Renúncia for, por
+qualquer motivo, considerada juridicamente inválida ou ineficaz nos termos
+da legislação aplicável, a Renúncia será preservada na máxima medida
+permitida, levando em consideração a Declaração de Propósito expressa do
+Declarante. Além disso, na medida em que a Renúncia for assim considerada,
+o Declarante concede a cada pessoa afetada uma licença isenta de royalties,
+intransferível, não sublicenciável, não exclusiva, irrevogável e
+incondicional para exercer os Direitos Autorais e Direitos Conexos do
+Declarante sobre a Obra: (i) em todos os territórios do mundo; (ii) pelo
+prazo máximo previsto pela legislação ou pelos tratados aplicáveis
+(incluindo prorrogações futuras); (iii) em qualquer meio atual ou futuro e
+para qualquer número de cópias; e (iv) para qualquer finalidade, incluindo,
+sem limitação, fins comerciais, publicitários ou promocionais (a
+"Licença"). A Licença será considerada vigente a partir da data em que o
+Declarante aplicou o CC0 à Obra. Se qualquer parte da Licença for, por
+qualquer motivo, considerada juridicamente inválida ou ineficaz nos termos
+da legislação aplicável, essa invalidade ou ineficácia parcial não
+invalidará o restante da Licença e, nesse caso, o Declarante afirma que
+não irá (i) exercer nenhum dos Direitos Autorais e Direitos Conexos
+remanescentes sobre a Obra nem (ii) alegar quaisquer reivindicações e
+causas de pedir associadas à Obra, em qualquer dos casos em desacordo com
+a Declaração de Propósito expressa do Declarante.
 
-4. Limitations and Disclaimers.
+4. Limitações e Isenções de Responsabilidade.
 
- a. No trademark or patent rights held by Affirmer are waived, abandoned,
-    surrendered, licensed or otherwise affected by this document.
- b. Affirmer offers the Work as-is and makes no representations or
-    warranties of any kind concerning the Work, express, implied,
-    statutory or otherwise, including without limitation warranties of
-    title, merchantability, fitness for a particular purpose, non
-    infringement, or the absence of latent or other defects, accuracy, or
-    the present or absence of errors, whether or not discoverable, all to
-    the greatest extent permissible under applicable law.
- c. Affirmer disclaims responsibility for clearing rights of other persons
-    that may apply to the Work or any use thereof, including without
-    limitation any person's Copyright and Related Rights in the Work.
-    Further, Affirmer disclaims responsibility for obtaining any necessary
-    consents, permissions or other rights required for any use of the
-    Work.
- d. Affirmer understands and acknowledges that Creative Commons is not a
-    party to this document and has no duty or obligation with respect to
-    this CC0 or use of the Work.
+ a. Nenhum direito de marca registrada ou patente pertencente ao Declarante
+    é renunciado, abandonado, cedido, licenciado ou afetado de qualquer
+    outra forma por este documento.
+ b. O Declarante oferece a Obra no estado em que se encontra e não faz
+    declarações nem oferece garantias de qualquer tipo relativas à Obra,
+    expressas, implícitas, legais ou de qualquer outra natureza, incluindo,
+    sem limitação, garantias de titularidade, comercialização, adequação a
+    uma finalidade específica, não violação ou ausência de defeitos ocultos
+    ou outros defeitos, precisão ou presença ou ausência de erros,
+    detectáveis ou não, tudo na máxima medida permitida pela legislação
+    aplicável.
+ c. O Declarante se isenta da responsabilidade de obter a liberação de
+    direitos de outras pessoas que possam se aplicar à Obra ou a qualquer
+    uso dela, incluindo, sem limitação, os Direitos Autorais e Direitos
+    Conexos de qualquer pessoa sobre a Obra. Além disso, o Declarante se
+    isenta da responsabilidade de obter quaisquer consentimentos,
+    permissões ou outros direitos necessários para qualquer uso da Obra.
+ d. O Declarante entende e reconhece que a Creative Commons não é parte
+    deste documento e não tem dever ou obrigação em relação a este CC0 ou
+    ao uso da Obra.

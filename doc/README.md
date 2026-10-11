@@ -7,23 +7,23 @@ This file is part of the program "Back In Time" which is released under GNU
 General Public License v2 (GPLv2). See directory LICENSES or go to
 <https://spdx.org/licenses/GPL-2.0-or-later.html>
 -->
-- [Overview](#overview)
-- [Build user manual](#build-user-manual)
-- [How to reduce file size of images](#how-to-reduce-file-size-of-images)
+- [Visão geral](#visão-geral)
+- [Compilar o manual do usuário](#compilar-o-manual-do-usuário)
+- [Como reduzir o tamanho dos arquivos de imagem](#como-reduzir-o-tamanho-dos-arquivos-de-imagem)
 
-# Overview
-This directory contains the source files for various types of documentation
-for _Back In Time_.
+# Visão geral
+Este diretório contém os arquivos-fonte de vários tipos de documentação
+do _Back In Time_.
 
-- `manual`: User Manual
-- `manpages`: Man page source files
-- `maintain`: Several documents regarding mainteanance of the _Back In Time_
-  project and nearly all other documents not fitting to one of the other
-  categories.
+- `manual`: Manual do usuário
+- `manpages`: Arquivos-fonte das páginas de manual
+- `maintain`: Vários documentos sobre a manutenção do projeto _Back In Time_
+  e quase todos os outros documentos que não se encaixam em nenhuma das outras
+  categorias.
 
-# Build user manual
-The user manual is build from markdown files (in directory `src`) and converted
-into HTML (directory `html`). The tool `mkdocs` is used for this.
+# Compilar o manual do usuário
+O manual do usuário é compilado a partir de arquivos markdown (no diretório `src`) e convertido
+em HTML (diretório `html`). A ferramenta `mkdocs` é usada para isso.
 
 ```sh
 $ cd backintime/doc/manual
@@ -33,10 +33,10 @@ INFO    -  Building documentation to directory: XYZ
 INFO    -  Documentation built in 2.66 seconds 
 $
 ```
-Open `html/index.html` to inspect the result.
+Abra `html/index.html` para inspecionar o resultado.
 
-As an alternative `mkdocs` is able to provide a live preview of docs while
-editing the markdown files. A local web server is used for this.
+Como alternativa, `mkdocs` pode fornecer uma prévia ao vivo da documentação enquanto
+os arquivos markdown estão sendo editados. Um servidor web local é usado para isso.
 
 ```sh
 $ cd backintime/doc/manual
@@ -48,20 +48,20 @@ INFO    -  [10:17:21] Watching paths for changes: 'src', 'mkdocs.yml'
 INFO    -  [10:17:21] Serving on http://127.0.0.1:8000/     
 ```
 
-Inspect the result in browser: [127.0.0.1:8000](http://127.0.0.1:8000).
+Inspecione o resultado no navegador: [127.0.0.1:8000](http://127.0.0.1:8000).
 
-# How to reduce file size of images
-For PNG images `optipng` could be used. *Attention*: By default it overwrites
-the original files. The following command use the highest possible optimization
-and write the result in a subfolder.
+# Como reduzir o tamanho dos arquivos de imagem
+Para imagens PNG, `optipng` pode ser usado. *Atenção*: Por padrão, ele sobrescreve
+os arquivos originais. O comando a seguir usa o nível mais alto de otimização
+possível e grava o resultado em uma subpasta.
 
     $ optipng --dir subfolder -o7 *.png
 
-As an alternative `pngcrush` can be used. The following determine the best
-algorithm by its own.
+Como alternativa, `pngcrush` pode ser usado. O comando a seguir determina
+o melhor algoritmo por conta própria.
 
     $ pngcrush -d subfolder -brute *.png
 
-Applied to a set of _Back In Time_ dark mode screenshots, their file size
-was reduced by approximately 13%. Both applications show no significant
-differences. The visual result is indistinguishable from the original.
+Quando aplicados a um conjunto de capturas de tela do modo escuro do _Back In Time_,
+o tamanho dos arquivos foi reduzido em aproximadamente 13%. Ambos os aplicativos
+apresentam diferenças insignificantes. O resultado visual é indistinguível do original.

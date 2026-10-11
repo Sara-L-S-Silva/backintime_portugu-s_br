@@ -1,167 +1,111 @@
 <!--
+
 SPDX-FileCopyrightText: © 2024 Michael Büker
 
 SPDX-License-Identifier: GPL-2.0-or-later
 
-This file is part of the program "Back In Time" which is released under GNU
-General Public License v2 (GPLv2). See LICENSES directory or go to
+Este arquivo faz parte do programa "Back In Time", que é distribuído sob a GNU
+
+General Public License v2 (GPLv2). Consulte o diretório LICENSES ou acesse
+
 <https://spdx.org/licenses/GPL-2.0-or-later.html>
+
 -->
-# Looking back in time at _Back In Time_
 
-*by Michael Büker, 2024*
+# Olhando para o passado do **Back In Time**
 
-The development of _Back In Time_ was inspired by
-[FlyBack](https://en.wikipedia.org/wiki/FlyBack).
-The history of the _Back In Time_ project, which at the time of this writing
-already spans nearly 16 years and is best understood in four periods:
+**Por Michael Büker, 2024**
 
-1. The **First Era** from 2008 to 2012, releases 0.5 to ~1.0.12
-2. The **Second Era** from 2012 to 2019, releases ~1.0.14 to 1.2
-3. A **Dark Age** from 2019 to 2022, releases 1.2.0 to 1.3.2
-4. The **Third Era** since 2022, since release 1.3.3
+O desenvolvimento do **Back In Time** foi inspirado pelo [FlyBack](https://en.wikipedia.org/wiki/FlyBack).
 
-These periods correspond roughly to who was maintaining and developing _Back In
-Time_. Important technical and organizational changes happened at various
-moments in between.
+A história do projeto **Back In Time**, que no momento em que este texto foi escrito já se estende por quase 16 anos, é melhor compreendida em quatro períodos:
 
-For details, refer to [CHANGES](CHANGES). For a glimpse into the future, see
-the [Strategy Outline](CONTRIBUTING.md#strategy-outline).
+1. A ****Primeira Era****, de 2008 a 2012, versões 0.5 a ~1.0.12
 
-# The First Era: 0.5 to ~1.0.12 (2008–2012)
+2. A ****Segunda Era****, de 2012 a 2019, versões ~1.0.14 a 1.2
 
-## Maintenance
+3. Uma ****Era das Trevas****, de 2019 a 2022, versões 1.2.0 a 1.3.2
 
-_Back In Time_ was created by **Oprea Dan** and first published on a private
-blog in late 2008
-([wayback link](https://web.archive.org/web/20081014041759/http://www.le-web.org/2008/10/03/back-in-time-version-05/)).
-Shortly thereafter, collaborative development started happening on
-Launchpad. Sometime around 2010, development and publication appears to have
-moved entirely to Launchpad, with the private blog being discontinued.
+4. A ****Terceira Era****, desde 2022, a partir da versão 1.3.3
 
-## Core functionality
+Esses períodos correspondem aproximadamente a quem estava mantendo e desenvolvendo o *Back In Time*. Mudanças técnicas e organizacionais importantes aconteceram em vários momentos entre eles. Para obter detalhes, consulte [CHANGES](CHANGES). Para ter uma visão do futuro, consulte o [Strategy Outline](CONTRIBUTING.md#strategy-outline).
 
-At first, _Back In Time_ used `diff` to compare the latest backup with the
-source, in order to check if a new backup was necessary. If the answer was
-yes, it would use `cp` to create a new backup.
+# A Primeira Era: 0.5 a ~1.0.12 (2008–2012)
 
-This was changed in version 0.9.2 in early 2009, when `diff` was replaced by
-`rsync` for the comparison. Copying was still done by `cp`, apparently without
-special permissions handling.
+## Manutenção
 
-This changed when, shortly thereafter, version 0.9.24 introduced
-`fileinfo.bz2`, which holds permissions information on all files in a
-backup. Introduced to allow saving backups on non-Unix-permission-aware
-filesystems like NTFS, `fileinfo.bz2` is consulted upon restoring a file in
-order to recreate its original ownership and permissions.
+**Back In Time** foi criado por ****Oprea Dan**** e publicado pela primeira vez em um blog privado no final de 2008 ([link do Wayback](https://web.archive.org/web/20081014041759/http://www.le-web.org/2008/10/03/back-in-time-version-05/)).
+
+Pouco depois, o desenvolvimento colaborativo começou no Launchpad. Em algum momento por volta de 2010, o desenvolvimento e a publicação parecem ter sido transferidos inteiramente para o Launchpad, com o blog privado sendo descontinuado.
+
+## Funcionalidade principal
+
+Inicialmente, **Back In Time** usava `diff` para comparar o backup mais recente com a origem, a fim de verificar se um novo backup era necessário. Se a resposta fosse sim, ele usava `cp` para criar um novo backup.
+
+Isso mudou na versão 0.9.2, no início de 2009, quando `diff` foi substituído por `rsync` para a comparação. A cópia ainda era feita por `cp`, aparentemente sem tratamento especial de permissões.
+
+Isso mudou quando, pouco depois, a versão 0.9.24 introduziu `fileinfo.bz2`, que armazena informações de permissões de todos os arquivos em um backup. Introduzido para permitir salvar backups em sistemas de arquivos que não reconhecem permissões Unix, como NTFS, `fileinfo.bz2` é consultado ao restaurar um arquivo para recriar sua propriedade e suas permissões originais.
 
 ## GUI
 
-Initially, _Back In Time_ had only a GNOME GUI.
+Inicialmente, **Back In Time** possuía apenas uma GUI do GNOME.
 
-Version 0.9 from early 2009 separated the backend (`backintime-common`) from
-the GUI, allowing for different frontends. Over the course of 2009, finishing
-roughly with version 0.9.24, two separate frontends were completed:
-`backintime-gnome` and `backintime-kde4`.
+A versão 0.9, do início de 2009, separou o backend (`backintime-common`) da GUI, permitindo diferentes frontends. Ao longo de 2009, terminando aproximadamente com a versão 0.9.24, dois frontends separados foram concluídos:
 
-# The Second Era: ~1.0.14 to 1.2 (2012–2019)
+`backintime-gnome` e `backintime-kde4`.
 
-## Maintenance
+# A Segunda Era: ~1.0.14 a 1.2 (2012–2019)
 
-Around 2012, **Germar Reitze** took over publication, maintenance and further
-development from Oprea Dan.
+## Manutenção
 
-In early 2016, starting with version 1.1.10, development and publication moved
-to Microsoft GitHub, leaving the Launchpad project mostly abandoned (except for
-translation management and PPA publication).
+Por volta de 2012, ****Germar Reitze**** assumiu a publicação, manutenção e desenvolvimento posterior de Oprea Dan.
 
-## Core functionality
-Development during the Second Era centered largely around remote backup
-capabilities.
+No início de 2016, começando com a versão 1.1.10, o desenvolvimento e a publicação foramtransferidos para o Microsoft GitHub, deixando o projeto no Launchpad praticamente abandonado (exceto pelo gerenciamento de traduções e pela publicação do PPA).
 
-In late 2012, version 1.0.12 introduced remote backup locations enabled by
-`ssh`.
+## Funcionalidade principal
 
-In early 2013, version 1.0.22 introduced an optional "full rsync mode". This
-replaced `cp` with `rsync` for all operations, including full replication of
-permissions.
+O desenvolvimento durante a Segunda Era concentrou-se principalmente nas capacidades de backup remoto. No final de 2012, a versão 1.0.12 introduziu locais de backup remotos habilitados por`ssh`.
 
-In late 2013, version 1.0.26 introduced encrypted backup locations enabled by
-`encfs`.
+No início de 2013, a versão 1.0.22 introduziu um "full rsync mode" opcional. Isso substituiu `cp` por `rsync` em todas as operações, incluindo a replicação completa das permissões.
+
+No final de 2013, a versão 1.0.26 introduziu locais de backup criptografados habilitados por `encfs`.
 
 ## GUI
 
-In early 2015, version 1.1.0 eliminated the separate `backintime-gnome` and
-`backintime-kde4` frontends and introduced `backintime-qt4` as the only
-frontend.
+No início de 2015, a versão 1.1.0 eliminou os frontends separados `backintime-gnome` e `backintime-kde4` e introduziu `backintime-qt4` como o único frontend.
 
-# The Dark Age: 1.2.0 to 1.3.2 (2019–2022)
-In 2019, version 1.2.0 was released. It was the first release since version
-1.1.24 in late 2017 and contained many bugfixes accumulated over the previous
-1.5 years.
+# A Era das Trevas: 1.2.0 a 1.3.2 (2019–2022)
 
-Version 1.2.0 introduced a fundamental change: ***"make full-rsync mode
-default, remove the other mode"***. This meant that files would always be
-transferred by `rsync` instead of `cp`. Specifically, `rsync` was instructed to
-retain full ownership and permissions information when transferring the files
-to the backup (*in addition* to the information stored in `fileinfo.bz2`).
+Em 2019, a versão 1.2.0 foi lançada. Foi a primeira versão desde a versão 1.1.24, no final de 2017, e continha muitas correções de bugs acumuladas durante os 1,5 anos anteriores.
 
-This caused bug [#988](https://github.com/bit-team/backintime/issues/988),
-which broke _Back In Time_'s core functionality for any backup created with
-version <1.2.0 (unless "full rsync mode" had been enabled): many unchanged
-files were no longer hardlinked upon transferring, but unnecessarily
-copied. This led to very long backup times and high disk usage. A related bug
-with a somewhat smaller impact is
-[#994](https://github.com/bit-team/backintime/issues/994).
+A versão 1.2.0 introduziu uma mudança fundamental: ****"tornar o full-rsync mode o padrão e remover o outro modo"****. Isso significava que os arquivos seriam sempre transferidos por `rsync` em vez de `cp`. Especificamente, `rsync` foi instruído a preservar todas as informações de propriedade e permissões ao transferir os arquivos para o backup (**além** das informações armazenadas em `fileinfo.bz2`).
 
-As these bugs are currently understood, the underlying reason for the problem
-is differing ownership/permissions between the files in the source and on the
-backup drive. Since multiple hardlinks to the same file are, by definition,
-identical, they cannot have differing permissions. `rsync` fails to handle this
-case correctly when a new backup is created, leading to the files in question
-being copied unnecessarily.
+Isso causou o bug [#988](https://github.com/bit-team/backintime/issues/988), que quebrou a funcionalidade principal do **Back In Time** para qualquer backup criado com
 
-With many users complaining and trading workarounds on Microsoft GitHub,
-development soon came to a halt. Some bugs were fixed with version 1.3.0 in
-2021, but [#988](https://github.com/bit-team/backintime/issues/988) and
-[#994](https://github.com/bit-team/backintime/issues/994) remained.
+uma versão <1.2.0 (a menos que o "full rsync mode" tivesse sido habilitado): muitos arquivos inalterados deixaram de ser hardlinked durante a transferência e passaram a ser copiados desnecessariamente. Isso levou a tempos de backup muito longos e alto uso de disco. Um bug relacionado, com um impacto um pouco menor, é o [#994](https://github.com/bit-team/backintime/issues/994).
 
-# The Third Era: since 1.3.3 (since 2022)
+Da forma como esses bugs são atualmente compreendidos, a razão subjacente do problema é a diferença de propriedade/permissões entre os arquivos na origem e no disco de backup. Como múltiplos hardlinks para o mesmo arquivo são, por definição, idênticos, eles não podem possuir permissões diferentes. `rsync` não consegue lidar corretamente com esse caso quando um novo backup é criado, fazendo com que os arquivos em questão sejam copiados desnecessariamente. Com muitos usuários reclamando e compartilhando soluções alternativas no Microsoft GitHub, o desenvolvimento logo chegou a uma paralisação. Alguns bugs foram corrigidos com a versão
 
-In early 2022, an epic discussion on the state of the project arose in
-[#1232](https://github.com/bit-team/backintime/issues/1232). Many users
-declared their love for _Back In Time_, and a few were ready to step up and
-restart development. With help and permission from Germar Reitze, **Christian
-Buhtz**, **Jürgen Altfeld** and **Michael Büker** formed a new core team. The
-team first curated and triaged over 200 open issues that had accumulated since
-2019.
+1.3.0 em 2021, mas [#988](https://github.com/bit-team/backintime/issues/988) e
 
-The first release by the new team was version 1.3.3 in early 2023. Early work
-focused on ensuring compatibility with rsync 3.2.4, fixing keyring issues for
-SSH operations, system tray functionality in both X11 and Wayland as well as
-testing, coding style and other modernization to align _Back In Time_ with
-current Python practices.
+[#994](https://github.com/bit-team/backintime/issues/994) permaneceram.
 
-## Core functionality
+# A Terceira Era: desde a 1.3.3 (desde 2022)
 
-Work on fixing [#988](https://github.com/bit-team/backintime/issues/988) and
-[#994](https://github.com/bit-team/backintime/issues/994) is still ongoing as
-of this writing. These bugs are largely understood now, but any possible fix
-could potentially have grave consequences for existing backups, which have not
-been thoroughly tested for.
+No início de 2022, uma discussão épica sobre o estado do projeto surgiu em
 
-Given that EncFS suffers from known security issues and is not actively
-maintained, _Back In Time_ is preparing to deprecate it in the foreseeable
-future ([#1734](https://github.com/bit-team/backintime/issues/1734)).
+[#1232](https://github.com/bit-team/backintime/issues/1232). Muitos usuários declararam seu amor pelo **Back In Time**, e alguns estavam dispostos a assumir a responsabilidade e reiniciar o desenvolvimento. Com a ajuda e a permissão de Germar Reitze,
+
+**Christian Buhtz**, ****Jürgen Altfeld**** e ****Michael Büker**** formaram uma nova equipe principal. A equipe primeiro analisou e classificou mais de 200 issues abertas que haviam se acumulado desde 2019.
+
+A primeira versão lançada pela nova equipe foi a versão 1.3.3, no início de 2023. O trabalho inicial concentrou-se em garantir compatibilidade com rsync 3.2.4, corrigir problemas com keyring nas operações SSH, a funcionalidade da system tray tanto no X11 quanto no Wayland, além de testes, estilo de código e outras modernizações para alinhar **Back In Time** às práticas atuais de Python.
+
+## Funcionalidade principal
+
+O trabalho para corrigir [#988](https://github.com/bit-team/backintime/issues/988) e
+
+[#994](https://github.com/bit-team/backintime/issues/994) ainda está em andamento no momento em que este texto foi escrito. Esses bugs são amplamente compreendidos agora, mas qualquer possível correção poderia ter consequências graves para os backups existentes, que ainda não foram testados de maneira abrangente. Como o EncFS apresenta problemas de segurança conhecidos e não é mantido ativamente, **Back In Time** está se preparando para descontinuá-lo em um futuro próximo ([#1734](https://github.com/bit-team/backintime/issues/1734)).
 
 ## GUI
 
-The GUI is slated for a redesign and code refactoring, as it has become complex
-and convoluted over the years.
-
-A commonly requested feature is a terminal user interface (TUI), or an
-enhancement of the existing command-line interface (CLI), as discussed in
-[#254](https://github.com/bit-team/backintime/issues/254). The proposal for a
-web frontend was rejected
-([#209](https://github.com/bit-team/backintime/issues/209)), but separate
-projects offering a web fronted would be supported.
+A GUI está prevista para passar por uma reformulação e refatoração do código, pois se tornou complexa e convoluta ao longo dos anos. Um recurso frequentemente solicitado é uma interface de usuário de terminal (TUI), ou uma melhoria da interface de linha de comando (CLI) existente, conforme discutido em [#254](https://github.com/bit-team/backintime/issues/254). A proposta de um frontend web foi rejeitada ([#209](https://github.com/bit-team/backintime/issues/209)), mas projetos separados que ofereçam um frontend web seriam apoiados.

@@ -1,5 +1,5 @@
-- The PR will be closed if you haven't introduced yourself as a first time contributor.
-- Read the CONTRIBUTING.md file carefully.
-- AI-generated content is strictly prohibited. Accounts submitting such material will be reported for abuse to Microsoft GitHub .
-- Provide a screenshot or screencast if you modified the GUI.
-- Consider adding a CHANGELOG entry. Run "codespell" to check for typos.
+- O PR será fechado se você não tiver se apresentado como alguém que está contribuindo pela primeira vez.
+- Leia atentamente o arquivo CONTRIBUTING.md.
+- Conteúdo gerado por IA é estritamente proibido. Contas que enviarem esse tipo de material serão denunciadas por abuso ao Microsoft GitHub.
+- Forneça uma captura de tela ou uma gravação de tela se você tiver modificado a GUI.
+- Considere adicionar uma entrada ao CHANGELOG. Execute codespell para verificar erros de digitação.

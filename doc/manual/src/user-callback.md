@@ -1,4 +1,4 @@
-# User callback script
+# Script de callback do usuário
 <!--
 SPDX-FileCopyrightText: © 2015 Germar Reitze
 SPDX-FileCopyrightText: © 2024 Kosta Vukicevic (stcksmsh)
@@ -10,73 +10,73 @@ This file is part of the program "Back In Time" which is released under GNU
 General Public License v2 (GPLv2). See LICENSES directory or go to
 <https://spdx.org/licenses/GPL-2.0-or-later.html>
 -->
-## Introduction
+## Introdução
 
-During the backup process, _Back In Time_ can call a user defined script can be
-called in response to various events. This script is named `user-callback`.
+Durante o processo de backup, o _Back In Time_ pode chamar um script definido
+pelo usuário em resposta a vários eventos. Esse script é chamado `user-callback`.
 
-By default, the path is `$XDG_CONFIG_HOME/backintime/user-callback`. It always
-resides in the same location as the config file itself. Therefore, if the
-`--config` option is used to define a config file in another location, _Back
-In Time_ will search in that location for the user-callback script.
+Por padrão, o caminho é `$XDG_CONFIG_HOME/backintime/user-callback`. Ele sempre
+fica no mesmo local que o próprio arquivo de configuração. Portanto, se a opção
+`--config` for usada para definir um arquivo de configuração em outro local, o
+_Back In Time_ procurará o script user-callback nesse local.
 
-The file needs to be executable. The filename cannot be modified.
-The content of the file can be edited via the GUI: _Manage profiles_ >
-_Options_ > _Edit user-callback_ (see also
-[Options tab in Manage profiles dialog](manage-profiles.md#options)).
+O arquivo precisa ser executável. O nome do arquivo não pode ser alterado.
+O conteúdo do arquivo pode ser editado pela GUI: _Manage profiles_ >
+_Options_ > _Edit user-callback_ (consulte também
+[aba Options no diálogo Manage profiles](manage-profiles.md#options)).
 
-## Arguments and return value
+## Argumentos e valor de retorno
 
-The script can take **three arguments**. In case of error events, there will be a
-fourth argument with an error code and sometimes a fifth argument with
-additional information.
+O script pode receber **três argumentos**. Em caso de eventos de erro, haverá um
+quarto argumento com um código de erro e, às vezes, um quinto argumento com
+informações adicionais.
 
-The **return value** of the script should be `0` if the backup should
-continue. Return values other than `0` will stop the backup.
+O **valor de retorno** do script deve ser `0` se o backup deve continuar.
+Valores de retorno diferentes de `0` interromperão o backup.
 
-1. The profile id (1=Main Profile, ...).
-2. Profile name.
-3. Callback reason:
+1. O ID do profile (1=Main Profile, ...).
+2. Nome do profile.
+3. Motivo do callback:
 
-| Value | Reason                                                             |
+| Valor | Motivo                                                             |
 | ----- | -------------------------------------------------------------------|
-| **1** | A backup process is about to start.                                |
-| **2** | A backup process has ended.                                        |
-| **3** | A new backup was created. The following two extra arguments are backup ID and backup path. |
-| **4** | There was an error. See next table for [error codes](#errorcodes). |
-| **5** | The (graphical) application has started.                           |
-| **6** | The (graphical) application has closed.                            |
-| **7** | Mounting a filesystem for the profile may be necessary.            |
-| **8** | Unmounting a filesystem for the profile may be necessary.          |
+| **1** | Um processo de backup está prestes a começar.                      |
+| **2** | Um processo de backup foi encerrado.                                |
+| **3** | Um novo backup foi criado. Os dois argumentos extras seguintes são o ID do backup e o caminho do backup. |
+| **4** | Ocorreu um erro. Consulte a próxima tabela para ver os [códigos de erro](#errorcodes). |
+| **5** | O aplicativo (gráfico) foi iniciado.                                |
+| **6** | O aplicativo (gráfico) foi fechado.                                 |
+| **7** | Pode ser necessário montar um filesystem para o profile.            |
+| **8** | Pode ser necessário desmontar um filesystem para o profile.         |
 
 <a id="errorcodes"></a>
-Possible **error codes** (see _Callback reason_ **4**) as fourth argument are:
+Os possíveis **códigos de erro** (consulte _Motivo do callback_ **4**) são fornecidos como quarto argumento:
 
-| Code  | Error                                                              |
+| Código | Erro                                                              |
 | ------| -------------------------------------------------------------------|
-| **1** | Configuration is either missing or invalid.                        |
-| **2** | A backup process is already running.[^1]                           |
-| **3** | Can't find backups directory.[^2]                                   |
-| **4** | A backup for "now" already exists. The fifth argument is the backup ID. |
-| **5** | Error while creating a backup.[^3] The fifth argument contains more error information. |
-| **6** | New backup created but with errors.[^3] The fifth argument is the backup ID. |
+| **1** | A configuração está ausente ou é inválida.                         |
+| **2** | Já há um processo de backup em execução.[^1]                       |
+| **3** | Não foi possível encontrar o diretório de backups.[^2]             |
+| **4** | Já existe um backup para "agora". O quinto argumento é o ID do backup. |
+| **5** | Erro ao criar um backup.[^3] O quinto argumento contém mais informações sobre o erro. |
+| **6** | Novo backup criado, mas com erros.[^3] O quinto argumento é o ID do backup. |
 
-## Implementation
+## Implementação
 
-The `UserCallbackPlugin` is a class defined in
+`UserCallbackPlugin` é uma classe definida em
 [`common/plugins/usercallbackplugin.py`](https://github.com/bit-team/backintime/blob/dev/common/plugins/usercallback.plugin.py).
-It is a child class of `Plugin` which you can be found in
+Ela é uma classe filha de `Plugin`, que pode ser encontrada em
 [`common/pluginmanager.py`](https://github.com/bit-team/backintime/blob/dev/common/pluginmanager.py).
 
-## Examples
+## Exemplos
 
-Several example scripts can be found in the directory
-`/usr/share/doc/backintime` or in the
-[projects repository](https://github.com/bit-team/backintime/tree/dev/doc/user-callback-examples).
+Vários scripts de exemplo podem ser encontrados no diretório
+`/usr/share/doc/backintime` ou no
+[repositório do projeto](https://github.com/bit-team/backintime/tree/dev/doc/user-callback-examples).
 
-[^1]: Ensure that manual and automatic backups do not run at the same time.
+[^1]: Certifique-se de que backups manuais e automáticos não sejam executados ao mesmo tempo.
     
-[^2]: For example, if the backups directory is on a removable drive, which is
-    either not mounted, or is mounted at a different location.
+[^2]: Por exemplo, se o diretório de backups estiver em uma unidade removível
+    que não esteja montada ou esteja montada em um local diferente.
     
-[^3]: Supported added in _Back In Time_ version 1.4.0.
+[^3]: Suporte adicionado na versão 1.4.0 do _Back In Time_.

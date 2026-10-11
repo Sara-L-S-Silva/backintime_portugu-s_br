@@ -1,4 +1,4 @@
-# Main Window
+# Janela principal
 <!--
 SPDX-FileCopyrightText: © 2016 Germar Reitze
 
@@ -8,98 +8,103 @@ This file is part of the program "Back In Time" which is released under GNU
 General Public License v2 (GPLv2). See LICENSES directory or go to
 <https://spdx.org/licenses/GPL-2.0-or-later.html>
 -->
-![Back In Time main window](_images/light/main_window_sections.png#only-light)
-![Back In Time main window](_images/dark/main_window_sections.png#only-dark)
+![Janela principal do Back In Time](_images/light/main_window_sections.png#only-light)
+![Janela principal do Back In Time](_images/dark/main_window_sections.png#only-dark)
 
-## Main Toolbar
+## Barra de ferramentas principal
 
-**_Create a backup_**
+**_Criar um backup_**
 
-Create a new backup in background. The main window can be closed during 
-creation. Normal behavior is to only compare files size and modification
-time. Alternatively, you can take a new backup with `checksums` option
-enabled. This will calculate checksums for every file to decide if the file has
-changed. Creating a backup with checksums option takes a lot more time but it
-will make sure, the destination files won't be corrupt.
+Cria um novo backup em background. A janela principal pode ser fechada durante
+a criação. Normalmente, apenas o tamanho e o horário de modificação dos arquivos
+são comparados. Como alternativa, você pode criar um novo backup com a opção
+`checksums` ativada. Isso calculará checksums de cada arquivo para determinar se
+ele foi alterado. Criar um backup com a opção `checksums` leva muito mais tempo,
+mas garante que os arquivos de destino não estarão corrompidos.
 
-**_Refresh backup list_**
+**_Atualizar a lista de backups_**
 
-Refresh the Backups in [Timeline](#timeline).
+Atualiza os backups na [Linha do tempo](#linha-do-tempo).
 
-**_Name backup_**
+**_Nomear backup_**
 
-Add a name for a backup so you can easily identify it later. If `Don't remove
-named backups` in **Manage profile \--\> Remote & Retention** is enabled this will also
-prevent the backup from being removed.
+Adiciona um nome a um backup para que você possa identificá-lo facilmente mais
+tarde. Se `Don't remove named backups` em **Manage profile \--\> Remote & Retention**
+estiver ativado, isso também impedirá que o backup seja removido.
 
-**_Remove backup_**
+**_Remover backup_**
 
-Remove one or more backups from Timeline. `Now` can not be removed as this is
-no backup but the live view of the local file-system. If this button is
-grayed out you need to select a backup in [Timeline](#timeline).
+Remove um ou mais backups da Linha do tempo. `Now` não pode ser removido, pois
+não é um backup, mas uma visualização ao vivo do file-system local. Se este
+botão estiver desabilitado, você precisará selecionar um backup na
+[Linha do tempo](#linha-do-tempo).
 
-**_View log of the selected backup_**
+**_Visualizar o log do backup selecionado_**
 
-View the log of the selected backup.
+Exibe o log do backup selecionado.
 
-**_Open last backup log_**
+**_Abrir o log do último backup_**
 
-View the log from the last backup attempt.
+Exibe o log da última tentativa de backup.
 
-**_Manage profiles_**
+**_Gerenciar profiles_**
 
-Open [*Manage profiles*](manage-profiles.md).
+Abre [*Manage profiles*](manage-profiles.md).
 
-**_Shutdown_**
+**_Desligar_**
 
-Shutdown the computer and poweroff after a backup has finished. The main
-window must stay open for this. If shutdown is not supported on the system this
-button will be grayed out.
+Desliga o computador após a conclusão de um backup. Para isso, a janela
+principal precisa permanecer aberta. Se o desligamento não for compatível com
+o sistema, este botão ficará desabilitado.
 
-## Files Toolbar
+## Barra de ferramentas de arquivos
 
-**_Up_**
+**_Acima_**
 
-Go to the parent directory.
+Vai para o diretório pai.
 
-**_Show hidden files_**
+**_Exibir arquivos ocultos_**
 
-Toggle hidden files (starting with a dot) to be shown in files view.
+Alterna a exibição de arquivos ocultos (que começam com um ponto) na
+visualização de arquivos.
 
-**_Restore_**
+**_Restaurar_**
 
-Restore selected files or directories. This button has a sub-menu (hold down
-the button). Default action is `Restore`.
+Restaura os arquivos ou diretórios selecionados. Este botão tem um submenu
+(mantenha o botão pressionado). A ação padrão é `Restore`.
 
-Or, Restore the selected files or directories to the original destination.
+Ou restaura os arquivos ou diretórios selecionados no destino original.
 
-Or, Restore the selected files or directories to a new destination.
+Ou restaura os arquivos ou diretórios selecionados em um novo destino.
 
-Or, Restore the currently shown directory and all its content to the original
-destination.
+Ou restaura o diretório exibido no momento e todo o seu conteúdo no destino
+original.
 
-Or, Restore the currently shown directory and all its content to a new destination.
+Ou restaura o diretório exibido no momento e todo o seu conteúdo em um novo
+destino.
 
-**_Compare backups_**
+**_Comparar backups_**
 
-Open [Backups dialog](backups-dialog.md).
+Abre o [diálogo de backups](backups-dialog.md).
 
-## Timeline
+## Linha do tempo
 
-The Timeline lists all backups which where already created. You can browse them
-to see its contents in right hand [Files View](#files-view). The first item
-`Now` is not a backup. It is a live view on the local file-system. It shows
-exact the same as your normal file browser. Multi selection is possible to
-remove multiple backups altogether.
+A Linha do tempo lista todos os backups que já foram criados. Você pode navegar
+por eles para ver o conteúdo na [Visualização de arquivos](#visualização-de-arquivos),
+à direita. O primeiro item, `Now`, não é um backup. Ele é uma visualização ao
+vivo do file-system local e exibe exatamente o mesmo conteúdo que o navegador
+de arquivos habitual. É possível fazer uma seleção múltipla para remover vários
+backups de uma vez.
 
-## Files View
+## Visualização de arquivos
 
-Depending on selection in left hand [Timeline](#timeline) this will either show
-the original files or the files in the selected backup. You can jump directly
-to your home or include directories in `Shortcuts`.
+Dependendo da seleção na [Linha do tempo](#linha-do-tempo), à esquerda, esta
+visualização mostrará os arquivos originais ou os arquivos do backup selecionado.
+Em `Shortcuts`, você pode ir diretamente para seu diretório home ou para os
+diretórios incluídos.
 
-## Statusbar
+## Barra de status
 
-Show current status. While a backup is running this will show a progress-bar
-combined with current speed, already transferred data and the last message from
-`rsync`.
+Exibe o status atual. Enquanto um backup estiver em execução, mostrará uma
+barra de progresso junto com a velocidade atual, os dados já transferidos e a
+última mensagem do `rsync`.

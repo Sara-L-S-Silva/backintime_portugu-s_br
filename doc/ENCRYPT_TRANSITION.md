@@ -8,108 +8,108 @@ General Public License v2 (GPLv2). See LICENSES directory or go to
 <https://spdx.org/licenses/GPL-2.0-or-later.html>
 -->
 
-# Transition of the encryption feature in _Back In Time_
-<sub>Last update: June 2026</sub>
+# Transição do recurso de encryption no _Back In Time_
+<sub>Última atualização: junho de 2026</sub>
 
-This document outlines the status of the encryption feature.  Starting with
-_Back In Time_ version [2.0.0], support for [EncFS] was dropped in favor of
-[gocryptfs]. See
-[meta issue #1734](https://github.com/bit-team/backintime/issues/1734) for
-technical details.
+Este documento descreve o status do recurso de encryption. A partir da versão
+[2.0.0] do _Back In Time_, o suporte a [EncFS] foi removido em favor do
+[gocryptfs]. Consulte a
+[meta issue #1734](https://github.com/bit-team/backintime/issues/1734) para
+obter detalhes técnicos.
 
-You might be looking for the
-[answer about how to access existing EncFS backups without using Back In Time](#how-to-access-existing-encfs-backups-without-using-back-in-time).
+Talvez você esteja procurando a
+[resposta sobre como acessar backups EncFS existentes sem usar o Back In Time](#como-acessar-backups-encfs-existentes-sem-usar-o-back-in-time).
 
- * [Rationale](#rationale)
- * [The transition process](#the-transition-process)
- * [FAQ - Frequently Asked Questions](#faq--frequently-asked-questions)
-   * [How to migrate an EncFS backup profile to a gocryptfs backup profile?](#how-to-migrate-an-encfs-backup-profile-to-a-gocryptfs-backup-profile)
-   * [How to access existing EncFS backups without using Back In Time](#how-to-access-existing-encfs-backups-without-using-back-in-time)
- * [About EncFS security issues](#about-encfs-security-issues)
- * [Further readings and resources](#further-readings-and-resources)
+ * [Justificativa](#justificativa)
+ * [O processo de transição](#o-processo-de-transição)
+ * [FAQ - Perguntas frequentes](#faq--perguntas-frequentes)
+   * [Como migrar um EncFS backup profile para um gocryptfs backup profile?](#como-migrar-um-encfs-backup-profile-para-um-gocryptfs-backup-profile)
+   * [Como acessar backups EncFS existentes sem usar o Back In Time](#como-acessar-backups-encfs-existentes-sem-usar-o-back-in-time)
+ * [Sobre os problemas de segurança do EncFS](#sobre-os-problemas-de-segurança-do-encfs)
+ * [Leituras e recursos adicionais](#leituras-e-recursos-adicionais)
 
-## Rationale
-Removing [EncFS] was necessary because it has [security issues known since
-2014](#about-encfs-security-issues). Additionally the the upstream project is
-not active anymore. To keep _Back In Time_ secure and maintainable there was no
-alternative to remove it.
+## Justificativa
+A remoção do [EncFS] foi necessária devido a [problemas de segurança conhecidos
+desde 2014](#sobre-os-problemas-de-segurança-do-encfs). Além disso, o projeto
+upstream não está mais ativo. Para manter o _Back In Time_ seguro e
+manutenível, não havia alternativa à remoção.
 
-## The transition process
-Replacing EncFS in _Back In Time_ was [first
-discussed](https://github.com/bit-team/backintime/issues/1248) in the
-year 2023. The plan was designed for a longer transition period, beginning in
-2024 with prominent user warnings and ending around 2027 upstream or around
-2029 with the release of Debian 14.
+## O processo de transição
+A substituição do EncFS no _Back In Time_ foi [discutida pela
+primeira vez](https://github.com/bit-team/backintime/issues/1248) em
+2023. O plano foi elaborado para um período de transição mais longo, começando
+em 2024 com avisos destacados para os usuários e terminando por volta de 2027
+no upstream ou por volta de 2029, com o lançamento do Debian 14.
 
-However, the timeline changed and the upstream release introducing these
-changes arrived earlier than expected with version [2.0.0]. This version will
-also likely be included in [Debian GNU/Linux] 14 around 2027.
+No entanto, o cronograma mudou e o lançamento upstream que introduziu essas
+mudanças chegou antes do esperado, com a versão [2.0.0]. Essa versão também
+provavelmente será incluída no [Debian GNU/Linux] 14 por volta de 2027.
 
-The main reason is that integrating gocryptfs as a replacement for EncFS turned
-out to be extremely difficult due to _Back In Time_’s historically grown and
-hard-to-maintain codebase. As a result, the already planned restructuring and
-refactoring of the mount subsystem and related components had to be brought
-forward. Removing EncFS support became necessary as part of that work. The
-creation of new EncFS profiles [was
-disabled](https://github.com/bit-team/backintime/issues/2315) in version
-[1.6.1] early 2026. It must be noted, that at this time there was no full
-gocryptfs support implemented.
+O principal motivo é que integrar o gocryptfs como substituto do EncFS se
+mostrou extremamente difícil devido à base de código do _Back In Time_, que
+cresceu historicamente e é difícil de manter. Como resultado, foi necessário
+antecipar a reestruturação e o refactoring já planejados para o mount
+subsystem e os componentes relacionados. A remoção do suporte ao EncFS tornou-se
+necessária como parte desse trabalho. A criação de novos EncFS profiles
+[foi desabilitada](https://github.com/bit-team/backintime/issues/2315) na versão
+[1.6.1], no início de 2026. É importante observar que, naquele momento, ainda
+não havia suporte completo ao gocryptfs implementado.
 
-## FAQ - Frequently Asked Questions
-### How to migrate an EncFS backup profile to a gocryptfs backup profile?
+## FAQ - Perguntas frequentes
+### Como migrar um EncFS backup profile para um gocryptfs backup profile?
 
-Within _Back In Time_ itself it is not possible to migrate an EncFS profile to
-a gocryptfs profile. Existing EncFS profiles also cannot be converted into
-gocryptfs profiles.
+No próprio _Back In Time_, não é possível migrar um EncFS profile para um
+gocryptfs profile. Também não é possível converter EncFS profiles existentes
+em gocryptfs profiles.
 
-A new gocryptfs encrypted profile need to be created.  See [this
-issue](https://github.com/bit-team/backintime/issues/2495) and [this discussion
-on the mailing
+É necessário criar um novo profile encrypted com gocryptfs. Consulte [esta
+issue](https://github.com/bit-team/backintime/issues/2495) e [esta discussão
+na mailing
 list](https://mail.python.org/archives/list/bit-dev@python.org/message/ZYA6YRSCBIVLQTGR2VMNOQQIBA522AWI/)
-about technical details.
+para obter detalhes técnicos.
 
 > [!NOTE]
-> :wink: If you are successful, it would help a lot if you could contribute
-> a tutorial like documentation to the project.
+> :wink: Se você conseguir fazer isso, seria muito útil contribuir com uma
+> documentação semelhante a um tutorial para o projeto.
 
 
-### How to access existing EncFS backups without using Back In Time
+### Como acessar backups EncFS existentes sem usar o Back In Time
 
-At the moment, there is no official documentation for accessing
-existing EncFS backups outside of _Back In Time_.
+No momento, não há documentação oficial para acessar backups EncFS
+existentes fora do _Back In Time_.
 
-The underlying mechanism is known to work, but a clean, reproducible and
-well-documented procedure has not yet been written down and verified.
+Sabe-se que o mecanismo subjacente funciona, mas ainda não foi documentado nem
+verificado um procedimento claro, reproduzível e bem documentado.
 
-The current maintainer does not have the resources to work on this topic and is
-focusing on other priorities. However, contributions from users are welcome:
-anyone who is willing to investigate the workflow, document a reliable process,
-or provide step-by-step instructions is invited to submit a proposal or pull
-request.
+O maintainer atual não tem recursos para trabalhar neste tópico e está
+concentrando esforços em outras prioridades. No entanto, contribuições dos
+usuários são bem-vindas: qualquer pessoa disposta a investigar o workflow,
+documentar um processo confiável ou fornecer instruções passo a passo está
+convidada a enviar uma proposta ou pull request.
 
-If a working and reproducible approach is provided by the community, it can be
-added to the documentation or FAQ.
+Se a comunidade fornecer uma abordagem funcional e reproduzível, ela poderá
+ser adicionada à documentação ou ao FAQ.
 
-## About EncFS security issues
+## Sobre os problemas de segurança do EncFS
 
 - EncFS Security Audit
-    - https://defuse.ca/audits/encfs.htm (as updated blog post)
-    - https://sourceforge.net/p/encfs/mailman/message/31849549/ (original mailing list entry)
-- [EncFS#314](https://github.com/vgough/encfs/issues/314) (a **not-fixed** meta issue with a list of several open issues related to the Security Audit)
+    - https://defuse.ca/audits/encfs.htm (como artigo atualizado no blog)
+    - https://sourceforge.net/p/encfs/mailman/message/31849549/ (mensagem original na mailing list)
+- [EncFS#314](https://github.com/vgough/encfs/issues/314) (uma meta issue **não corrigida** com uma lista de várias issues abertas relacionadas à Security Audit)
 - [EncFS#659](https://github.com/vgough/encfs/issues/659)
 - [EncFS#9](https://github.com/vgough/encfs/issues/9)
-- [EncFS - Ubuntu Users Wiki (German)](https://wiki.ubuntuusers.de/Archiv/EncFS)
+- [EncFS - Wiki de usuários do Ubuntu (alemão)](https://wiki.ubuntuusers.de/Archiv/EncFS)
 
-## Further readings and resources
+## Leituras e recursos adicionais
 
-- The meta issue [#1734](https://github.com/bit-team/backintime/issues/1734)
-  about the transition, its current state and related steps and issues.
-- First concrete discussion about deprecating EncFS was in
-  [#1549](https://github.com/bit-team/backintime/issues/1549). But the topic
-  started much further
-  (e.g. [#1248](https://github.com/bit-team/backintime/issues/1248)).
-- Our [mailing list](https://mail.python.org/mailman3/lists/bit-dev.python.org).
-- Our [mailing list]
+- A meta issue [#1734](https://github.com/bit-team/backintime/issues/1734)
+  sobre a transição, seu status atual e etapas e issues relacionadas.
+- A primeira discussão concreta sobre a descontinuação do EncFS ocorreu em
+  [#1549](https://github.com/bit-team/backintime/issues/1549). Mas o tópico
+  começou bem antes
+  (por exemplo, em [#1248](https://github.com/bit-team/backintime/issues/1248)).
+- Nossa [mailing list](https://mail.python.org/mailman3/lists/bit-dev.python.org).
+- Nossa [mailing list]
 - [EncFS]
 - [gocryptfs]
 

@@ -1,4 +1,4 @@
-# Security
+# Segurança
 <!--
 SPDX-FileCopyrightText: © 2025 Christian BUHTZ <c.buhtz@posteo.jp>
 
@@ -8,34 +8,35 @@ This file is part of the program "Back In Time" which is released under GNU
 General Public License v2 (GPLv2). See LICENSES directory or go to
 <https://spdx.org/licenses/GPL-2.0-or-later.html>
 -->
-## Directory permissions when creating backups
+## Permissões de diretório ao criar backups
 <!--
-See this issues for background details and decision history:
+Consulte esta issue para informações de contexto e histórico das decisões:
 - https://github.com/bit-team/backintime/issues/377
 -->
 !!! note inline end 
-    This section is intended for *advanced users* or *system administrators*
-    who want detailed information. **In typical setups, no action or changes
-    are necessary.**
+    Esta seção é destinada a *usuários avançados* ou *administradores de sistema*
+    que desejam informações detalhadas. **Em configurações típicas, nenhuma ação
+    ou alteração é necessária.**
 
-New backup directories created by **Back In Time** automatically receive
-their permissions (through `rsync`) according to the current
-[`umask`](https://wikipedia.org/wiki/Umask) of the system or the user running
-the program. Depending on this `umask`, directories may be created with
-permissions such as `0775` (read, write and execute access for owner and group;
-read and execute access for others).
+Os novos diretórios de backup criados pelo **Back In Time** recebem
+automaticamente suas permissões (por meio do `rsync`) de acordo com o
+[`umask`](https://wikipedia.org/wiki/Umask) atual do sistema ou do usuário que
+executa o programa. Dependendo desse `umask`, os diretórios podem ser criados
+com permissões como `0775` (acesso de leitura, gravação e execução para o
+proprietário e o grupo; acesso de leitura e execução para outros usuários).
 
-However, the permissions of the parent directory also apply. In most cases,
-backups are stored inside a user’s home directory, which is not accessible to
-others by default. This means that even if the backup directory itself appears
-open, other users usually cannot enter it.
+No entanto, as permissões do diretório pai também se aplicam. Na maioria dos
+casos, os backups são armazenados no diretório pessoal do usuário, que, por
+padrão, não é acessível a outras pessoas. Isso significa que, mesmo que o
+próprio diretório de backup pareça aberto, geralmente outros usuários não
+conseguem acessá-lo.
 
-If stronger isolation is desired, a more restrictive **umask** can be set
-before starting **Back In Time**, for example `0750` (read, write and execute
-access for owner; read and execute access for group; no permissions for
-others). Alternatively, permissions can be adjusted manually after creation, or
-the parent directory can be secured accordingly.
+Se for desejável um isolamento mais rigoroso, pode-se definir um **umask** mais
+restritivo antes de iniciar o **Back In Time**, por exemplo, `0750` (acesso de
+leitura, gravação e execução para o proprietário; acesso de leitura e execução
+para o grupo; nenhuma permissão para outros usuários). Como alternativa, as
+permissões podem ser ajustadas manualmente após a criação, ou o diretório pai
+pode ser protegido de forma apropriada.
 
-Effective directory permissions therefore depend on the `umask` and on the
-configuration of the parent directories.
-
+Portanto, as permissões efetivas do diretório dependem do `umask` e da
+configuração dos diretórios pai.

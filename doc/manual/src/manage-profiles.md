@@ -10,9 +10,9 @@ General Public License v2 (GPLv2). See LICENSES directory or go to
 -->
 ## General
 
-You can choose which mode *Back in Time* should use to store backups.
+Você pode escolher qual modo o *Back in Time* deve usar para armazenar backups.
 
-Available modes:
+Modos disponíveis:
 
 - [Local](#local)
 - [Local Encrypted](#local-encrypted)
@@ -21,172 +21,178 @@ Available modes:
 
 ### Local
 
-Local backups can be stored on internal or external hard-drives or on mounted
-shares. The destination file-system must support hard-links. Also the protocol
-used to mount the remote share must support hard-links and symlinks. By default
-Samba (SMB/CIFS) servers do not support symlinks (can be activated with `follow
-symlinks = yes` and `wide links = yes` in `/etc/samba/smb.conf`). sshfs mounted
-shares do not support hard-links.
+Backups locais podem ser armazenados em discos rígidos internos ou externos, ou
+em compartilhamentos montados. O file-system de destino deve oferecer suporte a
+hard-links. O protocolo usado para montar o compartilhamento remoto também deve
+oferecer suporte a hard-links e symlinks. Por padrão, servidores Samba (SMB/CIFS)
+não oferecem suporte a symlinks (isso pode ser ativado com `follow
+symlinks = yes` e `wide links = yes` em `/etc/samba/smb.conf`). Compartilhamentos
+montados com sshfs não oferecem suporte a hard-links.
 
 ![Settings - General](_images/light/settings_general.png#only-light)
 ![Settings - General](_images/dark/settings_general.png#only-dark)
 
-Choose the destination path for backups with the
-_directory_ button (to show hidden files use
-CTRL + H or context menu with right mouse button). Back in Time will create
-sub-directories `backintime/<HOST>/<USER>/<PROFILE>/` inside that directory.
-Backups will be placed inside the `<PROFILE>/` directory.
+Escolha o caminho de destino dos backups usando o botão
+_directory_ (para exibir arquivos ocultos, use
+CTRL + H ou o menu de contexto, aberto com o botão direito do mouse). O Back in Time criará
+subdiretórios `backintime/<HOST>/<USER>/<PROFILE>/` dentro desse diretório.
+Os backups serão colocados dentro do diretório `<PROFILE>/`.
 
 ### Local Encrypted
 
-[Local Encrypted](#local-encrypted) works like [Local](#local) but the backups
-will be stored encrypted with `gocryptfs`. The encrypted directory will be
-created automatically inside the selected folder.
+[Local Encrypted](#local-encrypted) funciona como [Local](#local), mas os backups
+serão armazenados criptografados com `gocryptfs`. O diretório criptografado será
+criado automaticamente dentro da pasta selecionada.
 
 ![Manage profiles - General](_images/light/settings_general_local_encrypted.png#only-light)
 ![Manage profiles - General](_images/dark/settings_general_local_encrypted.png#only-dark)
 
-Enter the password for `gocryptfs` in `Encryption`. The password can be stored
-in users keyring. The keyring is unlocked with the users password during
-login. When running a scheduled backup-job while the user is not logged in the
-keyring is not available. For this case, the password can be cached in memory
-by Back in Time.
+Informe a senha do `gocryptfs` em `Encryption`. A senha pode ser armazenada
+no keyring do usuário. O keyring é desbloqueado com a senha do usuário durante
+o login. Se um backup-job agendado for executado enquanto o usuário não estiver
+conectado, o keyring não estará disponível. Nesse caso, o Back In Time pode
+manter a senha em cache na memória.
 
 ### SSH
 
-This mode will store backups on a remote host which is available through
-`SSH`. It will run `rsync` directly on the remote host which makes it a lot
-faster than syncing to a local mounted share.
+Este modo armazena backups em um host remoto acessível por
+`SSH`. O `rsync` será executado diretamente no host remoto, o que torna esse modo
+muito mais rápido do que sincronizar com um compartilhamento montado localmente.
 
-In order to use this mode the remote host need to be in your `known_hosts`
-file. Keep in mind that hostnames treated case-sensitive in that file. You need
-to have a public/private SSH key pair installed on the remote host. Starting
-with Back in Time version 1.2.0 this will be done automatically. For versions
-lower than 1.2.0 you need to do this manually:
+Para usar esse modo, o host remoto precisa estar no seu arquivo `known_hosts`.
+Lembre-se de que os nomes dos hosts nesse arquivo diferenciam maiúsculas de
+minúsculas. Você precisa ter um par de chaves pública/privada SSH instalado no
+host remoto. A partir da versão 1.2.0 do Back in Time, isso será feito
+automaticamente. Em versões anteriores à 1.2.0, você precisa fazer isso
+manualmente:
 
-- If you did not login into the remote host before you need to run `ssh
-  USER@HOST` in Terminal. You will be asked to confirm the fingerprint of the
-  remote host-key with `yes`. In order to compare the host-key you need to
-  login to the remote host locally and run `ssh-keygen -l -f
-  /etc/ssh/ssh_host_ecdsa_key.pub`. The fingerprint from this output must match
-  the fingerprint you got asked above. You can exit immediately after this.
-- Generate a new public/private SSH key with `ssh-keygen`. Press Enter to
-  accept the default path and enter a password for the new key (this has
-  nothing to do with your user-password on the remote host).
-- Run `ssh-copy-id -i ~/.ssh/id_rsa.pub USER@HOST` to install the newly created
-  key on the remote host. For the last time you need to enter the login
-  password for the remote user. If successful you should now be able to log in
-  without being asked for your login password.
+- Se você ainda não fez login no host remoto, execute `ssh
+  USER@HOST` no Terminal. Será solicitado que confirme a fingerprint da
+  host-key remota com `yes`. Para comparar a host-key, faça login localmente
+  no host remoto e execute `ssh-keygen -l -f
+  /etc/ssh/ssh_host_ecdsa_key.pub`. A fingerprint exibida nessa saída deve
+  corresponder à fingerprint solicitada anteriormente. Depois disso, você pode
+  sair imediatamente.
+- Gere um novo par de chaves pública/privada SSH com `ssh-keygen`. Pressione Enter para
+  aceitar o caminho padrão e informe uma senha para a nova chave (ela não tem
+  relação com a senha do seu usuário no host remoto).
+- Execute `ssh-copy-id -i ~/.ssh/id_rsa.pub USER@HOST` para instalar a chave recém-criada
+  no host remoto. Esta será a última vez que você precisará informar a senha de
+  login do usuário remoto. Se tudo der certo, você poderá fazer login sem que
+  sua senha de login seja solicitada.
 
 ![Settings - General](_images/light/settings_general_ssh.png#only-light)
 ![Settings - General](_images/dark/settings_general_ssh.png#only-dark)
 
-Enter the name or IP-address of the remote host in `Host` and the port of the
-remote SSH-server in `Port` (default `22`). `User` need to be the remote
-user. `Path` can be empty to place the backups directory directly into remote
-users home folder. Relative paths without leading slash (`foo/bar/`) will be
-sub-directories of users home. Paths with leading slash (`/mnt/foo/bar/`) will be
-absolute.
+Informe o nome ou o endereço IP do host remoto em `Host` e a porta do
+servidor SSH remoto em `Port` (o padrão é `22`). `User` deve ser o usuário
+remoto. `Path` pode ficar vazio para colocar o diretório de backups diretamente
+na pasta home do usuário remoto. Caminhos relativos sem barra inicial (`foo/bar/`)
+serão subdiretórios da pasta home do usuário. Caminhos com barra inicial
+(`/mnt/foo/bar/`) serão absolutos.
 
-In `Cipher` you can choose the cipher (algorithm used to encrypt) for SSH
-transfer. Depending on the involved systems it could be faster to select a
-different cipher than default. Some of them might not work because they are
-known to be insecure.
+Em `Cipher`, você pode escolher o cipher (algoritmo usado para criptografar) na
+transferência SSH. Dependendo dos sistemas envolvidos, pode ser mais rápido
+selecionar um cipher diferente do padrão. Alguns deles podem não funcionar
+porque são considerados inseguros.
 
-In `Private Key` you need to select your private SSH key. If this does not yet
-exist, you can create a new public/private SSH key without password by clicking
-on the _add_ button.
+Em `Private Key`, selecione sua chave privada SSH. Se ela ainda não existir,
+você pode criar um novo par de chaves pública/privada SSH sem senha clicando
+no botão _add_.
 
-Enter the private key password in `SSH private key` (this is the password you
-chose above during creating the public/private key pair, not the login password
-for the remote user). The password can be stored in users keyring. The keyring
-is unlocked with the users password during login. When running a scheduled
-backup-job while the user is not logged in, the keyring is not available. For
-this case, the password can be cached in memory by Back in Time.
+Informe a senha da chave privada em `SSH private key` (esta é a senha escolhida
+anteriormente durante a criação do par de chaves pública/privada, não a senha
+de login do usuário remoto). A senha pode ser armazenada no keyring do usuário.
+O keyring é desbloqueado com a senha do usuário durante o login. Se um
+backup-job agendado for executado enquanto o usuário não estiver conectado,
+o keyring não estará disponível. Nesse caso, o Back In Time pode manter a senha
+em cache na memória.
 
 ### SSH Encrypted
 
-SSH Encrypted](#ssh-encrypted) will work like [SSH](#ssh) but the backups
-will be stored encrypted using `gocryptfs`. Back in Time will mount an
-encrypted view of the file-system and sync it with `rsync` to
-the remote host.
+SSH Encrypted](#ssh-encrypted) funciona como [SSH](#ssh), mas os backups
+serão armazenados criptografados usando `gocryptfs`. O Back in Time montará uma
+visualização criptografada do file-system e a sincronizará com `rsync` para
+o host remoto.
 
 ![Settings - General](_images/light/settings_general_ssh_encrypted.png#only-light)
 ![Settings - General](_images/dark/settings_general_ssh_encrypted.png#only-dark)
 
-Additional to those settings from [SSH](#ssh) you need to provide a password
-for encryption.
+Além das configurações de [SSH](#ssh), você precisa informar uma senha
+para a criptografia.
 
 ### Advanced
 
-`Host`, `User` and `Profile` will be filled automatically (must not be
-empty). They are used for the backup path
-`backintime/<HOST>/<USER>/<PROFILE>/`. The full backup path will be shown
-below. You can change them to match paths from other machines.
+`Host`, `User` e `Profile` serão preenchidos automaticamente (não podem ficar
+vazios). Eles são usados no caminho de backup
+`backintime/<HOST>/<USER>/<PROFILE>/`. O caminho completo do backup será exibido
+abaixo. Você pode alterá-los para corresponder aos caminhos de outras máquinas.
 
 ### Schedule
 
-Different schedule types are available for different backup workflows
-depending on how backups should be triggered.
+Há diferentes tipos de agendamento disponíveis para diferentes fluxos de
+trabalho de backup, dependendo de como os backups devem ser acionados.
 
-Most schedules run backups at **fixed times**. If the computer is turned off at
-the scheduled time, the backup is skipped and will not be started later. 
-Other schedules can **catch up** on missed backups. If the computer was turned
-off when a backup became due, the backup will be started the next time _Back
-In Time_ is able to check the schedule. 
-Additionally **event-based** schedules start backups in response to
-specific events, such as system startup or connecting a backup drive via USB.
+A maioria dos agendamentos executa backups em **horários fixos**. Se o computador
+estiver desligado no horário agendado, o backup será ignorado e não será
+iniciado posteriormente.
+Outros agendamentos podem **recuperar execuções perdidas**. Se o computador estava
+desligado quando chegou a hora de um backup, ele será iniciado na próxima vez
+que o _Back In Time_ puder verificar o agendamento.
+Além disso, agendamentos **baseados em eventos** iniciam backups em resposta a
+eventos específicos, como a inicialização do sistema ou a conexão de uma unidade
+de backup via USB.
 
-**Fixed-time schedule modes**:
+**Modos de agendamento por horário fixo**:
 
-- **Every Day**: start a new backup on a configurable time on every day.
-- **Every Week**: start a new backup on a configurable week-day/time every week.
-- **Every Month**: start a new backup on a configurable day/time every month.
-- **Every Year**: start a new backup on first day of first month of each year
-  at a configurable time.
-- **Every X minutes**: start a new backup every 5, 10 or 30 minutes. This
-  will add a line `*/<X> * * * * <COMMAND>` in `crontab`.
-- **Every hour**: start a new backup on every full hour. This will add a line
-  `0 * * * * <COMMAND>` in `crontab`.
-- **Every X hours**: start a new backup every 2, 4, 6 or 12 hours at the full
-  hour (e.g. at 0:00, 6:00, 12:00 and 18:00 with schedule "Every 6 hours"). This
-  will add a line `0 */<X> * * * <COMMAND>` in `crontab`.
-- **Custom Hours**: define custom pattern for `crontab`. This can be either a
-  comma separated list of hours (e.g `0,10,13,15,17,20,23`) or `*/<X>` (e.g.
-  `*/3`) for periodic schedules. This will add a line
-  `0 0,10,13,15,17,20,23 * * * <COMMAND>` in `crontab`.
+- **Every Day**: inicia um novo backup todos os dias em um horário configurável.
+- **Every Week**: inicia um novo backup toda semana em um dia da semana e horário configuráveis.
+- **Every Month**: inicia um novo backup todo mês em um dia e horário configuráveis.
+- **Every Year**: inicia um novo backup no primeiro dia do primeiro mês de cada ano,
+  em um horário configurável.
+- **Every X minutes**: inicia um novo backup a cada 5, 10 ou 30 minutos. Isso
+  adicionará uma linha `*/<X> * * * * <COMMAND>` ao `crontab`.
+- **Every hour**: inicia um novo backup a cada hora cheia. Isso adicionará uma linha
+  `0 * * * * <COMMAND>` ao `crontab`.
+- **Every X hours**: inicia um novo backup a cada 2, 4, 6 ou 12 horas, na hora cheia
+  (por exemplo, às 0:00, 6:00, 12:00 e 18:00 com o agendamento "Every 6 hours"). Isso
+  adicionará uma linha `0 */<X> * * * <COMMAND>` ao `crontab`.
+- **Custom Hours**: define um padrão personalizado para o `crontab`. Pode ser uma
+  lista de horas separadas por vírgulas (por exemplo, `0,10,13,15,17,20,23`) ou
+  `*/<X>` (por exemplo, `*/3`) para agendamentos periódicos. Isso adicionará uma linha
+  `0 0,10,13,15,17,20,23 * * * <COMMAND>` ao `crontab`.
 
-**Catch-up schedule mode**:
+**Modo de agendamento com recuperação de execuções perdidas**:
 
-- **Repeatedly**: this schedule triggers backups when a configured number of
-  calendar units (hours, days, weeks, or months) has passed since the last
-  successful backup.
-  A backup becomes due once a new calendar unit has been reached. For
-  example, "1 hour" means the backup runs once the next clock hour begins,
-  not after a fixed 60-minute duration.
-  _Back In Time checks_ the schedule periodically via a crontab entry
-  (typically every 15 minutes, or every hour for longer intervals). If no
-  backup is due, it exits immediately.
-  If the system was powered off or _Back In Time_ was not running when a backup
-  became due, the backup will be performed the next time the schedule is
-  checked. If a backup fails, it will be retried on the next check.
+- **Repeatedly**: este agendamento aciona backups quando passa um número configurado de
+  unidades do calendário (horas, dias, semanas ou meses) desde o último
+  backup bem-sucedido.
+  Um backup fica pendente quando uma nova unidade do calendário começa. Por
+  exemplo, "1 hour" significa que o backup é executado quando começa a próxima
+  hora do relógio, e não após um período fixo de 60 minutos.
+  O _Back In Time verifica_ o agendamento periodicamente por meio de uma entrada no crontab
+  (normalmente a cada 15 minutos, ou a cada hora para intervalos mais longos). Se não
+  houver backup pendente, o processo é encerrado imediatamente.
+  Se o sistema estiver desligado ou o _Back In Time_ não estiver em execução quando
+  um backup ficar pendente, ele será realizado na próxima verificação do agendamento.
+  Se um backup falhar, haverá uma nova tentativa na próxima verificação.
 
-**Event-based schedule modes**:
+**Modos de agendamento baseados em eventos**:
 
-- **At every boot/reboot**: start a new backup immediately after
-  startup. This will add a `@reboot <COMMAND>` line in `crontab`. Wake up from
-  suspend/hibernate will not trigger this schedule.
-- **When drive gets connected (udev)**: this schedule will start a new backup
-  as soon as the USB/eSATA/Firewire drive gets connected. You can configure a
-  delay (hours, days or weeks) so it won't start on
-  every new connection. This will add a new udev rule in
-  `/etc/udev/rules.d/99-backintime-<USER>.rules` using the partitions UUID.
-  Make sure auto-mount is enabled in your system.
+- **At every boot/reboot**: inicia um novo backup imediatamente após a
+  inicialização. Isso adicionará uma linha `@reboot <COMMAND>` ao `crontab`. Sair
+  dos modos suspend/hibernate não acionará este agendamento.
+- **When drive gets connected (udev)**: este agendamento inicia um novo backup assim
+  que uma unidade USB/eSATA/Firewire é conectada. Você pode configurar um
+  atraso (horas, dias ou semanas) para que o backup não seja iniciado a cada
+  nova conexão. Isso adicionará uma nova regra udev em
+  `/etc/udev/rules.d/99-backintime-<USER>.rules`, usando o UUID da partição.
+  Certifique-se de que o auto-mount esteja ativado no sistema.
 
-**Technical details**:
+**Detalhes técnicos**:
 
-Most of the modes will use `crontab` to set up new schedules. You can use
-`crontab -l` to view them or `crontab -e` to edit them manually.
+A maioria dos modos usa `crontab` para configurar novos agendamentos. Você pode usar
+`crontab -l` para visualizá-los ou `crontab -e` para editá-los manualmente.
 
 ## Include
 
@@ -199,7 +205,7 @@ Most of the modes will use `crontab` to set up new schedules. You can use
 ![Settings - Exclude](_images/dark/settings_exclude.png#only-dark)
 
 ## Remove & Retention
-Also known as _Auto-remove_ In previous versions of _Back In Time_.
+Também conhecido como _Auto-remove_ em versões anteriores do _Back In Time_.
 
 ![Settings - Auto Remove](_images/light/settings_autoremove.png#only-light)
 ![Settings - Auto Remove](_images/dark/settings_autoremove.png#only-dark)
@@ -216,5 +222,4 @@ Also known as _Auto-remove_ In previous versions of _Back In Time_.
 
 ## User-callback
 
-For more information on user callback see [this](user-callback.md).
-
+Para mais informações sobre user callback, consulte [este documento](user-callback.md).
