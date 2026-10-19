@@ -1,3 +1,5 @@
+Traduza esse trecho de markdown pronto para ser copiado e colado, sem mudar formatação, nomes técnicos importantes ou comandos:
+
 <!--
 SPDX-FileCopyrightText: © 2009 Back In Time Team
 

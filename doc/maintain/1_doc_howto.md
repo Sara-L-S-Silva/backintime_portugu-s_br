@@ -1,115 +1,70 @@
-<!--
-SPDX-FileCopyrightText: © 2024 Christian BUHTZ <c.buhtz@posteo.jp>
+Organização e compilação da documentação do Back In Time
+Este arquivo descreve brevemente os diversos tipos de documentação existentes para o Back In Time (BIT), como eles são mantidos, estruturados e compilados.
 
-SPDX-License-Identifier: GPL-2.0-or-later
+[!TIP] Sinta-se à vontade para abrir issues ou entrar em contato com a equipe de manutenção na lista de discussão caso este texto seja difícil de entender ou não seja útil.
 
-This file is part of the program "Back In Time" which is released under GNU
-General Public License v2 (GPLv2). See LICENSES folder or go to
-<https://spdx.org/licenses/GPL-2.0-or-later.html>
--->
+Índice
+# visão-geral
+[Compilar e visualizar o manual do usuário mkdocs
+[Dicas e Exemplos
+Visão Geral
+O projeto distingue três tipos de documentação:
 
-# Organization and building of documentation for _Back In Time_
-This file describes briefly how to the several types of documentation existing
-for _Back In Time_ (BIT), how they are maintained, structured and build.
+O Manual do usuário pode ser encontrado em backintime.readthedocs.io e é gerado usando o MkDocs com base em arquivos simples em Markdown.
+A documentação de Manutenção e Desenvolvimento consiste em um conjunto de arquivos Markdown, como este que você está lendo agora.
+Compilar e visualizar o manual do usuário (MkDocs)
+Instale as dependências relacionadas:
 
-> [!TIP]
-> Feel free to [open issues](https://github.com/bit-team/backintime/issues)
-> or contact the
-> [maintenance team on the mailing list](https://mail.python.org/mailman3/lists/bit-dev.python.org/)
-> if this text is difficult to understand or not helpful.
+mkdocs
+mkdocs-material
+Consulte o arquivo ../../CONTRIBUTING.md neste repositório para obter uma lista completa e atualizada de dependências.
+Visualização HTML em tempo real durante a edição:
 
-# Index
-
-<!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
-- [Overview](#overview)
-- [Build & view user manual (MkDocs)](#build--view-user-manual-mkdocs)
-- [Tips & Examples](#tips-and-examples)
-<!-- TOC end -->
-
-# Overview
-
-The project distinguish between three types of documentation:
-
-1. The **User manual** can be found at
-   [backintime.readthedocs.io](http://backintime.readthedocs.io) and is
-   generated using [MkDocs](https://www.mkdocs.org) based on simple
-   [Markdown](https://en.wikipedia.org/wiki/Markdown) files.
-2. The **Maintenance and Developer documentation** is a bunch of Markdown
-   files, like the one you are reading currently.
-
-
-# Build & view user manual (MkDocs)
-
-Install related dependencies:
-  - `mkdocs`
-  - `mkdocs-material`
-  - See file [`CONTRIBUTING.md`](../../CONTRIBUTING.md) in this repo for a
-    complete and up to date list of dependencies.
-
-**Live preview HTML documentation as working on it**:
-
-```sh
-# Enter folder
+# Entrar na pasta
 $ cd doc/manual
 
-# Start built-in server
+# Iniciar o servidor integrado
 $ mkdocs serve
-```
-Open [127.0.0.1:8000](http://127.0.0.1:8000) in your browser. Every time the
-underlying markdown files are modified the server will on the fly generate new
-HTML.
+Abra [127.0.0.1:80001:8000 em seu navegador. Sempre que os arquivos Markdown subjacentes forem modificados, o servidor gerará novas páginas HTML dinamicamente.
 
-**Generate HTML files**:
+Gerar arquivos HTML:
 
-```sh
-# Enter folder
+# Entrar na pasta
 $ cd doc/manual
 
-# Build
+# Compilar
 $ mkdocs build
 
-# Open result in default browser
+# Abrir o resultado no navegador padrão
 $ xdg-open html/index.html
-```
-
-# Tips and Examples
-- [Markdown](#markdown)
-  - [Annotation boxes](#annotation-boxes--colored-highlight-boxes)
-
-## Markdown
-### Annotation boxes / Colored highlight boxes
-``` markdown
-> [!NOTE]  
-> Highlights information that users should take into account, even when
-> skimming.
+Dicas e Exemplos
+#markdown
+[caixas-de-anotação--caixas-coloridas-de-destaque
+Markdown
+Caixas de anotação / Caixas coloridas de destaque
+> [!NOTE]
+> Destaca informações que os usuários devem levar em consideração, mesmo
+> durante uma leitura rápida.
 
 > [!TIP]
-> Optional information to help a user be more successful.
-
-> [!IMPORTANT]  
-> Crucial information necessary for users to succeed.
-
-> [!WARNING]  
-> Critical content demanding immediate user attention due to potential risks.
-
-> [!CAUTION]
-> Negative potential consequences of an action.
-```
-
-> [!NOTE]  
-> Highlights information that users should take into account, even when
-> skimming.
-
-> [!TIP]
-> Optional information to help a user be more successful.
+> Informações opcionais para ajudar o usuário a obter melhores resultados.
 
 > [!IMPORTANT]
-> Crucial information necessary for users to succeed.
+> Informações cruciais necessárias para que os usuários tenham sucesso.
 
 > [!WARNING]
-> Critical content demanding immediate user attention due to potential risks.
+> Conteúdo crítico que exige atenção imediata do usuário devido a riscos potenciais.
 
 > [!CAUTION]
-> Negative potential consequences of an action.
+> Possíveis consequências negativas de uma ação.
+[!NOTE] Destaca informações que os usuários devem levar em consideração, mesmo durante uma leitura rápida.
 
-<sub>June 2026</sub>
+[!TIP] Informações opcionais para ajudar o usuário a obter melhores resultados.
+
+[!IMPORTANT] Informações cruciais necessárias para que os usuários tenham sucesso.
+
+[!WARNING] Conteúdo crítico que exige atenção imediata do usuário devido a riscos potenciais.
+
+[!CAUTION] Possíveis consequências negativas de uma ação.
+
+<sub>Junho de 2026</sub>

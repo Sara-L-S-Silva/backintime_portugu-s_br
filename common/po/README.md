@@ -1,26 +1,26 @@
 <!--
-SPDX-FileCopyrightText: © 2009 Back In Time Team
+SPDX-FileCopyrightText: © 2009 Equipe Back In Time
 
 SPDX-License-Identifier: GPL-2.0-or-later
 
-This file is part of the program "Back In Time" which is released under GNU
-General Public License v2 (GPLv2). See directory LICENSES or go to
+Este arquivo faz parte do programa "Back In Time", que é distribuído sob a licença GNU General Public License v2 (GPLv2). Consulte o diretório LICENSES ou acesse:
 <https://spdx.org/licenses/GPL-2.0-or-later.html>
 -->
-# Overview
-Translation for Back In Time is done at https://translate.codeberg.org/engage/backintime.
 
-Please do NOT change po-files in this folder as they will get overwritten with files
-exported from translation platform.
+# Visão Geral
 
-See [Maintenance documentation about translation and localization](../../doc/maintain/2_localization.md) for details.
+A tradução do Back In Time é realizada em:
 
+https://translate.codeberg.org/engage/backintime
 
-# Translation credits from removed languages
-Because of missing translators some languages were removed in the past. The
-translators' credits are archived here:
+Por favor, **NÃO** altere os arquivos `.po` nesta pasta, pois eles serão substituídos pelos arquivos exportados da plataforma de tradução.
 
-```
-Interlingua [ie]:
+Consulte a [documentação de manutenção sobre.md para obter mais detalhes.
+
+# Créditos de Tradução de Idiomas Removidos
+
+Devido à falta de tradutores, alguns idiomas foram removidos no passado. Os créditos dos tradutores estão arquivados aqui:
+
+```text
+Interlíngua [ie\]:
  - OIS
-```

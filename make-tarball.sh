@@ -4,14 +4,14 @@
 #
 # SPDX-License-Identifier: GPL-2.0-or-later
 #
-# This file is part of the program "Back In time" which is released under GNU
-# General Public License v2 (GPLv2). See LICENSES directory or go to
+# Este arquivo faz parte do programa "Back In Time", que é distribuído sob a GNU
+# General Public License v2 (GPLv2). Consulte o diretório LICENSES ou acesse
 # <https://spdx.org/licenses/GPL-2.0-or-later.html>.
 VER=`cat VERSION`
 CURRENT=$(pwd)
 NEW="backintime-$VER"
 
-# clean up
+# limpeza
 rm ./doc/manpages/*.gz
 
 cd ..
@@ -51,8 +51,7 @@ tar cfz backintime-$VER.tar.gz \
 
 tar -tzf backintime-$VER.tar.gz
 echo ""
-echo "RESULT:"
+echo "RESULTADO:"
 realpath backintime-$VER.tar.gz
 
 rm -rf backintime-$VER
-
